@@ -1,0 +1,241 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="使用表达式模板做向量计算"><title>使用表达式模板做向量计算</title>
+<link rel=canonical href=https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/><link rel=stylesheet href=/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="使用表达式模板做向量计算"><meta property='og:description' content="使用表达式模板做向量计算"><meta property='og:url' content='https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/'><meta property='og:site_name' content='小天天天天快乐'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='cpp'><meta property='article:tag' content='表达式模板'><meta property='article:published_time' content='2025-05-16T22:31:29+08:00'><meta property='article:modified_time' content='2025-05-16T22:31:29+08:00'><meta name=twitter:title content="使用表达式模板做向量计算"><meta name=twitter:description content="使用表达式模板做向量计算"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/tiantian_avatar_hu6319111251149252609.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>小天天天天快乐</a></h1><h2 class=site-description>天天 is 薛成韵's son</h2></div></header><ol class=menu-social><li><a href=https://github.com/xuexcy target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文档</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#21-表达式计算a-namejump表达式计算a>2.1 表达式计算<a name=#jump表达式计算></a></a><ol><li><a href=#211-代码实现>2.1.1 代码实现</a></li><li><a href=#212-执行步骤>2.1.2 执行步骤</a></li><li><a href=#213-开销>2.1.3. 开销</a></li></ol></li><li><a href=#22-操作符重载>2.2 操作符重载</a><ol><li><a href=#221-代码实现>2.2.1 代码实现</a></li><li><a href=#222-使用方法>2.2.2 使用方法</a></li><li><a href=#223-执行步骤>2.2.3 执行步骤</a></li><li><a href=#224-开销>2.2.4 开销</a></li></ol></li><li><a href=#23-表达式模板expression-template-et>2.3 表达式模板(expression template; ET)</a><ol><li><a href=#231-代码实现>2.3.1 代码实现</a></li><li><a href=#232-使用方法>2.3.2 使用方法</a></li><li><a href=#233-执行步骤>2.3.3 执行步骤</a></li><li><a href=#234-开销>2.3.4 开销</a></li></ol></li></ol><ol><li><a href=#31-对比分析>3.1 对比分析</a></li><li><a href=#32-对比测试>3.2 对比测试</a></li></ol><ol><li><a href=#41-方案说明>4.1 方案说明</a></li><li><a href=#42-在实现过程中用到的优化手段>4.2 在实现过程中用到的优化手段</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/cpp/ style=background-color:#2a9d8f;color:#fff>cpp</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/>使用表达式模板做向量计算</a></h2><h3 class=article-subtitle>使用表达式模板做向量计算</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>May 16, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><p><strong>文中链接跳转失效时，请移步至<a class=link href=https://github.com/xuexcy/learning_more_cpp_idioms/blob/main/src/expression_template_deps/README.md target=_blank rel=noopener>github 使用表达式模板做向量计算</a>查阅</strong></p><h1 id=使用表达式模板做向量计算>使用表达式模板做向量计算</h1><h1 id=1-问题-向量计算>1. 问题: 向量计算</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>static</span> <span class=k>constexpr</span> <span class=n>size_t</span> <span class=n>N</span><span class=p>{</span><span class=mi>1000</span><span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=n>StdArray</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=n>N</span><span class=o>&gt;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>StdArray</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>StdArray</span> <span class=n>b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// 计算 1.2 * a + a * b 并将结果存入 StdArray c
+</span></span></span></code></pre></td></tr></table></div></div><hr><h1 id=2-方案分析>2. 方案分析</h1><h2 id=21-表达式计算a-namejump表达式计算a>2.1 表达式计算<a name=#jump表达式计算></a></h2><h3 id=211-代码实现>2.1.1 代码实现</h3><p><a class=link href=./test_array/calculation_deps.h>./test_array/calculation_deps.h</a> <code>calculate_by_expression</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=n>StdArray</span> <span class=n>c</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>a</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>c</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=mf>1.2</span> <span class=o>*</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>+</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>*</span> <span class=n>b</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=212-执行步骤>2.1.2 执行步骤</h3><ol><li><code>double result_1 = 1.2 * a[i]</code>:<ul><li>读取 a[i]: 读取 N 个 double</li><li>计算 1.2 * a[i]: 计算 N 个乘法</li></ul></li><li><code>double result_ 2= a[i] * b[i]</code>:<ul><li>读取 a[i]、b[i]: 读取 2N 个 double（ 在前面计算 1.2 * a[i] 时已经读取了 a[i]，这个值应该已经在缓存中了，不过这里我们还是当成一次读取）</li><li>计算 a[i] * b[i]: 计算 N 个乘法</li></ul></li><li><code>double result_3 = result_1 + result_2</code>:<ul><li>计算 result_1 + result_2: 计算 N 个加法</li></ul></li><li><code>c[i] = result_3;</code>:<ul><li>读取 c[i]: 读取 N 个 double</li><li>将 result_3 写入 c[i]: 写入 N 个 double</li></ul></li></ol><h3 id=213-开销>2.1.3. 开销</h3><ol><li>在每轮循环中创建 result_1、result_2、result_3，使用后立刻销毁(开销可忽略不计)</li><li>读取 4000 = 3N = N + 2N + N 个 double</li><li>写入 1000 = N 个 double 写入</li><li>计算: 乘法 2000 = 2N; 加法 1000 = N</li></ol><h2 id=22-操作符重载>2.2 操作符重载</h2><h3 id=221-代码实现>2.2.1 代码实现</h3><p><a class=link href=./array/operator.h>./array/operator.h</a> <code>namespace array_operator_overload</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>namespace</span> <span class=n>array_operator_overload</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=n>StdArray</span> <span class=k>operator</span><span class=o>+</span><span class=p>(</span><span class=k>const</span> <span class=n>StdArray</span><span class=o>&amp;</span> <span class=n>a</span><span class=p>,</span> <span class=k>const</span> <span class=n>StdArray</span><span class=o>&amp;</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>Array</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>a</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>+</span> <span class=n>b</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>StdArray</span> <span class=k>operator</span><span class=o>*</span><span class=p>(</span><span class=k>const</span> <span class=n>StdArray</span><span class=o>&amp;</span> <span class=n>a</span><span class=p>,</span> <span class=k>const</span> <span class=n>StdArray</span><span class=o>&amp;</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>Array</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>a</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>*</span> <span class=n>b</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=c1>// namespace array_operator_overload
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=222-使用方法>2.2.2 使用方法</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&#34;array/operator.h&#34;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>array_operator_overload</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>StdArray</span> <span class=n>c</span> <span class=o>=</span> <span class=mf>1.2</span> <span class=o>*</span> <span class=n>a</span> <span class=o>+</span> <span class=n>a</span> <span class=o>*</span> <span class=n>b</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=223-执行步骤>2.2.3 执行步骤</h3><ol><li><code>StdArray result_1 = 1.2 * a;</code>: 即 <code>operator*&lt;double, StdArray>(1.2, a)</code><ul><li>创建临时变量 StdArray result_1: 创建 N 个 double</li><li>读取 a: 读取 N 个 double</li><li>计算 1.2 * a[i]: 计算 N 个乘法
+将计算结果写入 result_1: 写入 N 个 double</li></ul></li><li><code>StdArray result_2 = a * b;</code>: 即 <code>operator*&lt;StdArray, StdArray>(a, b)</code><ul><li>创建临时变量 StdArray result_2: 创建 N 个 double</li><li>读取 a、b: 读取 2 * N 个 double</li><li>计算 a[i] * b[i]: 计算 N 个乘法</li><li>计算结果写入 result_2: 写入 N 个 double</li></ul></li><li><code>StdArray result_3 = result1 + result_2;</code>: 即 <code>operator+&lt;StdArray, StdArray>(result_1, result_2)</code><ul><li>创建临时变量 StdArray result_3: 创建 N 个 double</li><li>读取 result_1、result_2: 读取 2 * N 个 double</li><li>计算 result_1[i] + result_2[i]: 计算 N 个加法</li><li>计算结果写入 result_3: 写入 N 个 double</li></ul></li><li><code>StdArray c = {return result_3;};</code>:<ul><li>如果编译器支持 copy elision, 应该没有开销</li></ul></li></ol><h3 id=224-开销>2.2.4 开销</h3><ol><li>先后创建 3 个临时变量 StdArray result_1, result_2, result_3: 创建 3 * N 个 double</li><li>读取 5000 = 5N = N + 2 * N + 2 * N 个 double</li><li>写入 3000 = 3N 个 double</li><li>计算: 乘法 2000 = 2N; 加法 1000 = N</li></ol><h2 id=23-表达式模板expression-template-et>2.3 表达式模板(expression template; ET)</h2><h3 id=231-代码实现>2.3.1 代码实现</h3><p><a class=link href=./array/expression_template/expression.h>./array/expression_template/expression.h</a> <code>namespace array_expression_template</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=c1>// array/expression_template/expression.h
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>namespace</span> <span class=n>array_expression_template</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>Expression</span> <span class=p>{};</span>  <span class=c1>// Expression
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm>item_type: 数据类型，本文中就是 double
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>Variable</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Expression</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=n>item_type</span><span class=o>&amp;</span> <span class=k>operator</span><span class=p>[](</span><span class=n>size_t</span><span class=p>)</span> <span class=k>const</span> <span class=p>{</span> <span class=k>return</span> <span class=n>t_</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=n>T</span> <span class=n>t_</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>  <span class=c1>// Variable, 存储常量 T
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=n>ArrayLike</span> <span class=n>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>Array</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Expression</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=n>item_type</span><span class=o>&amp;</span> <span class=k>operator</span><span class=p>[](</span><span class=n>size_t</span> <span class=n>idx</span><span class=p>)</span> <span class=k>const</span> <span class=p>{</span> <span class=k>return</span> <span class=n>t_</span><span class=p>[</span><span class=n>idx</span><span class=p>];</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=n>T</span><span class=o>&amp;</span> <span class=n>t_</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>  <span class=c1>// Array, 存储向量引用(可以是 std::array/std::vector 或者自定义的符合 concept ArrayLike 的自定义 类型)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=n>IsExpr</span> <span class=n>LExpr</span><span class=p>,</span> <span class=n>IsExpr</span> <span class=n>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>BinaryExpression</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Expression</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=n>LExpr</span> <span class=n>l_expr_</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>const</span> <span class=n>RExpr</span> <span class=n>l_expr_</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>  <span class=c1>// BinaryExpression, 存储二元操作符的左右两个表达式
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=n>IsExpr</span> <span class=n>LExpr</span><span class=p>,</span> <span class=n>IsExpr</span> <span class=n>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>Add</span> <span class=o>:</span> <span class=k>public</span> <span class=n>BinaryExpression</span><span class=o>&lt;</span><span class=n>LExpr</span><span class=p>,</span> <span class=n>RExpr</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>item_type</span> <span class=k>operator</span><span class=p>[](</span><span class=n>size_t</span> <span class=n>idx</span><span class=p>)</span> <span class=k>const</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>l_expr_</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span> <span class=o>+</span> <span class=n>r_expr_</span><span class=p>[</span><span class=n>idx</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>  <span class=c1>// Add
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=n>IsExpr</span> <span class=n>LExpr</span><span class=p>,</span> <span class=n>IsExpr</span> <span class=n>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>Multiply</span> <span class=o>:</span> <span class=k>public</span> <span class=n>BinaryExpression</span><span class=o>&lt;</span><span class=n>LExpr</span><span class=p>,</span> <span class=n>RExpr</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>item_type</span> <span class=k>operator</span><span class=p>[](</span><span class=n>size_t</span> <span class=n>idx</span><span class=p>)</span> <span class=k>const</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>l_expr_</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span> <span class=o>*</span> <span class=n>r_expr_</span><span class=p>[</span><span class=n>idx</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>  <span class=c1>// Multiply
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// array/expression_template/operator.h
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span> <span class=o>&lt;</span><span class=n>IsExpr</span> <span class=n>LExr</span><span class=p>,</span> <span class=n>IsExpr</span> <span class=n>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>auto</span> <span class=k>operator</span><span class=o>+</span><span class=p>(</span><span class=k>const</span> <span class=n>LExpr</span> <span class=n>l_expr</span><span class=p>,</span> <span class=k>const</span> <span class=n>RExpr</span> <span class=n>r_expr</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nf>Add</span><span class=p>(</span><span class=n>l_expr</span><span class=p>,</span> <span class=n>r_expr</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=n>IsExpr</span> <span class=n>LExr</span><span class=p>,</span> <span class=n>IsExpr</span> <span class=n>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>auto</span> <span class=k>operator</span><span class=o>*</span><span class=p>(</span><span class=k>const</span> <span class=n>LExpr</span> <span class=n>l_expr</span><span class=p>,</span> <span class=k>const</span> <span class=n>RExpr</span> <span class=n>r_expr</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nf>Multiply</span><span class=p>(</span><span class=n>l_expr</span><span class=p>,</span> <span class=n>r_expr</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// more operator overload for Variable and Array
+</span></span></span><span class=line><span class=cl><span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=p>}</span>  <span class=c1>// namespace array_expression_template
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=232-使用方法>2.3.2 使用方法</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&#34;array/expression_template/expression.h&#34;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>array_expression_template</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>Array</span> <span class=nf>arr_a</span><span class=p>(</span><span class=n>a</span><span class=p>),</span> <span class=n>arr_b</span><span class=p>(</span><span class=n>b</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>auto</span> <span class=n>expr</span> <span class=o>=</span> <span class=mf>1.2</span> <span class=o>*</span> <span class=n>arr_a</span> <span class=o>+</span> <span class=n>arr_a</span> <span class=o>*</span> <span class=n>arr_b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>StdArray</span> <span class=n>c</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>collect_result</span><span class=p>(</span><span class=n>expr</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>c</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=233-执行步骤>2.3.3 执行步骤</h3><ol><li><code>auto expr_1 = 1.2 * arr_a;</code>: 即 <code>operator*&lt;double, Array>(1.2, arr_a)</code><ul><li>创建临时变量 expr_1: 具体类型 <code>Multiply&lt;Variable&lt;double>, Array&lt;StdArray>></code></li></ul></li><li><code>auto expr_2 = arr_a * arr_b;</code>: 即 <code>operator*&lt;Array, Array>(arr_a, arr_b)</code><ul><li>创建临时变量 expr_2: 具体类型 <code>Multiply&lt;Array&lt;StdArray>, Array&lt;StdArray>></code></li></ul></li><li><code>auto expr = expr_1 + expr_2;</code>: 即 <code>operator+&lt;decltype(expr_1), decltype(expr_2)>(expr_1, expr_2)</code><ul><li>创建变量 expr: 具体类型<div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=n>Add</span><span class=o>&lt;</span>
+</span></span><span class=line><span class=cl>    <span class=n>Multiply</span><span class=o>&lt;</span><span class=n>Variable</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>,</span> <span class=n>Array</span><span class=o>&lt;</span><span class=n>StdArray</span><span class=o>&gt;&gt;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>Multiply</span><span class=o>&lt;</span><span class=n>Array</span><span class=o>&lt;</span><span class=n>StdArray</span><span class=o>&gt;</span><span class=p>,</span> <span class=n>Array</span><span class=o>&lt;</span><span class=n>StdArray</span><span class=o>&gt;&gt;</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div></li></ul></li><li><code>collect_result(expr, &amp;c)</code>: 像<a href=#jump表达式计算>表达式计算</a>一样进行计算<code>1.2 * a[i] + a[i] * b[i]</code> 并将结果赋值给 c[i]</li></ol><h3 id=234-开销>2.3.4 开销</h3><ol><li>我们创建了一些表达式对象<ul><li>两个 Array: 即 <code>Array arr_a(a), arr_b(b);</code></li><li><code>auto expr</code>: 根据前面描述的 expr 的具体类型，一共创建了 1 个 Add，2 个 Multiply，3 个 Array，1 个 Variable，共 7 个表达式对象（Instance of <code>class Expression</code>）</li></ul></li><li>在 <code>collect_result</code> 中，我们通过 <code>operator[]</code> 从表达式中取值，此时 <code>operator[]</code> 中的 <code>l_expr_</code> 和 <code>r_expr_</code> 继续调用对应表达式的 <code>operator[]</code>，直到从 <code>Variable</code> 和 <code>Array</code> 返回具体的数值，此时表达式对象一共调用了 7 次重载的 <code>operator[]</code></li></ol><hr><h1 id=3-方案对比>3. 方案对比</h1><h2 id=31-对比分析>3.1 对比分析</h2><p>表达式 <code>1.2 * a + a * b</code> 中一共有 1 个常量、3 个 StdArray 和 3 个操作符。</p><blockquote><p>现定义如下变量
+x : 表达式中的常量个数
+y : 表达式中 StdArray 的个数
+z : 表达式中的操作符个数
+其中 x + y = z + 1</p></blockquote><ol><li>表达式方案：<ul><li>y: 读取 2 次 a，1 次 b</li><li>z: 计算 2 次乘法，1 次加法</li><li>1: 写入 1 次结果到 StdArray c</li></ul></li><li>操作符重载方案：<ul><li>y: 读取 2 次 a，1 次 b</li><li>z: 计算 2 次乘法，1 次加法</li><li>z: 调用 3 次重载函数</li><li>z - 1: 生成 2 个最终会被调回的临时对象（最后一个临时变量会通过 copy elision 赋值给我们想要的结果 <code>StdArray c</code>）</li><li>z - 1: 读取 2 次临时对象: 除了最后一次重载函数调用，其他的每次重载函数调用的结果都会写入一个临时对象，而这个临时对象一定会再下一个函数调用中读取</li><li>z: 写入 3 次结果到 StdArray</li></ul></li><li>ET 方案：<ul><li>y: 读取 2 次 a，1 次 b</li><li>z: 计算 2 次乘法，1 次加法</li><li>x: 生成 1 个 Variable 对象</li><li>y: 生成 3 个 Array 对象</li><li>z: 生成 3 个 BinaryExpression 对象</li><li>z: 调用 3 次 BinaryExpression 的 <code>operator[]</code> 重载函数</li><li>y: 调用 3 次 Array 的 <code>operator[]</code> 重载函数</li><li>x: 调用 1 次 Variable 的 <code>operator[]</code> 重载函数</li><li>写入 1 次结果到 StdArray c</li></ul></li></ol><div class=table-wrapper><table><thead><tr><th></th><th>表达式方案</th><th>操作符重载方案</th><th>ET 方案</th></tr></thead><tbody><tr><td>读取已有的 StdArray 次数</td><td>y</td><td>y</td><td>y</td></tr><tr><td>数值计算次数</td><td>z</td><td>z</td><td>z</td></tr><tr><td>写入 StdArray 次数</td><td>1</td><td>z</td><td>1</td></tr><tr><td>生成最终可以被销毁的对象个数</td><td>0</td><td>z - 1</td><td>x + y + z</td></tr><tr><td>写入最在可被销毁的对象的次数</td><td>0</td><td>z - 1</td><td>0</td></tr><tr><td>重载函数调用次数</td><td>0</td><td>z</td><td>x + y + z</td></tr></tbody></table></div><h2 id=32-对比测试>3.2 对比测试</h2><p>测试使用的表达式更复杂(不是<code>1.2 * a + a * b</code>)</p><ol><li>相关代码与结果<ul><li>test: <a class=link href=./test_array/calculation_test.cc>test_array/calculation_test.cc</a></li><li>benchmark:<ul><li>代码 <a class=link href=./test_array/calculation_benchmark.cc>test_array/calculation_benchmark.cc</a></li><li><a class=link href=../../attachment/expression_template_array/output/expression_template_array_benchmark.extra_info>机器信息</a></li><li>结果 <a class=link href=../../attachment/expression_template_array/output/expression_template_array_benchmark_g++.txt>expression_template_array_benchmark.txt</a></li></ul></li><li>profile:<ul><li>代码 <a class=link href=./test_array/calculation_profile.cc>test_array/calculation_profile.cc</a></li><li>结果 <a class=link href=../../attachment/expression_template_array/output/expression_template_array_profile_g++.svg>expression_template_array_profile_g++.svg</a></li></ul></li></ul></li><li>结果分析<ul><li>表达式方案最优(看 benchmark 和 profile 结果)，因为直接从 StdArray 取值并计算表达式，没有函数其他函数调用、较大的临时变量生成等问题，另外，可能还有编译期优化计算。该方案中调用 <code>std::array operator[]</code> 耗时占比也比较大</li><li>操作符重载和 ET 方案都有较多的函数调用(看 profile 结果)</li><li>ET 方案主要耗时在调用函数 <code>operator[]</code>(看 profile 结果)，生成表达式耗时并不怎么耗时(看 benchmark 结果)</li></ul></li></ol><hr><h1 id=4-et-方案说明>4. ET 方案说明</h1><h2 id=41-方案说明>4.1 方案说明</h2><ol><li>lazy evaluation(惰性计算、延时计算): 一开始只是生成了表达式的实例(Add&lt;Multiply, Multiply> expr)，并没有将结果正真的计算出来，等到 <code>collect_result</code> 时才开始遍历计算</li></ol><h2 id=42-在实现过程中用到的优化手段>4.2 在实现过程中用到的优化手段</h2><ol><li>对 <code>size()</code> 和 <code>operator[]</code> 使用 inline 关键字</li><li>在 <code>class BinaryExpression</code> 中存储 size，而不是每次在调用 <code>size()</code> 时根据 l_expr_ 和 r_expr_ 去判断(像其构造函数中的 assert 那样)</li><li>使用 <code>class Add</code> 继承 <code>class BinaryExpression</code>，而不是将 <code>AddOperator</code> 当成 BinaryExpression 的一个模板参数，因为这样会多一次 <code>operator()</code> 函数调用<div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=c1>// bad
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>template</span> <span class=o>&lt;</span><span class=n>IsExpr</span> <span class=n>LExpr</span><span class=p>,</span> <span class=n>IsExpr</span> <span class=n>RExpr</span><span class=p>,</span> <span class=k>class</span> <span class=nc>Op</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=k>requires</span> <span class=n>SameItem</span><span class=o>&lt;</span><span class=n>LExpr</span><span class=p>,</span> <span class=n>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>BinaryExpression</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Expression</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>item_type</span> <span class=k>operator</span><span class=p>[](</span><span class=n>size_t</span> <span class=n>idx</span><span class=p>)</span> <span class=kr>inline</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nf>Op</span><span class=p>(</span><span class=n>l_expr_</span><span class=p>[</span><span class=n>idx</span><span class=p>],</span> <span class=n>r_expr_</span><span class=p>[</span><span class=n>idx</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=nc>AddOperator</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>static</span> <span class=n>T</span> <span class=nf>operator</span><span class=p>()(</span><span class=k>const</span> <span class=n>T</span><span class=o>&amp;</span> <span class=n>lhs</span><span class=p>,</span> <span class=k>const</span> <span class=n>T</span><span class=o>&amp;</span> <span class=n>rhs</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>lhs</span> <span class=o>+</span> <span class=n>rhs</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=k>template</span> <span class=o>&lt;</span><span class=k>class</span> <span class=nc>LExpr</span><span class=p>,</span> <span class=k>class</span> <span class=nc>RExpr</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=n>Add</span> <span class=o>=</span> <span class=n>Binary</span><span class=o>&lt;</span><span class=n>LExpr</span><span class=p>,</span> <span class=n>RExpr</span><span class=p>,</span> <span class=n>AddOperator</span><span class=o>&lt;</span><span class=n>LExpr</span><span class=o>::</span><span class=n>item_type</span><span class=o>&gt;::</span><span class=k>operator</span><span class=o>&gt;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div></li></ol><hr><h1 id=5-参考>5. 参考</h1><ul><li><a class=link href=https://zhuanlan.zhihu.com/p/701819779 target=_blank rel=noopener>https://zhuanlan.zhihu.com/p/701819779</a></li><li><a class=link href=https://zhuanlan.zhihu.com/p/416276856 target=_blank rel=noopener>https://zhuanlan.zhihu.com/p/416276856</a></li><li><a class=link href=https://www.cnblogs.com/chengxuyuancc/p/3238469.html target=_blank rel=noopener>https://www.cnblogs.com/chengxuyuancc/p/3238469.html</a></li><li><a class=link href=https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Expression-template target=_blank rel=noopener>https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Expression-template</a></li></ul></section><footer class=article-footer><section class=article-tags><a href=/tags/cpp/>Cpp</a>
+<a href=/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF/>表达式模板</a></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/post/gperftools-cpu%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/><div class=article-details><h2 class=article-title>gperftools-cpu性能分析</h2></div></a></article><article><a href=/post/%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/><div class=article-details><h2 class=article-title>翻译RecursiveMacrosWithC++20__VA_OPT__</h2></div></a></article><article><a href=/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/><div class=article-details><h2 class=article-title>cmake导入boost使用</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 -
+2025 薛成韵(xuechengyun)</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
