@@ -57,19 +57,29 @@ jobs:
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
+      #- name: Upload artifact
+       # uses: actions/upload-pages-artifact@v3
+        #with:
+         # path: ./public
 
   # Deployment job
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    #environment:
+     # name: github-pages
+      #url: ${{ steps.deployment.outputs.page_url }}
+    #runs-on: ubuntu-latest
+    #needs: build
+    #steps:
+     # - name: Deploy to GitHub Pages
+      #  id: deployment
+       # uses: actions/deploy-pages@v4
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./public
+          publish_branch: main
+          keep_files: false
+
