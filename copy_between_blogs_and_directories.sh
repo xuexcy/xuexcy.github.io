@@ -23,7 +23,8 @@ if [[ $1 == "pub" ]]; then
     rm -rf $to_pub
     cd $local
     sh $local/run.sh
-    cp -r $local $to_pub
+#    cp -r !(run.sh) $local $to_pub
+    rsync -a --exclude='run.sh' $local/ /$to_pub
 elif [[ $1 == "bak" ]]; then
     cp -r $to_pub $local
 else
