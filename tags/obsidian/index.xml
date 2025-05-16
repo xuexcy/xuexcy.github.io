@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Obsidian on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/obsidian/</link><description>Recent content in Obsidian on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>xuechengyun</copyright><lastBuildDate>Mon, 21 Oct 2024 23:02:12 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/obsidian/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian跨平台同步</title><link>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</link><pubDate>Mon, 21 Oct 2024 23:02:12 +0800</pubDate><guid>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</guid><description>&lt;h1 id="跨平台同步办法">跨平台同步办法
+&lt;/h1>&lt;ul>
+&lt;li>
+&lt;p>macbook: &lt;strong>macbook中 &lt;code>文稿&lt;/code> 等同于 &lt;code>~/Document&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>本机: 新建 &lt;code>~/Document/xuechengyun_sync&lt;/code>文件夹&lt;/li>
+&lt;li>Obsidian: 打开本机 vault 目录&lt;code>~/Document/xuechengyun_sync/Obsidian&lt;/code>&lt;/li>
+&lt;li>icloud：设置 icloud 同步 &lt;code>文稿&lt;/code> 文件夹&lt;/li>
+&lt;li>百度云: 同步 &lt;code>~/Document/xuechengyun_sync&lt;/code>文件夹。百度云仅作为备份&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>安卓:&lt;/p>
+&lt;ul>
+&lt;li>本机: 新建 &lt;code>个人/Obsidian&lt;/code> 文件夹&lt;/li>
+&lt;li>Obsidian: 打开本机 vault 目录 &lt;code>个人/Obsidian&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>ipad:&lt;/p>
+&lt;ul>
+&lt;li>Obsidian: 从 icloud 打开云端 vault 目录 &lt;code>文稿/xuechengyun_sync/Obsidian&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Obsidian 插件 remotely-save: 各个平台的 Obsidian 安装 remotely-save 插件后开启同步，插件会将本地 vault 目录同步至 one_drive &lt;code>应用/remotely-save/Obsidian&lt;/code> 文件夹&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B.svg"
+loading="lazy"
+alt="同步流程"
+>&lt;/p>
+&lt;h1 id="qa">Q&amp;amp;A
+&lt;/h1>&lt;ol>
+&lt;li>Q: 为什么在 macbook 本地新建的文件夹在 &lt;code>~/Document&lt;/code> 下？
+&lt;ul>
+&lt;li>A: icloud 只能设置同步&amp;quot;桌面与文稿文件夹&amp;quot; ，也就是 &lt;code>~/Desktop&lt;/code> 和 &lt;code>~/Document&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Q: 是否可以设置 one_drive 同步多个不同的 Obsidian vault？
+&lt;ul>
+&lt;li>A: 不行。Obsidian 插件 remotely-save 的 Onedrive (个人版) (App Folder）功能，只能读写 &lt;code>/应用/removely-save/Obsidian&lt;/code> 目录，所以只能将 vault 同步到这个目录，如果同步多个 vault可能造成文件混乱&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

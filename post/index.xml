@@ -1,0 +1,1488 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 小天天天天快乐</title><link>https://xuexcy.github.io/post/</link><description>Recent content in Posts on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>xuechengyun</copyright><lastBuildDate>Fri, 18 Apr 2025 16:38:34 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>gperftools-cpu性能分析</title><link>https://xuexcy.github.io/post/gperftools-cpu%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link><pubDate>Fri, 18 Apr 2025 16:38:34 +0800</pubDate><guid>https://xuexcy.github.io/post/gperftools-cpu%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid><description>&lt;h1 id="软件安装">软件安装
+&lt;/h1>&lt;ul>
+&lt;li>在 mac os 上安装 &lt;code>brew install gperftools&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="在-cmakeliststxt-中链接-profiler">在 CMakeLists.txt 中链接 profiler
+&lt;/h1>&lt;ul>
+&lt;li>假设程序为：&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms/blob/main/src/expression_template_deps/test_array/CMakeLists.txt" target="_blank" rel="noopener"
+>calculation_profile.cc&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmake" data-lang="cmake">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">LIB_PROFILER_DIR&lt;/span> &lt;span class="s2">&amp;#34;/opt/homebrew/Cellar/gperftools/2.16/lib&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">CMAKE_EXE_LINKER_FLAGS&lt;/span> &lt;span class="s2">&amp;#34;${CMAKE_EXE_LINKER_FLAGS} -L${LIB_PROFILER_DIR} -lprofiler -ltcmalloc&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">add_executable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">expression_template_array_profile&lt;/span> &lt;span class="s">calculation_profile.cc&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="执行-profiler">执行 profiler
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">bin_name&lt;/span>&lt;span class="o">=&lt;/span>expression_template_array_profile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">prof_file&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$bin_name&lt;/span>.prof
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">text_file&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$bin_name&lt;/span>.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">svg_file&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$bin_name&lt;/span>.svg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 生成 prof 文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">env &lt;span class="nv">CPUPROFILE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$prof_file&lt;/span> &lt;span class="nv">$bin_name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出文本和 svg 图片&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pprof &lt;span class="nv">$bin_path&lt;/span> &lt;span class="nv">$prof_file&lt;/span> --text &amp;gt; &lt;span class="nv">$text_file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pprof &lt;span class="nv">$bin_path&lt;/span> &lt;span class="nv">$prof_file&lt;/span> --svg &amp;gt; &lt;span class="nv">$svg_file&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="todo">TODO
+&lt;/h1>&lt;p>火焰图&lt;/p>
+&lt;h1 id="其他">其他
+&lt;/h1>&lt;ul>
+&lt;li>遇到问题 &lt;code>otool-classic: can't open file: /usr/lib/system/libXXXXX&lt;/code>，好像可以不用管，不影响结果。
+&lt;ul>
+&lt;li>refs: &lt;a class="link" href="https://github.com/google/pprof/issues/726" target="_blank" rel="noopener"
+># otool-classic unable to find /usr/lib libraries on MacOS&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://forums.developer.apple.com/forums/thread/722360" target="_blank" rel="noopener"
+>https://forums.developer.apple.com/forums/thread/722360&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>翻译RecursiveMacrosWithC++20__VA_OPT__</title><link>https://xuexcy.github.io/post/%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</link><pubDate>Fri, 18 Apr 2025 16:22:10 +0800</pubDate><guid>https://xuexcy.github.io/post/%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h1 id="翻译-recursive-macros-with-c20-__va_opt__httpswwwscsstanfordedudmblogva-opthtml">翻译: &lt;a class="link" href="https://www.scs.stanford.edu/~dm/blog/va-opt.html" target="_blank" rel="noopener"
+>Recursive macros with C++20 __VA_OPT__&lt;/a>
+&lt;/h1>&lt;ul>
+&lt;li>&lt;strong>水平有限,欢迎指正,谢谢!&lt;/strong>&lt;/li>
+&lt;li>多平台发布内容不一致时，以 github 更新为主&lt;/li>
+&lt;li>个人添加的一些注解可能有些啰嗦,大部分都是在反反复复解释不同的宏是如何展开了,主要是为了记录自己理解原文内容过程中的一些思考,各位阅读时可以跳过.&lt;/li>
+&lt;/ul>
+&lt;h2 id="译者前言">译者前言
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>标题: 使用 C++20 的 __VA_OPT__ 实现递归宏&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>原文信息:&lt;/p>
+&lt;ul>
+&lt;li>作者: David Mazières&lt;/li>
+&lt;li>日期: 2021/06&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>译文信息:&lt;/p>
+&lt;ul>
+&lt;li>作者: 薛成韵(xuechengyun)&lt;/li>
+&lt;li>日期: 2025/03/26&lt;/li>
+&lt;li>邮箱:
+&lt;ul>
+&lt;li>&lt;a class="link" href="mailto:xuechengyunxue@gmail.com" >xuechengyunxue@gmail.com&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="mailto:1433094974@qq.com" >1433094974@qq.com&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>github 地址: &lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/%e7%bf%bb%e8%af%91.md" target="_blank" rel="noopener"
+>link&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>文中一些名词与解释:&lt;/p>
+&lt;ul>
+&lt;li>preprocessor: 预处理器,文中提到的 C/C++ pre-preprocessor, cpp 都翻译成预处理器&lt;/li>
+&lt;li>variable-argument macro: 可变参数宏, 如 &lt;code>#define PRINT(...) print(__VA_ARGS__)&lt;/code>&lt;/li>
+&lt;li>macro type: 宏类型
+&lt;ul>
+&lt;li>object-like macro: 类对象宏,如 &lt;code>#define OL 123&lt;/code>&lt;/li>
+&lt;li>function-like macro: 类函数宏,如 &lt;code>#define FL(x) ((x)+1)&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>macro name: 宏名字,如 &lt;code>OL&lt;/code>,&lt;code>FL&lt;/code>&lt;/li>
+&lt;li>macro parameters: 宏参数,如 &lt;code>x&lt;/code>&lt;/li>
+&lt;li>substitution list: 替换列表,宏名字和参数后的那部分,如 &lt;code>123&lt;/code>,&lt;code>((x)+1)&lt;/code>, 另外，替换列表可以为空, 比如 &lt;code>#define EMPTY&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="n">Str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="nc">Macro&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Str&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">enum&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">Type&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">ObjectLike&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">FunctionLike&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Type&lt;/span> &lt;span class="n">type&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Str&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">parameters&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Str&lt;/span> &lt;span class="n">sl&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// substitution list
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span> &lt;span class="c1">// struct Macro
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>replacing bit: 替换位,后文简称为 rb. 一个宏对应一个 bit, 当一个宏发生了替换后就会将对应的 bit 置为 true，后续将会处理替换产生的新结果.在读取到替换结果之后的一个字符时，该 bit 会被重置为 false.
+&lt;ul>
+&lt;li>&lt;code>FL(x)+FL(y)&lt;/code> : 当 &lt;code>FL(x)&lt;/code> 替换成 &lt;code>((x) + 1)&lt;/code> 后, &lt;code>FL&lt;/code> 的 replacing bit 会被置为 &lt;code>true&lt;/code>, 将替换结果 &lt;code>((x) + 1)&lt;/code> 继续处理完后, 会读取 &lt;code>FL(x)&lt;/code> 后面的加号 &lt;code>+&lt;/code>，在读取 &lt;code>+&lt;/code> 前会将 &lt;code>FL&lt;/code> 的 replacing bit 重置为 &lt;code>false&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>unavailable bit: 不可用位(或者叫不可扩展位吧), 后文简称为 ub. 标记某个 token 是否能被扩展,一个 token 对应一个 bit.&lt;/li>
+&lt;li>token: 一种符号,如 &lt;code>FL&lt;/code>,&lt;code>123&lt;/code>, &lt;code>x&lt;/code>,&lt;code>+&lt;/code>,&lt;code>1&lt;/code>,&lt;code>(&lt;/code>, &lt;code>)&lt;/code>;两个值相同的字符串可能是同一个 token，也可能是不同的 token
+&lt;blockquote>
+&lt;p>参数和替换列表中对应的 token 是同一个 token，可以认为是同一个字符串的引用.
+当 token 在参数中不能展开时，替换到替换列表后依然不能展开.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define ADD(a, b) a + b
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define DOUBLE(c) ADD(c, c)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define ADD_FIVE(d) ADD(d, FIVE)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define FIVE 5
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>假设此时 FIVE 不能被展开&lt;/p>
+&lt;p>&lt;strong>DOUBLE(FIVE)&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>展开 &lt;code>DOUBLE(FIVE)&lt;/code> 得到 &lt;code>ADD(FIVE, FIVE)&lt;/code>，此时 &lt;code>ADD&lt;/code> 的两个参数 &lt;code>a: FIVE&lt;/code> 和 &lt;code>b: FIVE&lt;/code> 是同一个 token，也就是 &lt;code>DOUBLE&lt;/code> 的参数 &lt;code>c: FIVE&lt;/code> 这个 token&lt;/li>
+&lt;li>展开得到 &lt;code>ADD(FIVE, FIVE)&lt;/code> 得到 &lt;code>FIVE + FIVE&lt;/code>, 此时这两个 &lt;code>FIVE&lt;/code> 分别对应 &lt;code>ADD&lt;/code> 的参数 &lt;code>a: FIVE&lt;/code>, &lt;code>b: FIVE&lt;/code>, 而上一步已知 &lt;code>a: FIVE&lt;/code> 和 &lt;code>b: FIVE&lt;/code> 是同一个 token, 于是 &lt;code>FIVE + FIVE&lt;/code> 中的两个 &lt;code>FIVE&lt;/code> 也还是同一个 token&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>ADD_FIVE(FIVE)&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>展开 &lt;code>ADD_FIVE(FIVE)&lt;/code> 得到 &lt;code>ADD(FIVE, FIVE)&lt;/code>, 此时这两个参数 &lt;code>a: FIVE&lt;/code> 和 &lt;code>b: FIVE&lt;/code> 不是同一个 token, 其中 &lt;code>a: FIVE&lt;/code> 是 &lt;code>ADD_FIVE&lt;/code> 的参数 &lt;code>d: FIVE&lt;/code>, &lt;code>b: FIVE&lt;/code> 是 &lt;code>ADD_FIVE&lt;/code> 的替换列表中的 &lt;code>FIVE&lt;/code>&lt;/li>
+&lt;li>展开 &lt;code>ADD(FIVE, FIVE)&lt;/code> 得到 &lt;code>FIVE + FIVE&lt;/code>, 此时这两个 &lt;code>FIVE&lt;/code> 分别对应 &lt;code>ADD&lt;/code> 的参数 &lt;code>a: FIVE&lt;/code>, &lt;code>b: FIVE&lt;/code>, 而上一步已知 &lt;code>a: FIVE&lt;/code> 和 &lt;code>b: FIVE&lt;/code> 不是同一个 token, 于是 &lt;code>FIVE + FIVE&lt;/code> 中的两个 &lt;code>FIVE&lt;/code> 就不是同一个 token&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>注意:&lt;/p>
+&lt;ul>
+&lt;li>文中存在一些圆括号&lt;code>()&lt;/code>,一些是原文已有的,一些是译者额外加的.译者加的圆括号中,里面的内容可能是原文英文,形如&amp;quot;译文(原文)&amp;quot;,也有可能是译文,形如&amp;quot;原文(译文)&amp;quot;,比如 &amp;ldquo;pre-processor(预处理)、类对象宏(&lt;em>object-like macros&lt;/em>).另外还可能添加了一些注释.&lt;/li>
+&lt;li>标有&amp;quot;xuechengyun 注&amp;quot;的地方都是个人对原文的一些理解、解释或附加说明,主要是为了更方便的理解原文&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>参考:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/683808863" target="_blank" rel="noopener"
+>知乎: 聊一聊新的宏__VA_OPT__&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="introduction引言">Introduction(引言)
+&lt;/h2>&lt;p>如果能在 c++ 中定义可以被优雅打印的枚举岂不是很好? 在 C++20 中,你可以定义一个宏,这个宏可以同时创建一个枚举类型和定义一个将枚举值转换成字符串的函数.样例如下:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">MAKE_ENUM&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MYType&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ZERO&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ONE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">TWO&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">THREE&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MyType&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">to_cstring&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="s">&amp;#34; = &amp;#34;&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">e&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ZERO&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ONE&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TWO&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">THREE&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>OUTPUT&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ZERO = 0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ONE = 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TWO = 2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">THREE = 3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>实现上述功能的关键是 C++20 中的一个新的 pre-processor(预处理器)特性 &lt;code>__VA_OPT__(x)&lt;/code>.当 variable-argument marco(可变参数宏)的参数个数非 0 时,它可以展开成 &lt;code>x&lt;/code>,否则什么也不做.该特性正是实现递归宏中基本情况所需的,它可以做一些事情,比如让 &lt;code>FOR_EACH&lt;/code> 将它的每一个参数都填充到另一个宏中.下面是如何使用 &lt;code>FOR_EACH&lt;/code> 定义 &lt;code>MAKE_ENUM&lt;/code>:&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>&lt;code>FOR_EACH(PRINT, a, b, c)&lt;/code> 可以扩展为&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">PRINT&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">PRINT&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">PRINT&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这样就可以通过宏 &lt;code>PRINT&lt;/code> 输出所有参数.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define ENUM_CASE(name) case name: return #name;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define MAKE_ENUM(type, ...) \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> enum type { __VA_ARGS__ }; \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> constexpr const char* to_cstring(type _e) { \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> using enum type; \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> switch (_e) { \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> FOR_EACH(ENUM_CASE, __VA_ARGS__) \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> default: \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> return &amp;#34;unknown&amp;#34;; \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> } \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>完整代码见 &lt;a class="link" href="https://www.scs.stanford.edu/~dm/blog/make_enum.cc" target="_blank" rel="noopener"
+>make_enum.cc&lt;/a>.本博客余下部分将会讲解如何通过一种简单且普遍的方法来定义 &lt;code>FOR_EACH&lt;/code>.虽然参数列表的大小有一个(任意的)限制,但是该限制随着代码长度增大呈指数级增长.加上 5 行额外的代码,接受的参数就可以超过 300 个,如此数量看起来已经很多了.另外相较于旧方法中,为每种可能数量的参数都各自定义一个宏来说,这种方法更容易被接受.&lt;/p>
+&lt;p>在这个博客中,我将讲解 C/C++ 中的宏是如何运作的;接着展示如何将宏和 C++20 中的 &lt;code>__VA__OPT__&lt;/code> 结合起来做一些牛逼的事.&lt;/p>
+&lt;h2 id="c-macro-overview-概述-c-语言中的宏">C macro overview (概述 C 语言中的宏)
+&lt;/h2>&lt;p>C 和 C++ 支持两种类型的宏,一种是没有参数的类对象宏(&lt;em>object-like&lt;/em> macros),一种是有参数的类函数宏(&lt;em>function-like&lt;/em> macros).下面是例子.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define OL 123 &lt;/span>&lt;span class="c1">// object-like macro 类对象宏
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#define FL(x) ((x)+1) &lt;/span>&lt;span class="c1">// function-like macro 类函数宏
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>宏的主体被称为&lt;em>替换列表&lt;/em>(&lt;em>substitution list&lt;/em>),即宏名字和可选参数后面部分.如上单个 token &lt;code>123&lt;/code> 是 &lt;code>OL&lt;/code> 的替换列表,token 列表 &lt;code>((x)+1)&lt;/code> 是 &lt;code>FL&lt;/code> 的替换列表.&lt;/p>
+&lt;p>宏扩展发生在 C/C++ 预处理器(缩写 cpp, 即 C/C++ preprocess,后文简称&amp;quot;预处理器&amp;rdquo;,以免和 c++ 程序语言混淆)将程序源代码转换为一系列词法标记(lexical tokens)之后.标识符(identifiers)(例如 &lt;code>FL&lt;/code>),数字(numbers),字符字面量(character literals), 字符串(quoted strings),圆括号(parentheses, &lt;code>(&lt;/code>, &lt;code>)&lt;/code> ),还有操作符(例如 &lt;code>+&lt;/code> ) 都是 token 示例.预处理器通过将很多 tokens 原样复制,有效地将输入 tokens 列表转换为输出 tokens, 并在适当的地方将宏展开.&lt;/p>
+&lt;p>预处理器旨在保证源代码的预处理一定会终止(termination).个人认为在编程语言中 termination 被看得过重了(被高估了, overrated).我的意思是,C 语言明确的知道一个微不足道的 &lt;a class="link" href="https://www.scs.stanford.edu/~dm/blog/cpptorture.c" target="_blank" rel="noopener"
+>cpptorture.c&lt;/a> 程序的编译需要超过100年的时间和数艾字节(exabytes, EB, 1EB = 1024PB=2^60B)的内存,但知道这一事实又有什么可欣慰的呢?有些离题了.实际上,人们喜欢编写像 linux &lt;code>&amp;lt;sys/epoll.h&amp;gt;&lt;/code> 头文件这样的代码：&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>在 &lt;code>cpptorture.c&lt;/code> 中的代码用了 64 行形如如下的宏定义来计算 $x * 2^{64}$.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define X1(x) X2(x)+X2(x)`
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define X30(x) X31(x)+X32(x)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define X64(x) x+x
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>提前说明一下,一次宏的处理分为三步(后面我们还会继续提到这三步):&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>处理参数(对参数中的宏也会进行处理)&lt;/li>
+&lt;li>将处理后的参数替换(replace)到宏的替换列表(substitution list)中&lt;/li>
+&lt;li>将替换后的结果作为新的输入重新处理.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>其中前两步和宏的定义相关,第 1 步和宏的参数个数相关,第 2 步和宏的替换列表相关.但是第 3 步是处理宏替换后产生的新结果,它的处理不依赖于当前这个宏的定义.&lt;/p>
+&lt;p>假设调用 &lt;code>X1(3)&lt;/code> 来计算 $3 * 2^{64}$,那么:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>X64(3)&lt;/code> 展开需要 [ $(2^1 - 1)$ 次替换 ],得到 &lt;code>3+3&lt;/code>,也就是使用 [ $(2^1 -1)$ 个加号 ] 将 [ $2^1$ 个 3 ] 相加&lt;/p>
+&lt;p>&lt;code>X63(3)&lt;/code> 展开需要 [ $1$ 次替换 + &lt;code>X64(3)&lt;/code>展开两次 ] = [ $1$ 次替换 + $(2^2-2)$ 次替换 ] = [ $(2^2 - 1)$ 次替换 ],得到 &lt;code>3+3+3+3&lt;/code>,也就是使用 [ $(2^2 -1)$ 个加号 ] 将 [ $(2^2)$ 个 &lt;code>3&lt;/code> ] 相加&lt;/p>
+&lt;p>&lt;code>X62(3)&lt;/code> 展开需要 [ $1$ 次替换 + &lt;code>X63(3)&lt;/code> 展开两次 ] = [ $1$ 次替换 + $(2^3-2)$ 次替换 ] = [ $(2^3 - 1)$ 次替换 ],得到 &lt;code>3+3+3+3+3+3+3+3&lt;/code>,也就是使用 [ $(2^3 -1)$ 个加号 ] 将 [ $(2^3)$ 个 &lt;code>3&lt;/code> ] 相加&lt;/p>
+&lt;p>&lt;code>X61(3)&lt;/code> 展开需要 [ $1$ 次替换 + &lt;code>X62(3)&lt;/code> 展开两次 ] = [ $1$ 次替换 + $(2^4-2)$ 次替换 ] = [ $(2^4 - 1)$ 次替换 ],得到 &lt;code>3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3&lt;/code>,也就是使用 [ $(2^4 -1)$ 个加号 ] 将 [ $(2^4)$ 个 &lt;code>3&lt;/code> ] 相加&lt;/p>
+&lt;p>&amp;hellip;&lt;/p>
+&lt;p>&lt;code>X1(3)&lt;/code> 展开需要 [ $1$ 次替换 + &lt;code>X2(3)&lt;/code> 展开两次 ] = [ $1$ 次替换 + $(2^{64}-2)$ 次替换 ] = [ $(2^{64} - 1)$ 次替换 ],得到 [ $(2^{64} - 1)$ 个加号 ] 将 [ $(2^{64})$ 个 &lt;code>3&lt;/code> ] 相加&lt;/p>
+&lt;/blockquote>
+&lt;p>最终我们调用 &lt;code>X1(3)&lt;/code> 展开后的代码需要的字节数就是数字 &lt;code>3&lt;/code> 和加号操作符 &lt;code>+&lt;/code> 的个数之和个字节,即 $(2^{65}-1)B$ = $(2^5 * 2^{60} - 1)B$ = $32EB - 1B$.也就是文中说的编译需要数艾字节的内存(many exabytes of memory).&lt;/p>
+&lt;p>最终 &lt;code>X1(3)&lt;/code> 展开需要 $2^{64} - 1$ 次替换(也就是 &lt;code>+&lt;/code> 的个数).假设一次替换需要 1 纳秒($1\ ns=10^{-9}\ s$), 且 $2^{10} \approx 10^3$,那么 $2^{64}-1\ ns\approx 2^4 \times 10^{18}\ ns = 16 \times 10^9\ s=16\times10^{9}\div60\div60\div24\div365\ 年\approx507 年$.也就是文中说的编译需要超过 100 年的时间(over 100 years).&lt;/p>
+&lt;p>注意,这里我们说的一次替换的时间包含了预处理器读取 token、参数列表、扩展参数列表、替换 substitution list 所需的时间,比如预处理器读取 &lt;code>X1&lt;/code>、&lt;code>(3)&lt;/code>、将 &lt;code>3&lt;/code> 扩展成 &lt;code>3&lt;/code>、替换参数扩展结果 &lt;code>3&lt;/code> 到替换列表中得到 &lt;code>X2(3) + X2(3)&lt;/code>.然后预处理器又重新扫描了这个结果并进行处理,此时除了对两个 &lt;code>X2(3)&lt;/code> 进行了“替换”,还多耗读取了两个空格和一个加号,不过在上面的计算中就不细究了.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">enum&lt;/span> &lt;span class="nc">EPOLL_EVENTS&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">EPOLLIN&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mh">0x001&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EPOLLIN EPOLLIN
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="n">EPOLLIN&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mh">0x002&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EPOLLPRI EPOLLPRI
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="n">EPOLLOUT&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mh">0x004&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EPOLLOUT EPOLOUTL
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="cm">/* ... */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>将 &lt;code>EPOLL_EVENTS&lt;/code> 定义成一个枚举挺好的,因为这样有助于调试,而且更优雅.对于程序来说,能够使用 &lt;code>#ifdef EPOLLPRI&lt;/code> 来检查特定标志的可用性也很好.所以,利用 C/C++ 预处理器通常不会递归展开宏的事实,&lt;code>&amp;lt;sys/epoll.h&amp;gt;&lt;/code> 头文件将这两个问题都解决了.如此定义 &lt;code>enum EPOLL_EVENT&lt;/code> ,token &lt;code>EPOLLIN&lt;/code> 就会扩展一次成为 &lt;code>EPOLLIN&lt;/code> 后停止扩展, 所以它实际上等价于支持 &lt;code>#ifdef&lt;/code> 的 enum.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>&lt;code>&amp;lt;sys/epoll.h&amp;gt;&lt;/code> 首先将 &lt;code>EPOLL_EVENTS&lt;/code> 定义成了枚举类型,这样更方便调试,代码看起来也舒服.另外,为了使用 &lt;code>#ifdef EPOLLPRI&lt;/code> 来检查这个 flag 是否被设置,在 &lt;code>enum EPOLL_EVENTS&lt;/code> 中又定义了和枚举值名称相同的宏,如 &lt;code>#define EPOLLINE EPOLLIN&lt;/code>,这样使用起来更方便.&lt;/p>
+&lt;p>这种实现方式的前提是预处理器不会递归展开宏.如果可以递归展开,那么预处理器可以认为 &lt;code>#define EPOLLIN EPOLLIN&lt;/code> 中的第二个 &lt;code>EPOLLIN&lt;/code> (即宏的主体、替换列表)依然是一个宏,然后继续展开.那宏展开就会无法终止(termination)&lt;/p>
+&lt;/blockquote>
+&lt;p>为了防止宏递归展开,预处理器将每个定义的宏关联到一个 bit.该 bit 反映了宏当前是否被它的替换列表(substitution list)替换了,在此我们称之为 &lt;em>replacing&lt;/em> bit(替换位).预处理器又将输入流(input stream)中的每一个 token 和一个 bit 关联起来,表明这个 token 不能进行宏扩展(macro-expanded),在此我们称之为 &lt;em>unavailable&lt;/em> bit(不可用位).一开始 replacing 和 unavailable bits 都被清空为 false 了.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>每个宏关联一个 bit,叫 replacing bit,后文提到的 rb, macro_rb 即此含义&lt;/p>
+&lt;p>每个 token 关联一个 bit,叫 unavailable bit,后文提到的 ub, token_ub 即此含义&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">unordered_set&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Str&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Macro&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">name_to_macro&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">unordered_map&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Str&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">macro_name_to_rb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">unordered_map&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">token_to_ub&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;p>当预处理器处理每个输入 token T 时,它会设置 T 的 unavailable bit,并按如下流程决定是否对 T 进行宏展开:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>如果 &lt;code>T&lt;/code> 是一个 &lt;em>replacing&lt;/em> bit 被置为 true 的宏的名字,预处理器就会将其 &lt;em>unavailable&lt;/em> bit 也置为 true.注意,即使 &lt;code>T&lt;/code> 在一个不可以被宏展开的上下文中 (因为 &lt;code>T&lt;/code> 可能是一个类函数宏,但是后面没有 &lt;code>(&lt;/code> 跟着,所以它没有办法被展开)(xuechengyun 注: 后文中有一个 &lt;code>#define PARENS ()&lt;/code> 宏就是让 &lt;code>T&lt;/code> 后面没有 &lt;code>(&lt;/code>,以阻止 &lt;code>T&lt;/code> 展开),预处理器依然会设置其 unavailable bit.另外,一旦 unavailable bit 被置为 true,就再也不会被重置为 false.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>token_ub 被置为 true 后就无法重置为 false&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// T 是一个宏名字 + rb 为 true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">auto&lt;/span> &lt;span class="n">it&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">macro_name_to_rb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">str&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="n">it&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">macro_name_to_rb&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">end&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">second&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">token_to_ub&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>如果 &lt;code>T&lt;/code> 是一个类对象宏的名字,并且 &lt;code>T&lt;/code> 的 unavailable bit 是 false,那么就将 &lt;code>T&lt;/code> 展开.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// T 是一个类对象宏名字 + ub 为 false
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">auto&lt;/span> &lt;span class="n">it&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name_to_macro&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">it&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">name_to_macro&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">end&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Macro&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Type&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ObjectLike&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">second&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">!&lt;/span>&lt;span class="n">token_to_ub&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expand_macro&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>如果 &lt;code>T&lt;/code> 是一个类函数宏的名字,且 &lt;code>T&lt;/code> 的 unavailable bit 是 false,且 &lt;code>T&lt;/code> 后面跟随了 &lt;code>(&lt;/code>,那么就将 &lt;code>T&lt;/code> 展开.注意,如果调用 &lt;code>T&lt;/code> 使用的参数数量不对,那么程序就有问题(xuechengyun 注: 假设 &lt;code>#define T(a, b) a + b&lt;/code> 那么 &lt;code>T()&lt;/code>, &lt;code>T(1)&lt;/code>, &lt;code>T(1, 2, 3)&lt;/code> 就是有问题的程序).&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// T 是一个类函数宏名字 + ub 为 false + 名字后面有括号 &amp;#39;(&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">auto&lt;/span> &lt;span class="n">it&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name_to_macro&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">it&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">name_to_macro&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">end&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Macro&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Type&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">FunctionLike&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">second&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">!&lt;/span>&lt;span class="n">token_to_ub&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="sc">&amp;#39;(&amp;#39;&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">next_char_of&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">args&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">scan_arguments&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">assert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">second&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">parameters&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expand_macro&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;/li>
+&lt;/ol>
+&lt;p>如果预处理器决定不对 &lt;code>T&lt;/code> 进行宏扩展,那么它就直接将 &lt;code>T&lt;/code> 添加到当前的输出 token 列表.反之,通过如下两个阶段扩展 &lt;code>T&lt;/code>:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>当 &lt;code>T&lt;/code> 是一个类函数宏时,预处理器扫描所有给 &lt;code>T&lt;/code> 的参数,并在这些参数上进行宏扩展.它像处理普通的 token 一样扫描参数,但是不将输出的 tokens 放到主处理器中输出中,而是为 &lt;code>T&lt;/code> 的每个参数构建一个替换 token 列表(replacement token list).同时记录原始的、非宏展开的参数,以便和 &lt;code>#&lt;/code> 和 &lt;code>##&lt;/code> 一起使用.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define A(x) (x*x)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define B(x, y) x+y
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1">// 如下是输入列表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">B&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="n">B&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">B&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>首先, &lt;code>B&lt;/code> 是一个类函数宏,扫描到参数 &lt;code>A(3)&lt;/code>, &lt;code>B&lt;/code>;然后在参数 &lt;code>A(3)&lt;/code> 、&lt;code>B&lt;/code> 分别进行扩展,得到 &lt;code>(3*3)&lt;/code> 和 &lt;code>B&lt;/code>;接着为 &lt;code>B&lt;/code> 的每个参数构建一个 replacement tokens list,也就是&lt;code>((3*3), B)&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>预处理器拿到 &lt;code>T&lt;/code> 的替换列表后,如果 &lt;code>T&lt;/code> 有参数,将替换列表中出现的参数名用第 1 步计算出来的对应的参数 token list 替换掉.同时根据替换列表中的 &lt;code>#&lt;/code> 和 &lt;code>##&lt;/code> 标识进行字符串化和拼接.然后,在逻辑上将得到的结果 tokens 添加到输入列表中.最后,预处理器将宏 &lt;code>T&lt;/code> 的 replacing bit 设置为 true.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>预处理器拿到 &lt;code>B&lt;/code> 的替换列表 &lt;code>x+y&lt;/code>,此时发现 &lt;code>B&lt;/code> 有两个参数 &lt;code>(x, y)&lt;/code>,就用第一步计算出的 replacement token list &lt;code>((3*3), B)&lt;/code> 替换 &lt;code>B&lt;/code> 的替换列表中的对应部分,即将 &lt;code>x&lt;/code> 替换成 &lt;code>(3*3)&lt;/code>,将 &lt;code>y&lt;/code> 替换成 &lt;code>B&lt;/code>,最终得到 &lt;code>(3*3)+B&lt;/code>. 然后,将这个结果添加到输入列表中,即得到 &lt;code>(3*3)+B(4,5)+B(6,7)&lt;/code>.最后,将 &lt;code>B&lt;/code> 的 replacing bit 设置为 true.&lt;/p>
+&lt;/blockquote>
+&lt;p>当 replacing bit 被设置为 true 后,预处理器继续像往常一样处理输入,这些输入就是刚刚添加到输入列表中的 tokens.这可能导致更多的宏展开,所以有时把它叫做&lt;em>重新扫描阶段&lt;/em>(&lt;em>rescan phase&lt;/em>).一旦预处理器处理了由替换列表产生的所有 tokens,它就会将 &lt;code>T&lt;/code> 的 replacing bit 重置为 false.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>&lt;code>B&lt;/code> 的 replacing bit 为设置为 true 后,预处理器继续处理刚刚添加到输入列表中的 tokens,也就是 &lt;code>(3*3)+B&lt;/code>,当处理到尾部这个 &lt;code>B&lt;/code> 时,虽然后续还有 &lt;code>(4,5)+B(6,7)&lt;/code> 让 &lt;code>B&lt;/code> 可以读取到参数 &lt;code>(4, 5)&lt;/code>,但是由于 &lt;code>B&lt;/code> 的 replacing bit 为 true,所以不对这个尾部的 &lt;code>B&lt;/code> 进行展开.于是对第一个对 &lt;code>B&lt;/code> 宏替换后的结果重新扫描后并处理后,最终得到了 &lt;code>(3*3)+B&lt;/code>.&lt;/p>
+&lt;p>此时,预处理器将 &lt;code>B&lt;/code> 的替换列表产生的所有 tokens &lt;code>(3*3)+B&lt;/code> 都处理完了.到此为止,预处理器将和第一个 &lt;code>B&lt;/code> 相关的 tokens 都处理完了,于是将 replacing bit 设置为 false.另外输出列表为 &lt;code>(3*3)+B&lt;/code>&lt;/p>
+&lt;p>接着预处理器开始处理剩下的 tokens &lt;code>(4,5)+B(6,7)&lt;/code> 并输出 &lt;code>(4,5)+6+7&lt;/code>.最终输出列表为 &lt;code>(3*3)+B(4,5)+6+7&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">auto&lt;/span> &lt;span class="n">args&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">scan_args_for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">assert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">parameters&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">list&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">View&lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">replace_tokens&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">size_t&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="o">++&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 第 1 步: 对实参进行宏处理
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">replace_token&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">emplace_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">process_tokens&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arg&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 第 2 步: 将 replace_tokens 放到替换表中对应形参名的地方
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">auto&lt;/span> &lt;span class="n">new_sl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">T&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">parameters&lt;/span>&lt;span class="cm">/*from*/&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">replace_tokens&lt;/span>&lt;span class="cm">/*to*/&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">new_sl&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">macro_name_to_rb&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">process_tokens&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">new_sl&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 也就是说在这个 new_sl 中再次遇到 T 的话,是不会再处理展开它的
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">macro_name_to_rb&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">T&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;p>我们来看一个简单的例子:&lt;/p>
+&lt;p>&lt;code>FL(FL(5)) =&amp;gt; ((((5)+1))+1)&lt;/code>&lt;/p>
+&lt;p>在第一阶段,外面这个宏 &lt;code>FL&lt;/code> 的参数 &lt;code>FL(5)&lt;/code> 会被展开为 token list &lt;code>((5)+1)&lt;/code>,从而得到 &lt;code>FL(((5)+1))&lt;/code>.展开外面 &lt;code>FL&lt;/code> 这个宏就是将替换列表中的形参 x 替换成这个实参 &lt;code>((5)+1)&lt;/code>,于是得到 &lt;code>((((5)+1))+1)&lt;/code>.结果应该还是挺直观的.需要注意的是,由于里面的那个 &lt;code>FL&lt;/code> 的展开发生在第一阶段,所以 &lt;code>FL&lt;/code> 的 replacing bit 一直都是 false,且没有任何 token 的 unavailable bit 被设置为 true 过.&lt;/p>
+&lt;p>现在我们来看一个更有趣的例子:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define ID(arg) arg
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; ID(ID)(X)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>先看 token 序列的第一部分 &lt;code>ID(ID)&lt;/code>. 我们从第 1 阶段开始,对内部的 &lt;code>ID&lt;/code> 进行展开,由于这是一个后面没有 &lt;code>(&lt;/code> 的类函数宏,所以预处理器不会展开它.于是,预处理器将外面这个 &lt;code>ID&lt;/code> 的替换列表中的 &lt;code>arg&lt;/code> 替换成 &lt;code>ID&lt;/code>,然后将这个替换结果放到输入列表(input list)中(xuechengyun 注: 此时整个输入为 &lt;code>ID&lt;/code> + &lt;code>(ID)(X)&lt;/code>,其中前者是第一个 &lt;code>ID&lt;/code> 替换后的结果,后者是预处理器还没有开始处理的剩余部分).接着将宏 &lt;code>ID&lt;/code> 的 replacing bit 设置为 true 后进入第 2 阶段(重新扫描).在处理当前的第一个 token &lt;code>ID&lt;/code> 时,预处理器将它的 unavailable bit 设置为 true(因为 &lt;code>ID&lt;/code> 的 replacing bit 是 true) 且不展开它.最后,预处理器将 &lt;code>ID&lt;/code> 的 replacing bit 重置为 false,不过,此时已经没有什么需要展开了,因为第三个 &lt;code>ID&lt;/code> 后面没有 &lt;code>(&lt;/code>.&lt;/p>
+&lt;p>实际上规范中存在一个&lt;a class="link" href="https://open-std.org/jtc1/sc22/wg21/docs/cwg_active.html#268" target="_blank" rel="noopener"
+>已知的歧义&lt;/a>,即究竟何时重置替换位.如果一个宏展开后以一个类函数宏结尾,但是该类函数宏的参数需要从展开部分的后面读取 tokens(xuechengyun 注: 比如我们前面读取到 &lt;code>B(A(3),B))&lt;/code> 并展开后得到了 &lt;code>(3*3)+B&lt;/code>, 此时展开后的结果就是以一个类函数宏 &lt;code>B&lt;/code> 结尾,这个宏的参数需要从后面的部分 &lt;code>(4,5)+B(6,7)&lt;/code> 中读取),那又会发生什么?在实践中,编译器似乎会做一些直观的事,并在完全遵循宏展开后面的第一个 token 前重置 replacing bit.例子如下:&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>什么叫&amp;quot;在完全遵循宏展开后面的第一个 token&amp;quot;?
+以 &lt;code>B(A(3),B)(4,5)+B(6,7)&lt;/code> 为例, 当 &lt;code>B(A(3),B)&lt;/code> 处理完后紧跟的第一个 token 就是 &lt;code>(4,5)+B(6,7)&lt;/code> 的第一个字符,也就是 &lt;code>(&lt;/code>,也就是在处理 &lt;code>(&lt;/code> 前将 &lt;code>B&lt;/code> 的 replacing bit 重置,这样 &lt;code>B(6,7)&lt;/code> 才可以展开.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define LPAREN (
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define ID2(arg) arg
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ID2&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; X
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ID2&lt;/span> &lt;span class="n">LPAREN&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; X
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ID2&lt;/span> &lt;span class="n">LPAREN&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="p">))(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; ID(X)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ID2&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">))(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; ID(X)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在上面的例子中,不同位置的 &lt;code>(ID)&lt;/code> 成为 &lt;code>ID2&lt;/code> 的参数后, 都被移动到了第一个 &lt;code>ID&lt;/code> 的参数中,并且你可以看到,当第二个 &lt;code>ID&lt;/code> 一旦被移动到第一个 &lt;code>ID&lt;/code> 的替换列表中,就会立刻将 &lt;code>ID&lt;/code> 的 unavailable bit 设置为 true.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>当第一个 &lt;code>ID&lt;/code> 的替换完成后就会将其 rb 置为 true,而 rb 为 true 后就会立刻将替换结果中的 &lt;code>ID&lt;/code> 的 ub 置为 true.
+上面说的 &lt;code>ID&lt;/code> 成为 &lt;code>ID2&lt;/code> 的参数指的是第 3、4 种情况.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>当读取到一个 token 是宏名字,并确定要展开后,执行以下 3 步:&lt;/p>
+&lt;ol>
+&lt;li>读取宏的参数并展开,得到 expanded_arguments&lt;/li>
+&lt;li>使用 expanded_arguments 替换宏的替换列表(substitution list),替换后的结果为 new_input. 将 token 的 replacing bit 设置为 true&lt;/li>
+&lt;li>继续处理 new_input, 这些 new_input 又可能产生 new_new_input, 反正等它们都处理完后,在将一开始的那个 token 的 replacing bit 重置为 false&lt;/li>
+&lt;/ol>
+&lt;p>我们将这 3 步分为两个部分:&lt;/p>
+&lt;ol>
+&lt;li>宏定义相关: 前两步为一个部分,执行过程和宏的定义相关.比如,第 1 步依赖宏的参数个数,如果读取的参数数量和宏定义的参数数量不一致,那么程序就是 ill-formed 的.第 2 步依赖于宏的替换表.&lt;/li>
+&lt;li>宏定义无关: 第 3 步是处理宏展开后的结果,即得到的 new_input,在处理 new_input 的过程当中并不依赖于原来那个宏的定义.只是在遇到原来那个宏时,不再对其进行展开(识别到 replacing bit 为 true).&lt;/li>
+&lt;/ol>
+&lt;p>简单来说就是参数替换后,如果替换的结果(new_input)中又有这个宏名字,那么在处理 new_input 时(rescan phase)就不会在展开这个宏,比如 &lt;code>ID(ID)X&lt;/code> -&amp;gt; &lt;code>ID(X)&lt;/code>, new_input = &lt;code>ID&lt;/code>,那就不处理它.当这些结果处理完后就会重置 replacing bit,之后再遇到同名字的宏还是需要展开. 比如 &lt;code>ID(ID)ID(X)&lt;/code> -&amp;gt; &lt;code>ID&lt;/code> + &lt;code>ID(X)&lt;/code> -&amp;gt; &lt;code>ID&lt;/code> + &lt;code>X&lt;/code> -&amp;gt; &lt;code>IDX&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="recursive-macros递归宏">Recursive macros(递归宏)
+&lt;/h2>&lt;p>当然,C 预处理器可以通过 &lt;code>#include&lt;/code> 指令简单的实现地递归.文件可以 include 自己, 并适当地定义/取消定义常量(&lt;code>#undef/#define&lt;/code> constants),然后通过 &lt;code>#if&lt;/code> 条件来实现基本情况.虽然通过递归 include-file 的方式并不那么实用,但你确实可以递归地展开宏,至少可以相互递归展开.我第一次见到 &lt;a class="link" href="https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms" target="_blank" rel="noopener"
+>Paul Fultz&lt;/a> 提出的一个小技巧,是通过将 token 一直隐藏到另一个宏执行完重新扫描过程,来避免在要展开的宏上设置 unavailable bit.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>如下就是通过 [文件 &lt;code>#include&lt;/code> 自己] + [&lt;code>#undef/#define&lt;/code> 常量] + [&lt;code>#if&lt;/code> 条件] 来实现递归宏.目的是通过宏 &lt;code>RESULT&lt;/code> 来计算 $N$ 的阶乘.我们来看一下 4 的阶乘怎么算:&lt;/p>
+&lt;ol>
+&lt;li>定义 $N = 4, 即 &lt;code>#define N 4&lt;/code>,用户使用宏 &lt;code>RESULT&lt;/code> 需要 &lt;code>#include &amp;quot;factorial.h&amp;quot;&lt;/code>&lt;/li>
+&lt;li>&lt;code>#include &amp;quot;factorial.h&amp;quot;&lt;/code> 首先得到 &lt;code>N = 4; RESULT = 1&lt;/code>&lt;/li>
+&lt;li>进入 &lt;code>#if N &amp;gt; 0&lt;/code>, 得到 &lt;code>TEMP = N = 4, TEMP_RESULT = RESULT * N = 1 * 4 = 4&lt;/code>&lt;/li>
+&lt;li>然后 &lt;code>#undef N #define N (TEMP - 1)&lt;/code> 得到 &lt;code>N = TEMP - 1 = 3&lt;/code>,同理得到 &lt;code>RESULT=TEMP_RESULT=4&lt;/code>&lt;/li>
+&lt;li>接着 &lt;code>#include &amp;quot;factorial.h&amp;quot;&lt;/code> 后开始重复第 2 ~ 4 步:
+递归第一次: &lt;code>N = 3; RESULT = 4&lt;/code> -&amp;gt; &lt;code>N = 2; RESULT = 12&lt;/code>
+递归第二次: &lt;code>N = 2; RESULT = 12&lt;/code> -&amp;gt; &lt;code>N = 1; RESULT = 24&lt;/code>
+递归第三次: &lt;code>N = 1; RESULT = 24&lt;/code> -&amp;gt; &lt;code>N = 0; RESULT = 24&lt;/code>
+递归第四次: &lt;code>N = 0; RESULT = 24&lt;/code> -&amp;gt; &lt;code>#if N &amp;gt; 0&lt;/code> 为 false -&amp;gt; 终止程序&lt;/li>
+&lt;li>最终, &lt;code>RESULT = 24&lt;/code>, 即 4 的阶乘为 24&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// factorial.h
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#ifndef N
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define N 5 &lt;/span>&lt;span class="c1">// 初始值
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#endif
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#ifndef RESULT
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define RESULT 1 &lt;/span>&lt;span class="c1">// 初始结果
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#endif
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#if N &amp;gt; 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="cp">#define TEMP N
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="cp">#define TEMP_RESULT (RESULT * N)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#undef N
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="cp">#define N (TEMP - 1)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#undef RESULT
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span> &lt;span class="cp">#define RESULT TEMP_RESULT
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;factorial.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#endif
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;p>我们来看一个例子:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define ID(arg) arg
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define PARENS () &lt;/span>&lt;span class="c1">// 注意 () 前的空格,也就是这是一个类对象宏
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#define F_AGAIN() F
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define F() f F_AGAIN PARENS()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// F() -&amp;gt; f F_AGAIN PARENS()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 F 的替换结果
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f F_AGAIN PARENS() -&amp;gt; f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">F&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">// =&amp;gt; f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ID(F()) -&amp;gt; (...) -&amp;gt; ID(f F_AGAIN ()()) -&amp;gt; f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 此时 &amp;#34;ID(F())&amp;#34; 的参数展开和替换列表替换已经完成,也就是我们前面提到的&amp;#34;宏定义相关&amp;#34;部分
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 ID 的替换结果, 对 &amp;#34;F_AGAIN ()&amp;#34; 进行替换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f F_AGAIN ()() -&amp;gt; f F()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 F_AGAIN 的替换结果, 对 &amp;#34;F()&amp;#34; 进行替换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f F() -&amp;gt; f f F_AGAIN PARENS()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 F 的替换结果, 对 &amp;#34;PARENS&amp;#34; 进行替换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">F&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">// =&amp;gt; f f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ID(ID(F())) -&amp;gt; (...) -&amp;gt; ID(f f F_AGAIN ()()) -&amp;gt; f f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 此时 ID(ID(F())) 的参数展开和替换列表替换已经完成,也就是我们前面提到的&amp;#34;宏定义相关&amp;#34;部分
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 ID 的替换结果, 对 &amp;#34;F_AGAIN ()&amp;#34; 进行替换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f f F_AGAIN ()() -&amp;gt; f f F()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 F_AGAIN 的替换结果,对 &amp;#34;F()&amp;#34; 进行替换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f f F() -&amp;gt; f f f F_AGAIN PARENS()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重新扫描 F() 的替换结果,对 &amp;#34;PARENS&amp;#34; 进行替换
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// f f f F_AGAIN PARENS() -&amp;gt; f f f F_AGAIN()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">F&lt;/span>&lt;span class="p">()))&lt;/span> &lt;span class="c1">// =&amp;gt; f f f F_AGAIN ()()
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>当 &lt;code>F()&lt;/code> 展开后, 注意 &lt;code>F_AGAIN&lt;/code> 后面没有 &lt;code>(&lt;/code> (xuechengyun 注: &lt;code>F_AGAIN&lt;/code> 后面是 &lt;code>PARENS&lt;/code>,此时 &lt;code>PARENS&lt;/code> 还没有展开成 &lt;code>()&lt;/code>),所以它不会被当成宏进行展开.当然,在下一步 &lt;code>PARENS&lt;/code> 被展开成了 &lt;code>()&lt;/code>,但此时预处理器已经将 &lt;code>F_AGAIN&lt;/code> 这个 token 输出了, 所以决定此时再展开它(指 &lt;code>F_AGAIN&lt;/code>)已经太晚了.因此, &lt;code>F()&lt;/code> 的输出(也就是 &lt;code>f F_AGAIN ()()&lt;/code>)可能包含一个没有展开的宏调用,但是所有 tokens 的 unavailable bit 都是 false.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>在某个宏 &lt;code>T&lt;/code> 发生替换后其 rb 被设置为 true,当重新扫描替换结果又遇到了 &lt;code>T&lt;/code> 才会将其 ub 设置为 true.&lt;/p>
+&lt;p>&lt;strong>这里我们的目的是让 &lt;code>F&lt;/code> 和 &lt;code>F_AGAIN&lt;/code> 相互递归调用,并避免 ub 被设置为 true&lt;/strong>.如果 &lt;code>#define F() f F_AGAIN ()() &lt;/code>,那么当 &lt;code>F&lt;/code> 发生替换后重新扫描时,又会对 &lt;code>F_AGAIN&lt;/code> 进行替换并得到 &lt;code>F&lt;/code>,在对 &lt;code>F_AGAIN&lt;/code> 的替换结果重新扫描时就会将 &lt;code>F&lt;/code> 的 ub 设置为 true.&lt;/p>
+&lt;p>为了阻止 ub 为设置为 false,我们只需要在对 &lt;code>F&lt;/code> 的替换结果重新扫描时阻止 &lt;code>F_AGAIN&lt;/code> 展开,因为如果 &lt;code>F_AGAIN&lt;/code> 展开就会再次遇到 &lt;code>F&lt;/code>,&lt;code>F&lt;/code> 的 ub 就会被设置为 true.阻止类函数宏展开的方法就是让其后面没有 &lt;code>(&lt;/code>.另外,为了实现递归调用,我们又需要为 &lt;code>F_AGAIN&lt;/code> 后面添加一个 &lt;code>(&lt;/code>.&lt;/p>
+&lt;p>&lt;code>PARENS&lt;/code> 这个技巧的原理就是:&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>当预处理器重新扫描 &lt;code>F&lt;/code> 的替换结果并遇到 &lt;code>F_AGAIN&lt;/code> 时,让其后面没有 &lt;code>(&lt;/code> 以至于无法展开,通过终止递归调用来避免将 &lt;code>F&lt;/code> 的 ub 设置为 true.&lt;/li>
+&lt;li>当预处理器扫描到 &lt;code>F_AGAIN&lt;/code> 后面时,通过其后面的宏 &lt;code>PARENS&lt;/code> 展开为其添加一个 &lt;code>(&lt;/code>,如果还存在下一次扫描(比如在外层添加一个 &lt;code>ID&lt;/code> 就会重新扫描一遍),由 &lt;code>PARENS&lt;/code> 展开来的 &lt;code>()&lt;/code> 又能让 &lt;code>F_AGAIN&lt;/code> 继续递归展开.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>最终, &lt;code>PARENS&lt;/code> 提供了一个让 &lt;code>F&lt;/code> 在宏替换后就终止递归调用,使用 &lt;code>ID&lt;/code> 又能继续递归调用的能力.同时也避免了 &lt;code>F&lt;/code> 的 ub 被设置为 true.&lt;/p>
+&lt;/blockquote>
+&lt;p>现在来看看当我们调用 &lt;code>ID(F())&lt;/code> 时发生了什么.首先我们将参数 &lt;code>F()&lt;/code> 展开成 &lt;code>f F_AGAIN ()()&lt;/code>.这就完成了对宏 &lt;code>F&lt;/code> 的处理,所以我们将 &lt;code>F&lt;/code> 的 replacing bit 重置.接着,将 &lt;code>ID&lt;/code> 的替换列表中的 &lt;code>arg&lt;/code> (也叫做单 token &lt;code>arg&lt;/code>) 替换成 &lt;code>f F_AGAIN ()()&lt;/code>. 接着,预处理器将 &lt;code>ID&lt;/code> 的 replacing bit 设置为 true 并重新扫描(rescan) &lt;code>f F_AGAIN ()()&lt;/code>,如此导至 &lt;code>F_AGAIN&lt;/code> 和 &lt;code>F&lt;/code> 先后被展开.当然,再次使用 &lt;code>PARENS&lt;/code> 这种技巧依然可以阻止第二个 &lt;code>F_AGAIN&lt;/code> 被展开.&lt;/p>
+&lt;p>每当我们将 &lt;code>F()&lt;/code> 传递给标识宏(identity macro, 也就是展开成宏的参数自身) &lt;code>ID&lt;/code> 时,它就会多展开一次.即使我们不能无限递归,我们还是可以设置一个任意的最大递归次数(xuechengyun 注: 就是不断的在外层添加 &lt;code>ID&lt;/code>, 添加多少个就可以递归调用多少次).当我们简单地生成一些和我们写的代码行数呈指数级增长的宏调用时(还记得我们的 &lt;a class="link" href="https://www.scs.stanford.edu/~dm/blog/cpptorture.c" target="_blank" rel="noopener"
+>trivial cpptoture.c program&lt;/a> 吗?),真正的限制是我们能给预处理器提供多少时间和内存,而不是预处理器不是图灵完备的事实.如下 5 行代码重新扫描了 342 次(&lt;code>EXPAND4&lt;/code> 被调用了 256 次,当然中间的宏也会导致重新扫描)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND(arg) EXPAND1(EXPAND1(EXPAND1(EXPAND1(arg))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND1(arg) EXPAND2(EXPAND2(EXPAND2(EXPAND2(arg))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND2(arg) EXPAND3(EXPAND3(EXPAND3(EXPAND3(arg))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND3(arg) EXPAND4(EXPAND4(EXPAND4(EXPAND4(arg))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND4(arg) arg
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;blockquote>
+&lt;p>1 个 arg 作为初始参数被 scan 1 次&lt;/p>
+&lt;p>1 个 EXPAND(arg) 替换得到 4 个 EXPAND1 并 re-scan 1 次&lt;/p>
+&lt;p>4 个 EXPAND1 替换得到 16 个 EXPAND2 并 re-scan 4 次&lt;/p>
+&lt;p>16 个 EXPAND2 替换得到 64 个 EXPAND3 并 re-scan 16 次&lt;/p>
+&lt;p>64 个 EXPAND3 替换得到 256 个 EXPAND4 并 re-scan 64 次&lt;/p>
+&lt;p>256 个 EXPAND4 替换后 re-scan 256 次&lt;/p>
+&lt;/blockquote>
+&lt;p>所以 5 行代码扫描了 1 + 1 + 4 + 16 + 64 + 256 = 342 次; 另外, 因为有 256 个 EXPAND4, 所以 EXPAND4 被调用了 256 次.&lt;/p>
+&lt;p>不过,256 这个数字并不重要.重要的是代码总共被扫描了多少次,即 342.&lt;/p>
+&lt;p>前面提到的标识宏(identity macro) &lt;code>#define ID(arg) arg&lt;/code> 的作用就是让 arg 作为参数先展开一次(即 &lt;code>ID(arg)&lt;/code>),然后得到结果,结果又被 re-scan 一次. 如果需要这个结果再被展开一次,那就将结果再次包含到标识宏中(即 &lt;code>ID(ID(arg))&lt;/code>).&lt;/p>
+&lt;p>如此,如果遇到同名且不能展开的宏, 即 replacing bit 被置为 1 的宏,就用 &lt;code>ID&lt;/code> 再包一层,此时其 replacing bit 就会被重置,展开结果也会作为外一层的 &lt;code>ID&lt;/code> 的参数被重新扫描.为了重新扫描多次,我们可以多包几层 &lt;code>ID&lt;/code> 宏, 比如包 $N = 7$ 层,那就是 &lt;code>#define EXPAND(arg) ID(ID(ID(ID(ID(ID(ID(arg)))))))&lt;/code>, 这样我们就可以扫描 $N+1=8$ 次.&lt;/p>
+&lt;p>文中 &lt;code>EXPAND&lt;/code> 的实现就是将在外层添加 &lt;code>ID&lt;/code> 宏(也就是 &lt;code>EXPAND4&lt;/code> 宏)的效率呈指数级增长.也就是说你不嫌麻烦,完全可以将 $N$ 设置成 341,然后像下面这样做:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 其中有 341 个 `ID`
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#define EXPAND(arg) ID(ID(ID(ID( ....(arg).... ))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1">// 或者像 cpptorture.c 那样
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#define EXPAND1(arg) EXPAND2(arg)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND2(arg) EXPAND3(arg)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND340(arg) EXPAND341(arg)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND341(arg) arg
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;h2 id="variable-argument-macros可变参数宏">Variable-argument macros(可变参数宏)
+&lt;/h2>&lt;p>C++11 添加了可变参数宏.当使用 &lt;code>#define&lt;/code> 定义宏,如果最后一个宏参数是 &lt;code>...&lt;/code> 而不是一个标识符(identifier)时,它可以接受任意数量的参数,替换列表中特殊的 token &lt;code>__VA_ARGS__&lt;/code> 会被扩展成所有的这些参数,参数间用都好分隔(commas).一个典型的例子如下:&lt;/p>
+&lt;p>&lt;code>#define LOG(...) printf(__VA_ARGS__)&lt;/code>&lt;/p>
+&lt;p>不幸的是,在很多场景中都存在一个小小的恼人的事,那就是当 &lt;code>...&lt;/code> 表示 0 个参数时,很难编写一个能够正确生成 C 代码的宏.例如,假设你想要使用一个宏在括号里打印信息.你可能会尝试做如下的事:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define LOG(fmt, ...) printf(&amp;#34;[&amp;#34; fmt &amp;#34;]&amp;#34;, __VA_ARGS__)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="n">LOG&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;level %d&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lvl&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// =&amp;gt; printf(&amp;#34;[&amp;#34; &amp;#34;level %d&amp;#34; &amp;#34;]&amp;#34;, lvl);
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里我们利用了 C 语言连接相邻字符串常量的事实.由于 &lt;code>LOG&lt;/code> 的第一个参数 (对应于参数 &lt;code>fmt&lt;/code>)预计是一个字符串常量,因此我们可以为 &lt;code>printf&lt;/code> 构造一个新的格式化参数,其中,这个字符串被括起来了.不幸的是,如果在格式化字符串后面没有参数,那就无法起作用:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">LOG&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; printf(&amp;#34;[&amp;#34; &amp;#34;hello&amp;#34; &amp;#34;]&amp;#34;, );
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>printf(&amp;quot;hello&amp;quot;,)&lt;/code> 中多余的逗号在 C 和 C++ 语言中是一种语法错误.C++20 通过添加一个新的特殊标识符 &lt;code>__VA_OPT__&lt;/code> 来解决这个问题.这个序列 &lt;code>__VA_OPT__(x)&lt;/code> 只能用在可变参数宏的替换列表中,如果 &lt;code>__VA_ARGS__&lt;/code> 非空 &lt;code>__VA_OPT__(x)&lt;/code> 就会展开成 &lt;code>x&lt;/code>,否则展开后就什么都没有了.这让我们可以通过在参数列表为空时抑制逗号来修复宏 &lt;code>LOG&lt;/code> 的问题.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define LOG(fmt, ...) printf(&amp;#34;[&amp;#34; fmt &amp;#34;]&amp;#34; __VA_OPT__(,) __VA_ARGS__)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="n">LOG&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// =&amp;gt; printf(&amp;#34;[&amp;#34; &amp;#34;hello&amp;#34; &amp;#34;]&amp;#34;);
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>自然,一个意想不到的好处就是,区分空参和非空参列表正是我们要实现递归的基本情况所需要的机制.&lt;/p>
+&lt;h2 id="the-for_each-macrofor_each-宏">The &lt;code>FOR_EACH&lt;/code> macro(&lt;code>FOR_EACH&lt;/code> 宏)
+&lt;/h2>&lt;p>现在我们有了实现 &lt;code>FOR_EACH&lt;/code> 宏所需的所有部分:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define PARENS ()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND(...) EXPAND4(EXPAND4(EXPAND4(EXPAND4(__VA_ARGS__))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND4(...) EXPAND3(EXPAND3(EXPAND3(EXPAND3(__VA_ARGS__))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND3(...) EXPAND2(EXPAND2(EXPAND2(EXPAND2(__VA_ARGS__))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND2(...) EXPAND1(EXPAND1(EXPAND1(EXPAND1(__VA_ARGS__))))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND1(...) __VA_ARGS__
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define FOR_EACH(macro, ...) \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> __VA_OPT__(EXPAND(FOR_EACH_HELPER(macro, __VA_ARGS__)))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define FOR_EACH_HELPER(macro, a1, ...) \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> macro(a1) \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp"> __VA_OPT__(FOR_EACH_AGAIN PARENS (macro, __VA_ARGS__))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define FOR_EACH_AGAIN() FOR_EACH_HELPER
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">FOR_EACH&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">F&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// =&amp;gt; F(a) F(b) F(c) F(1) F(2) F(3)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>这里的 &lt;code>FOR_EACH&lt;/code> 的第一个参数 &lt;code>macro&lt;/code> 是一个参数数量为 1 的类函数宏，文章最后我会给出一种让 &lt;code>macro&lt;/code> 可以是接受任意参数数量的实现方法&lt;/p>
+&lt;/blockquote>
+&lt;p>注意,我们已经调整了 &lt;code>EXPAND&lt;/code> 的写法,这样就可以通过简单地使用 &lt;code>__VA_ARGS__&lt;/code> 而不是一个叫做 &lt;code>arg&lt;/code> 的来处理输出逗号的宏.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注：&lt;/p>
+&lt;p>也就是使用了 &lt;code>...&lt;/code> 和 &lt;code>__VA_ARGS__&lt;/code> 将 &lt;code>EXPAND&lt;/code> 实现成了可变参数宏&lt;/p>
+&lt;p>如果不使用可变参数 &lt;code>...&lt;/code>,而是使用 &lt;code>arg&lt;/code>,那么如果实参展开后有逗号的话,就会出现参数数量不符的情况,比如:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define REVERSE(a, b) b, a, REVERSE_AGAIN PARENS
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define REVERSE_AGAIN() REVERSE
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1">// 这里我们使用 arg 而不是 ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cp">#define EXPAND(arg) EXPAND1(EXPAND1(arg))
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#define EXPAND1(arg) arg
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1">// 我们预期得到 b, a, d, c, f, e
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">EXPAND&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">REVERSE&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 1. 处理 EXPAND 的参数,得到参数展开的结果为 &amp;#34;b, a, REVERSE_AGAIN ()(c, d)(e, f)&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 2. 将参数展开结果替换到 EXPAND 的替换列表,得到 &amp;#34;EXPAND1(EXPAND1(b, a, REVERSE_AGAIN()(c, d)(e, f)))&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 3. 处理第一个 EXPAND1 的参数,即扩展 &amp;#34;EXPAND1(b, a, REVERSE_AGAIN()(c, d)(e, f))&amp;#34;,此时读取第二个 EXPAND1 的参数时,就会发现参数数量不对,输入中有三个参数 &amp;#34;b&amp;#34;, &amp;#34;a&amp;#34;, &amp;#34;REVERSE_AGAIN()(c, d)(e, f)&amp;#34;,但实际上 EXPAND1 只接受一个参数.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 于是预处理器就会报错,这也就是为什么我们要使用 ... 而不是 arg 的原因
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;p>大部分工作发生在 &lt;code>FOR_EACH_HELPER(macro, a1, ...)&lt;/code> 中,它将参数 &lt;code>a1&lt;/code> 应用到 &lt;code>macro&lt;/code> 中,如果剩余的参数不是空的,就接着使用 &lt;code>__VA_OPT__&lt;/code> 来进行递归.和前一节一样,它也使用了 &lt;code>PARENS&lt;/code> 这个技巧来实现递归.唯一美中不足的是我们必须要一直重新扫描宏,这就是为什么 &lt;code>FOR_EACH&lt;/code> 宏要将 &lt;code>FOR_EACH_HELPER&lt;/code> 嵌在 &lt;code>EXPAND&lt;/code> 中的原因.另外,&lt;code>FOR_EACH&lt;/code> 也使用了 &lt;code>__VA_OPTS__&lt;/code> 来处理空参数的情况.&lt;/p>
+&lt;blockquote>
+&lt;p>xuechengyun 注:&lt;/p>
+&lt;p>&lt;code>FOR_EACH&lt;/code> 需要将 &lt;code>...&lt;/code> 代表的每一个参数都依次放到 macro 的参数列表中，所以需要一直扫描以便获取下一个参数 &lt;code>a&lt;/code>，而可以一直扫描的前提就是将需要扫描的部分放到 &lt;code>EXPAND&lt;/code> 中, 也就是 &lt;code>FOR_EACH_HELPER&lt;/code> 部分.&lt;/p>
+&lt;p>美中不足的是,在我们可能只需要扫描三五次就可以结束时,&lt;code>EXPAND&lt;/code> 依然会强制扫描 342 次.比如 EXPAND(3),我们知道其实只需要扫描 1 次就已经得到了最终结果 &lt;code>3&lt;/code>,但是它还是会先替换为 &lt;code>EXPAND4(EXPAND4(EXPAND4(EXPAND4(3))))&lt;/code>,接着继续重新扫描,最终扫描 342 次得到 &lt;code>3&lt;/code>.&lt;/p>
+&lt;/blockquote>
+&lt;p>我会在生产环境的代码中使用这个东西吗?我在思考这个问题.在我首个 10 年 C++ 编程生涯中,我曾经认为成为一名优秀的 C++ 程序员就是要展示你有多聪明.现在作为一名睿智的资深教员,我知道成为一名优秀的 C++ 程序员就是要表现出克制.你需要知道 &lt;em>如何&lt;/em> 以及 &lt;em>何时&lt;/em> 展示聪明才智.所以,让我们从一些可选方法开始进行成本-效益分析:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>你可以手动维护单独的枚举声明和 &lt;code>pretty-print/scanner&lt;/code> 函数,但这样可能存在不同步的风险.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>你可以用另一个程序生成一个 C++ 代码,但是这样会使构建过程变得复杂,并且不会让代码更具可读性.C++ 不是一个生成文本的好语言.如果你使用 perl、python 或 bash,代码不一定对其他 C++ 程序员更透明.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>我正在做的是: 我写了一个和 &lt;code>MAKE_ENUM&lt;/code> 等价的宏,这个宏将 &lt;code>__VA_ARGS__&lt;/code> 字符串化,并将它传递给一个大约 25 行的函数,这个函数将这些字符串解析到一个 &lt;code>std::vector&amp;lt;std::string&amp;gt;&lt;/code>.接着我使用一个包含了 &lt;code>std::maps&lt;/code> 的 &lt;code>EnumTable&lt;/code> 类型来获取枚举值和字符串.&lt;code>EnumTab&lt;/code> 的构造函数接受一个 &lt;code>std::vector&amp;lt;std::string&lt;/code>&amp;gt; 和包含常量的 &lt;code>std::initializer_list&lt;/code>.所以基本上我的宏最终在为每个枚举类型生成了一个这样的函数:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kr">inline&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">EnumTab&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">getEnumTab&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">Enum&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">static&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">EnumTab&lt;/span> &lt;span class="nf">tab&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EnumTab&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">parse_va_args&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">#&lt;/span>&lt;span class="n">__VA_ARS__&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="n">__VA_ARGS__&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">tab&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这个代码并未发布,我至今都不想公开展示它的原因之一是,枚举解析(这些枚举需要被读取并写入一个人类可读的文件中)的代码过于粗糙.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>所以我认为 &lt;code>FOR_EACH&lt;/code> 这个方法实际上是完胜选项 2 和 3.最克制的选项(在 C++ 中你应该总是考虑这个选项, 克制、克制、再克制) 是第 1 个.&lt;/p>
+&lt;p>使用 &lt;code>FOR_EACH&lt;/code> 的复杂度是多少?如果你不知道预处理器如何工作,那么理解 &lt;code>FOR_EACH&lt;/code> 是如何工作的绝对很棘手.不幸的是,很难弄清楚预处理器是如何工作的.直到我已经理解了预处理器如何工作,我才能够理解 C++ 的 &lt;a class="link" href="https://timsong-cpp.github.io/cppwp/n4861/cpp.rescan#3" target="_blank" rel="noopener"
+>language specification&lt;/a>(语言规范) 中宏替换的部分. &lt;a class="link" href="https://en.cppreference.com" target="_blank" rel="noopener"
+>https://en.cppreference.com&lt;/a> 没有涉及到必要的细节.另一方面,我现在有了这篇博客发表,我可以在我的代码中引用它,所以写这篇文章实际上是决定我是否要使用这个技巧的一部分.&lt;/p>
+&lt;p>&lt;code>FOR_EACH&lt;/code> 也远非我所见过的最粗暴的宏用法.它甚至都没有使用 token 粘贴符(&lt;code>##&lt;/code>) 来合成无法被文本搜索的新 tokens.虽然这种实现方式很难理解,但至少代码很短.更重要的是,&lt;code>FOR_EACH&lt;/code> 的接口非常直观.对于一个多行的 C 语言宏,我认为 &lt;code>MAKE_ENUM&lt;/code> 相当可读.并且一旦你在一个地方使用 &lt;code>FOR_EACH&lt;/code>,那么你可以潜在的将复杂性分摊到其他宏的使用上.&lt;/p>
+&lt;p>不管你如何权衡,有一点可以肯定: &lt;code>__VA_OPT__&lt;/code> 的引入使得 &lt;code>FOR_EACH&lt;/code> 明显比老版本的 C++ 中 &lt;a class="link" href="https://stackoverflow.com/questions/36197213/for-each-macro-with-two-or-more-params-in-call-macro" target="_blank" rel="noopener"
+>brittle&lt;/a>(脆弱的) 和 &lt;a class="link" href="https://stackoverflow.com/questions/14732803/preprocessor-variadic-for-each-macro-compatible-with-msvc10" target="_blank" rel="noopener"
+>disgusting&lt;/a>(恶心的) 的方法更牛逼 plus.&lt;/p>
+&lt;h1 id="译者附加说明httpsgithubcomxuexcypublic_attachmentstreemain翻译recursivemacroswithc20__va_opt__readmemd">&lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
+>译者附加说明&lt;/a>
+&lt;/h1></description></item><item><title>cmake导入boost使用</title><link>https://xuexcy.github.io/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/</link><pubDate>Tue, 29 Oct 2024 21:17:03 +0800</pubDate><guid>https://xuexcy.github.io/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/</guid><description>&lt;h1 id="cmake_use_boosthttpsgithubcomxuexcypublic_attachmentstreemaincmake_use_boost">&lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/cmake_use_boost" target="_blank" rel="noopener"
+>cmake_use_boost&lt;/a>
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── CMakeLists.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── build_and_run.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── main.cc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── output.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── thirdparty
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> └── boost
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="cmakeliststxt">CMakeLists.txt
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmake" data-lang="cmake">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cmake_minimum_required&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">VERSION&lt;/span> &lt;span class="s">3.28&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">project&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">cmake_use_boost&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">CMAKE_CXX_STANDARD&lt;/span> &lt;span class="s">23&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">CMAKE_EXPORT_COMPILE_COMMANDS&lt;/span> &lt;span class="s">ON&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># 设置三方库存放目录为 项目根目录/thirdparty
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">THIRDPARTY_DIR&lt;/span> &lt;span class="o">${&lt;/span>&lt;span class="nv">CMAKE_SOURCE_DIR&lt;/span>&lt;span class="o">}&lt;/span>&lt;span class="s">/thirdparty&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">message&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;thirdparty_dir: &amp;#34;&lt;/span> &lt;span class="o">${&lt;/span>&lt;span class="nv">THIRDPARTY_DIR&lt;/span>&lt;span class="o">}&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">include&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">FetchContent&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># import boost
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># 设置需要使用的 boost 库
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">BOOST_INCLUDE_LIBRARIES&lt;/span> &lt;span class="s">bimap&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">BOOST_ENABLE_CMAKE&lt;/span> &lt;span class="s">ON&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">FetchContent_Declare&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">boost&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c"># boost release 下载地址
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span> &lt;span class="s">URL&lt;/span> &lt;span class="s">https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.tar.gz&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">DOWNLOAD_EXTRACT_TIMESTAMP&lt;/span> &lt;span class="s">ON&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c"># 下载后解压到本地的目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span> &lt;span class="s">SOURCE_DIR&lt;/span> &lt;span class="o">${&lt;/span>&lt;span class="nv">THIRDPARTY_DIR&lt;/span>&lt;span class="o">}&lt;/span>&lt;span class="s">/boost&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">EXCLUDE_FROM_ALL&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">FetchContent_MakeAvailable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">boost&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">add_executable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">main&lt;/span> &lt;span class="s">main.cc&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># 链接 boost 库
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nb">target_link_libraries&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">main&lt;/span> &lt;span class="s">boost_bimap&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="maincc">main.cc
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;boost/bimap.hpp&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">using&lt;/span> &lt;span class="n">bm_type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">boost&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">bimap&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">using&lt;/span> &lt;span class="n">bm_value_type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bm_type&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">value_type&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bm_type&lt;/span> &lt;span class="n">bm&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bm_value_type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;one&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Obsidian跨平台同步</title><link>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</link><pubDate>Mon, 21 Oct 2024 23:02:12 +0800</pubDate><guid>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</guid><description>&lt;h1 id="跨平台同步办法">跨平台同步办法
+&lt;/h1>&lt;ul>
+&lt;li>
+&lt;p>macbook: &lt;strong>macbook中 &lt;code>文稿&lt;/code> 等同于 &lt;code>~/Document&lt;/code>&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>本机: 新建 &lt;code>~/Document/xuechengyun_sync&lt;/code>文件夹&lt;/li>
+&lt;li>Obsidian: 打开本机 vault 目录&lt;code>~/Document/xuechengyun_sync/Obsidian&lt;/code>&lt;/li>
+&lt;li>icloud：设置 icloud 同步 &lt;code>文稿&lt;/code> 文件夹&lt;/li>
+&lt;li>百度云: 同步 &lt;code>~/Document/xuechengyun_sync&lt;/code>文件夹。百度云仅作为备份&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>安卓:&lt;/p>
+&lt;ul>
+&lt;li>本机: 新建 &lt;code>个人/Obsidian&lt;/code> 文件夹&lt;/li>
+&lt;li>Obsidian: 打开本机 vault 目录 &lt;code>个人/Obsidian&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>ipad:&lt;/p>
+&lt;ul>
+&lt;li>Obsidian: 从 icloud 打开云端 vault 目录 &lt;code>文稿/xuechengyun_sync/Obsidian&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Obsidian 插件 remotely-save: 各个平台的 Obsidian 安装 remotely-save 插件后开启同步，插件会将本地 vault 目录同步至 one_drive &lt;code>应用/remotely-save/Obsidian&lt;/code> 文件夹&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B.svg"
+loading="lazy"
+alt="同步流程"
+>&lt;/p>
+&lt;h1 id="qa">Q&amp;amp;A
+&lt;/h1>&lt;ol>
+&lt;li>Q: 为什么在 macbook 本地新建的文件夹在 &lt;code>~/Document&lt;/code> 下？
+&lt;ul>
+&lt;li>A: icloud 只能设置同步&amp;quot;桌面与文稿文件夹&amp;quot; ，也就是 &lt;code>~/Desktop&lt;/code> 和 &lt;code>~/Document&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Q: 是否可以设置 one_drive 同步多个不同的 Obsidian vault？
+&lt;ul>
+&lt;li>A: 不行。Obsidian 插件 remotely-save 的 Onedrive (个人版) (App Folder）功能，只能读写 &lt;code>/应用/removely-save/Obsidian&lt;/code> 目录，所以只能将 vault 同步到这个目录，如果同步多个 vault可能造成文件混乱&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item><item><title>Chinese Test</title><link>https://xuexcy.github.io/post/test-chinese/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/post/test-chinese/</guid><description>&lt;img src="https://xuexcy.github.io/post/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" />&lt;h2 id="正文测试">正文测试
+&lt;/h2>&lt;p>而这些并不是完全重要，更加重要的问题是， 带着这些问题，我们来审视一下学生会退会。 既然如何， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 我们不得不面对一个非常尴尬的事实，那就是， 可是，即使是这样，学生会退会的出现仍然代表了一定的意义。 学生会退会，发生了会如何，不发生又会如何。 经过上述讨论， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 学生会退会，到底应该如何实现。 这样看来， 在这种困难的抉择下，本人思来想去，寝食难安。 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 就我个人来说，学生会退会对我的意义，不能不说非常重大。 莎士比亚曾经提到过，人的一生是短的，但如果卑劣地过这一生，就太长了。这似乎解答了我的疑惑。 莫扎特说过一句富有哲理的话，谁和我一样用功，谁就会和我一样成功。这启发了我， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 学生会退会，到底应该如何实现。 一般来说， 从这个角度来看， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 在这种困难的抉择下，本人思来想去，寝食难安。 了解清楚学生会退会到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 问题的关键究竟为何？ 而这些并不是完全重要，更加重要的问题是。&lt;/p>
+&lt;p>奥斯特洛夫斯基曾经说过，共同的事业，共同的斗争，可以使人们产生忍受一切的力量。　带着这句话，我们还要更加慎重的审视这个问题： 一般来讲，我们都必须务必慎重的考虑考虑。 既然如此， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 带着这些问题，我们来审视一下学生会退会。 我认为， 我认为， 在这种困难的抉择下，本人思来想去，寝食难安。 问题的关键究竟为何？ 每个人都不得不面对这些问题。 在面对这种问题时， 要想清楚，学生会退会，到底是一种怎么样的存在。 我认为， 既然如此， 每个人都不得不面对这些问题。 在面对这种问题时， 那么， 我认为， 学生会退会因何而发生。&lt;/p>
+&lt;h2 id="引用">引用
+&lt;/h2>&lt;blockquote>
+&lt;p>思念是最暖的忧伤像一双翅膀&lt;br>
+让我停不了飞不远在过往游荡&lt;br>
+不告而别的你 就算为了我着想&lt;br>
+这么沉痛的呵护 我怎么能翱翔&lt;/p>
+&lt;p>&lt;em>&lt;a class="link" href="https://www.youtube.com/watch?v=3aypp_YlBzI" target="_blank" rel="noopener"
+>最暖的憂傷 - 田馥甄&lt;/a>&lt;/em>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="图片">图片
+&lt;/h2>&lt;p>&lt;img src="https://xuexcy.github.io/post/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg"
+width="667"
+height="1000"
+srcset="https://xuexcy.github.io/post/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu13768363498926278726.jpg 480w, https://xuexcy.github.io/post/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu13380208884366868750.jpg 1024w"
+loading="lazy"
+alt="Photo by Florian Klauer on Unsplash"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+> &lt;img src="https://xuexcy.github.io/post/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg"
+width="1000"
+height="667"
+srcset="https://xuexcy.github.io/post/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu1712544344331247820.jpg 480w, https://xuexcy.github.io/post/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu12475395149584884402.jpg 1024w"
+loading="lazy"
+alt="Photo by Luca Bravo on Unsplash"
+class="gallery-image"
+data-flex-grow="149"
+data-flex-basis="359px"
+>&lt;/p>
+&lt;p>&lt;img src="https://xuexcy.github.io/post/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg"
+width="1000"
+height="750"
+srcset="https://xuexcy.github.io/post/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu8363585391189779282.jpg 480w, https://xuexcy.github.io/post/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu15102473124145023839.jpg 1024w"
+loading="lazy"
+alt="Photo by Helena Hertz on Unsplash"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+> &lt;img src="https://xuexcy.github.io/post/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg"
+width="667"
+height="1000"
+srcset="https://xuexcy.github.io/post/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu15886963791847885497.jpg 480w, https://xuexcy.github.io/post/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu11726476772237334826.jpg 1024w"
+loading="lazy"
+alt="Photo by Hudai Gayiran on Unsplash"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">![&lt;span class="nt">Photo by Florian Klauer on Unsplash&lt;/span>](&lt;span class="na">florian-klauer-nptLmg6jqDo-unsplash.jpg&lt;/span>) ![&lt;span class="nt">Photo by Luca Bravo on Unsplash&lt;/span>](&lt;span class="na">luca-bravo-alS7ewQ41M8-unsplash.jpg&lt;/span>)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">![&lt;span class="nt">Photo by Helena Hertz on Unsplash&lt;/span>](&lt;span class="na">helena-hertz-wWZzXlDpMog-unsplash.jpg&lt;/span>) ![&lt;span class="nt">Photo by Hudai Gayiran on Unsplash&lt;/span>](&lt;span class="na">hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>相册语法来自 &lt;a class="link" href="https://typlog.com/" target="_blank" rel="noopener"
+>Typlog&lt;/a>&lt;/p></description></item><item><title>Markdown Syntax Guide</title><link>https://xuexcy.github.io/post/markdown-syntax-guide/</link><pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/post/markdown-syntax-guide/</guid><description>&lt;img src="https://xuexcy.github.io/post/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" />&lt;p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p>
+&lt;h2 id="headings">Headings
+&lt;/h2>&lt;p>The following HTML &lt;code>&amp;lt;h1&amp;gt;&lt;/code>—&lt;code>&amp;lt;h6&amp;gt;&lt;/code> elements represent six levels of section headings. &lt;code>&amp;lt;h1&amp;gt;&lt;/code> is the highest section level while &lt;code>&amp;lt;h6&amp;gt;&lt;/code> is the lowest.&lt;/p>
+&lt;h1 id="h1">H1
+&lt;/h1>&lt;h2 id="h2">H2
+&lt;/h2>&lt;h3 id="h3">H3
+&lt;/h3>&lt;h4 id="h4">H4
+&lt;/h4>&lt;h5 id="h5">H5
+&lt;/h5>&lt;h6 id="h6">H6
+&lt;/h6>&lt;h2 id="paragraph">Paragraph
+&lt;/h2>&lt;p>Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.&lt;/p>
+&lt;p>Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.&lt;/p>
+&lt;h2 id="blockquotes">Blockquotes
+&lt;/h2>&lt;p>The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a &lt;code>footer&lt;/code> or &lt;code>cite&lt;/code> element, and optionally with in-line changes such as annotations and abbreviations.&lt;/p>
+&lt;h4 id="blockquote-without-attribution">Blockquote without attribution
+&lt;/h4>&lt;blockquote>
+&lt;p>Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+&lt;strong>Note&lt;/strong> that you can use &lt;em>Markdown syntax&lt;/em> within a blockquote.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="blockquote-with-attribution">Blockquote with attribution
+&lt;/h4>&lt;blockquote>
+&lt;p>Don&amp;rsquo;t communicate by sharing memory, share memory by communicating.&lt;br>
+— &lt;cite>Rob Pike&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/cite>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="tables">Tables
+&lt;/h2>&lt;p>Tables aren&amp;rsquo;t part of the core Markdown spec, but Hugo supports supports them out-of-the-box.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Age&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Bob&lt;/td>
+&lt;td>27&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Alice&lt;/td>
+&lt;td>23&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="inline-markdown-within-tables">Inline Markdown within tables
+&lt;/h4>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Italics&lt;/th>
+&lt;th>Bold&lt;/th>
+&lt;th>Code&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;em>italics&lt;/em>&lt;/td>
+&lt;td>&lt;strong>bold&lt;/strong>&lt;/td>
+&lt;td>&lt;code>code&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>C&lt;/th>
+&lt;th>D&lt;/th>
+&lt;th>E&lt;/th>
+&lt;th>F&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/td>
+&lt;td>Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex.&lt;/td>
+&lt;td>Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus&lt;/td>
+&lt;td>Proin sit amet velit nec enim imperdiet vehicula.&lt;/td>
+&lt;td>Ut bibendum vestibulum quam, eu egestas turpis gravida nec&lt;/td>
+&lt;td>Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="code-blocks">Code Blocks
+&lt;/h2>&lt;h4 id="code-block-with-backticks">Code block with backticks
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!doctype html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;en&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Example HTML5 Document&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Test&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="code-block-indented-with-four-spaces">Code block indented with four spaces
+&lt;/h4>&lt;pre>&lt;code>&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+&amp;lt;title&amp;gt;Example HTML5 Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;p&amp;gt;Test&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;h4 id="code-block-with-hugos-internal-highlight-shortcode">Code block with Hugo&amp;rsquo;s internal highlight shortcode
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!doctype html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;en&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Example HTML5 Document&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Test&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="diff-code-block">Diff code block
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">[dependencies.bevy]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git = &amp;#34;https://github.com/bevyengine/bevy&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rev = &amp;#34;11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- features = [&amp;#34;dynamic&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ features = [&amp;#34;jpeg&amp;#34;, &amp;#34;dynamic&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="list-types">List Types
+&lt;/h2>&lt;h4 id="ordered-list">Ordered List
+&lt;/h4>&lt;ol>
+&lt;li>First item&lt;/li>
+&lt;li>Second item&lt;/li>
+&lt;li>Third item&lt;/li>
+&lt;/ol>
+&lt;h4 id="unordered-list">Unordered List
+&lt;/h4>&lt;ul>
+&lt;li>List item&lt;/li>
+&lt;li>Another item&lt;/li>
+&lt;li>And another item&lt;/li>
+&lt;/ul>
+&lt;h4 id="nested-list">Nested list
+&lt;/h4>&lt;ul>
+&lt;li>Fruit
+&lt;ul>
+&lt;li>Apple&lt;/li>
+&lt;li>Orange&lt;/li>
+&lt;li>Banana&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Dairy
+&lt;ul>
+&lt;li>Milk&lt;/li>
+&lt;li>Cheese&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="other-elements--abbr-sub-sup-kbd-mark">Other Elements — abbr, sub, sup, kbd, mark
+&lt;/h2>&lt;p>&lt;abbr title="Graphics Interchange Format">GIF&lt;/abbr> is a bitmap image format.&lt;/p>
+&lt;p>H&lt;sub>2&lt;/sub>O&lt;/p>
+&lt;p>X&lt;sup>n&lt;/sup> + Y&lt;sup>n&lt;/sup> = Z&lt;sup>n&lt;/sup>&lt;/p>
+&lt;p>Press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>ALT&lt;/kbd> + &lt;kbd>Delete&lt;/kbd> to end the session.&lt;/p>
+&lt;p>Most &lt;mark>salamanders&lt;/mark> are nocturnal, and hunt for insects, worms, and other small creatures.&lt;/p>
+&lt;h2 id="hyperlinked-image">Hyperlinked image
+&lt;/h2>&lt;p>&lt;a class="link" href="https://google.com" target="_blank" rel="noopener"
+>&lt;img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png"
+loading="lazy"
+alt="Google"
+>&lt;/a>&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>The above quote is excerpted from Rob Pike&amp;rsquo;s &lt;a class="link" href="https://www.youtube.com/watch?v=PAAkCSZUG1c" target="_blank" rel="noopener"
+>talk&lt;/a> during Gopherfest, November 18, 2015.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>Placeholder Text</title><link>https://xuexcy.github.io/post/placeholder-text/</link><pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/post/placeholder-text/</guid><description>&lt;img src="https://xuexcy.github.io/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" />&lt;p>Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p>
+&lt;p>Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p>
+&lt;ol>
+&lt;li>Exierant elisi ambit vivere dedere&lt;/li>
+&lt;li>Duce pollice&lt;/li>
+&lt;li>Eris modo&lt;/li>
+&lt;li>Spargitque ferrea quos palude&lt;/li>
+&lt;/ol>
+&lt;p>Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.&lt;/p>
+&lt;ol>
+&lt;li>Comas hunc haec pietate fetum procerum dixit&lt;/li>
+&lt;li>Post torum vates letum Tiresia&lt;/li>
+&lt;li>Flumen querellas&lt;/li>
+&lt;li>Arcanaque montibus omnes&lt;/li>
+&lt;li>Quidem et&lt;/li>
+&lt;/ol>
+&lt;h1 id="vagus-elidunt">Vagus elidunt
+&lt;/h1>&lt;p>&lt;svg class="canon" xmlns="http://www.w3.org/2000/svg" overflow="visible" viewBox="0 0 496 373" height="373" width="496">&lt;g fill="none">&lt;path stroke="#000" stroke-width=".75" d="M.599 372.348L495.263 1.206M.312.633l494.95 370.853M.312 372.633L247.643.92M248.502.92l246.76 370.566M330.828 123.869V1.134M330.396 1.134L165.104 124.515">&lt;/path>&lt;path stroke="#ED1C24" stroke-width=".75" d="M275.73 41.616h166.224v249.05H275.73zM54.478 41.616h166.225v249.052H54.478z">&lt;/path>&lt;path stroke="#000" stroke-width=".75" d="M.479.375h495v372h-495zM247.979.875v372">&lt;/path>&lt;ellipse cx="498.729" cy="177.625" rx=".75" ry="1.25">&lt;/ellipse>&lt;ellipse cx="247.229" cy="377.375" rx=".75" ry="1.25">&lt;/ellipse>&lt;/g>&lt;/svg>&lt;/p>
+&lt;p>&lt;a class="link" href="https://en.wikipedia.org/wiki/Canons_of_page_construction#Van_de_Graaf_canon" target="_blank" rel="noopener"
+>The Van de Graaf Canon&lt;/a>&lt;/p>
+&lt;h2 id="mane-refeci-capiebant-unda-mulcebat">Mane refeci capiebant unda mulcebat
+&lt;/h2>&lt;p>Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. &lt;strong>Faces illo pepulere&lt;/strong> tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.&lt;/p>
+&lt;p>Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.&lt;/p>
+&lt;p>Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong>mitis temploque&lt;/strong> vocatus, inque alis, &lt;em>oculos nomen&lt;/em> non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong>parte&lt;/strong>.&lt;/p></description></item><item><title>Math Typesetting</title><link>https://xuexcy.github.io/post/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/post/math-typesetting/</guid><description>&lt;p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p>
+&lt;p>In this example we will be using &lt;a class="link" href="https://katex.org/" target="_blank" rel="noopener"
+>KaTeX&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Create a partial under &lt;code>/layouts/partials/math.html&lt;/code>&lt;/li>
+&lt;li>Within this partial reference the &lt;a class="link" href="https://katex.org/docs/autorender.html" target="_blank" rel="noopener"
+>Auto-render Extension&lt;/a> or host these scripts locally.&lt;/li>
+&lt;li>Include the partial in your templates like so:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{{&lt;/span> &lt;span class="k">if&lt;/span> or .Params.math .Site.Params.math &lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{{&lt;/span> partial &lt;span class="s2">&amp;#34;math.html&amp;#34;&lt;/span> . &lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{{&lt;/span> end &lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>To enable KaTeX globally set the parameter &lt;code>math&lt;/code> to &lt;code>true&lt;/code> in a project&amp;rsquo;s configuration&lt;/li>
+&lt;li>To enable KaTeX on a per page basis include the parameter &lt;code>math: true&lt;/code> in content files&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Note:&lt;/strong> Use the online reference of &lt;a class="link" href="https://katex.org/docs/supported.html" target="_blank" rel="noopener"
+>Supported TeX Functions&lt;/a>&lt;/p>
+&lt;h3 id="examples">Examples
+&lt;/h3>&lt;p>Inline math: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$&lt;/p>
+$$
+\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+$$</description></item><item><title>Emoji Support</title><link>https://xuexcy.github.io/post/emoji-support/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/post/emoji-support/</guid><description>&lt;img src="https://xuexcy.github.io/post/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" />&lt;p>Emoji can be enabled in a Hugo project in a number of ways.&lt;/p>
+&lt;p>The &lt;a class="link" href="https://gohugo.io/functions/emojify/" target="_blank" rel="noopener"
+>&lt;code>emojify&lt;/code>&lt;/a> function can be called directly in templates or &lt;a class="link" href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank" rel="noopener"
+>Inline Shortcodes&lt;/a>.&lt;/p>
+&lt;p>To enable emoji globally, set &lt;code>enableEmoji&lt;/code> to &lt;code>true&lt;/code> in your site&amp;rsquo;s &lt;a class="link" href="https://gohugo.io/getting-started/configuration/" target="_blank" rel="noopener"
+>configuration&lt;/a> and then you can type emoji shorthand codes directly in content files; e.g.&lt;/p>
+&lt;p>&lt;span class="nowrap">&lt;span class="emojify">🙈&lt;/span> &lt;code>:see_no_evil:&lt;/code>&lt;/span> &lt;span class="nowrap">&lt;span class="emojify">🙉&lt;/span> &lt;code>:hear_no_evil:&lt;/code>&lt;/span> &lt;span class="nowrap">&lt;span class="emojify">🙊&lt;/span> &lt;code>:speak_no_evil:&lt;/code>&lt;/span>&lt;/p>
+&lt;br>
+&lt;p>The &lt;a class="link" href="http://www.emoji-cheat-sheet.com/" target="_blank" rel="noopener"
+>Emoji cheat sheet&lt;/a> is a useful reference for emoji shorthand codes.&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>N.B.&lt;/strong> The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">.emoji {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
