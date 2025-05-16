@@ -19,7 +19,7 @@ languages:
         weight: 1
         params:
             sidebar:
-                subtitle: 天天快乐
+                subtitle: 薛成韵's son
     # en:
     #     languageName: English
     #     title: Tiantian happy every day
