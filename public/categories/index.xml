@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on 小天天天天快乐</title>
+        <link>http://localhost:1313/categories/</link>
+        <description>Recent content in Categories on 小天天天天快乐</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>xuechengyun</copyright>
+        <lastBuildDate>Fri, 18 Apr 2025 16:38:34 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>cpp</title>
+        <link>http://localhost:1313/categories/cpp/</link>
+        <pubDate>Fri, 18 Apr 2025 16:38:34 +0800</pubDate>
+        
+        <guid>http://localhost:1313/categories/cpp/</guid>
+        <description>&lt;img src="http://localhost:1313/categories/cpp/cpp_logo.svg" alt="Featured image of post cpp" /&gt;</description>
+        </item>
+        <item>
+        <title>Obsidian</title>
+        <link>http://localhost:1313/categories/obsidian/</link>
+        <pubDate>Mon, 21 Oct 2024 23:02:12 +0800</pubDate>
+        
+        <guid>http://localhost:1313/categories/obsidian/</guid>
+        <description>&lt;img src="http://localhost:1313/categories/obsidian/obsidian-icon.svg" alt="Featured image of post Obsidian" /&gt;</description>
+        </item>
+        <item>
+        <title>天天</title>
+        <link>http://localhost:1313/categories/%E5%A4%A9%E5%A4%A9/</link>
+        <pubDate>Wed, 16 Oct 2024 14:45:12 +0800</pubDate>
+        
+        <guid>http://localhost:1313/categories/%E5%A4%A9%E5%A4%A9/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Test</title>
+        <link>http://localhost:1313/categories/test/</link>
+        <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/test/</guid>
+        <description>&lt;img src="http://localhost:1313/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
+        </item>
+        <item>
+        <title>测试</title>
+        <link>http://localhost:1313/categories/%E6%B5%8B%E8%AF%95/</link>
+        <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/%E6%B5%8B%E8%AF%95/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Syntax</title>
+        <link>http://localhost:1313/categories/syntax/</link>
+        <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/syntax/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Themes</title>
+        <link>http://localhost:1313/categories/themes/</link>
+        <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/themes/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Test With Whitespaces</title>
+        <link>http://localhost:1313/categories/test-with-whitespaces/</link>
+        <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/test-with-whitespaces/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

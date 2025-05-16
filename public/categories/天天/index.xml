@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>天天 on 小天天天天快乐</title>
+        <link>http://localhost:1313/categories/%E5%A4%A9%E5%A4%A9/</link>
+        <description>Recent content in 天天 on 小天天天天快乐</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>xuechengyun</copyright>
+        <lastBuildDate>Wed, 16 Oct 2024 14:45:12 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E5%A4%A9%E5%A4%A9/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>天天</title>
+        <link>http://localhost:1313/life/tiantian/</link>
+        <pubDate>Wed, 16 Oct 2024 14:45:12 +0800</pubDate>
+        
+        <guid>http://localhost:1313/life/tiantian/</guid>
+        <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/life/tiantian/tiantian.jpg&#34;
+	width=&#34;1280&#34;
+	height=&#34;1707&#34;
+	srcset=&#34;http://localhost:1313/life/tiantian/tiantian_hu488950721779901934.jpg 480w, http://localhost:1313/life/tiantian/tiantian_hu12011672285856503961.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;天天&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;74&#34;
+		data-flex-basis=&#34;179px&#34;
+	
+&gt; &lt;img src=&#34;http://localhost:1313/life/tiantian/tiantian2.jpg&#34;
+	width=&#34;3024&#34;
+	height=&#34;4032&#34;
+	srcset=&#34;http://localhost:1313/life/tiantian/tiantian2_hu10456928438756627231.jpg 480w, http://localhost:1313/life/tiantian/tiantian2_hu11318542608326631387.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;天天&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;75&#34;
+		data-flex-basis=&#34;180px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
