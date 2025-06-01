@@ -1624,6 +1624,27 @@ z : 表达式中的操作符个数
 &lt;/h1>&lt;ul>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy" target="_blank" rel="noopener"
 >https://github.com/xuexcy&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://xuexcy.github.io" target="_blank" rel="noopener"
+>https://xuexcy.github.io&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="学习">学习
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_effective_cpp" target="_blank" rel="noopener"
+>Effective C++&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/cpp_templates_second_edition" target="_blank" rel="noopener"
+>C++ Templates (第 2 版)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms" target="_blank" rel="noopener"
+>more cpp idioms&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_cpp20_programming_author_luoneng" target="_blank" rel="noopener"
+>C++20 高级编程 作者: 罗能&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_modern_cpp_tutorial" target="_blank" rel="noopener"
+>现代 C++ 教程：高速上手 C++11/14/17/20&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning-rust-lang-book" target="_blank" rel="noopener"
+>rust lang book&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning-rust-by-practice" target="_blank" rel="noopener"
+>rust by practice&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course" target="_blank" rel="noopener"
+>机器学习 作者: 吴恩达(Andrew NG)&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Obsidian跨平台同步</title><link>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</link><pubDate>Mon, 21 Oct 2024 23:02:12 +0800</pubDate><guid>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</guid><description>&lt;h1 id="跨平台同步办法">跨平台同步办法
 &lt;/h1>&lt;ul>
 &lt;li>
