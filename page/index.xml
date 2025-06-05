@@ -21,24 +21,28 @@
 &lt;li>&lt;a class="link" href="https://xuexcy.github.io" target="_blank" rel="noopener"
 >https://xuexcy.github.io&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h1 id="学习">学习
+&lt;h1 id="学习进度">学习进度
 &lt;/h1>&lt;ul>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_effective_cpp" target="_blank" rel="noopener"
->Effective C++&lt;/a>&lt;/li>
+>Effective C++&lt;/a>: [2024-11-16 ~]&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/cpp_templates_second_edition" target="_blank" rel="noopener"
->C++ Templates (第 2 版)&lt;/a>&lt;/li>
+>C++ Templates (第 2 版)&lt;/a>: [2025-03-05 ~]&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms" target="_blank" rel="noopener"
->more cpp idioms&lt;/a>&lt;/li>
+>more cpp idioms&lt;/a>: [2024-10-18 ~ 2025-03-02]&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_cpp20_programming_author_luoneng" target="_blank" rel="noopener"
->C++20 高级编程 作者: 罗能&lt;/a>&lt;/li>
+>C++20 高级编程 作者: 罗能&lt;/a>: [2025/05/12 ~]&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_modern_cpp_tutorial" target="_blank" rel="noopener"
 >现代 C++ 教程：高速上手 C++11/14/17/20&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning_functional_programming_in_cpp" target="_blank" rel="noopener"
+>C++函数式编程 作者: 伊凡 · 库奇&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning-rust-lang-book" target="_blank" rel="noopener"
->rust lang book&lt;/a>&lt;/li>
+>rust lang book&lt;/a>: [2024-04-18 ~ 2024-06-25]&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/learning-rust-by-practice" target="_blank" rel="noopener"
->rust by practice&lt;/a>&lt;/li>
+>rust by practice&lt;/a>: [2024-07-02 ~]&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/learn-rust-course" target="_blank" rel="noopener"
+>Rust语言圣经&lt;/a>: [2024-07-03 ~]&lt;/li>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course" target="_blank" rel="noopener"
->机器学习 作者: 吴恩达(Andrew NG)&lt;/a>&lt;/li>
+>机器学习 作者: 吴恩达(Andrew NG)&lt;/a>: [2016-12-08 ~ 2017-01-21]&lt;/li>
 &lt;/ul></description></item><item><title>文档</title><link>https://xuexcy.github.io/archives/</link><pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/archives/</guid><description/></item><item><title>Links</title><link>https://xuexcy.github.io/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://xuexcy.github.io/links/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
 &lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
