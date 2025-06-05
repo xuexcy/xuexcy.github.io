@@ -212,6 +212,11 @@ menu:
           url: https://github.com/xuexcy
           params:
               icon: brand-github
+        - identifier: weibo
+          name: weibo
+          url: https://weibo.com/u/3844660229
+          params:
+              icon: sina-weibo
 
 related:
     includeNewer: true
