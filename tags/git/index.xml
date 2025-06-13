@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/git/</link><description>Recent content in Git on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 https 从 github clone 仓库</title><link>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8-https-%E4%BB%8E-github-clone-%E4%BB%93%E5%BA%93/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8-https-%E4%BB%8E-github-clone-%E4%BB%93%E5%BA%93/</guid><description>&lt;ol>
-&lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
->https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
-&lt;li>执行 git clone &lt;a class="link" href="https://github.com/$%7buser_name%7d/$%7brepository_name%7d.git" target="_blank" rel="noopener"
->https://github.com/${user_name}/${repository_name}.git&lt;/a> 并输入密码时，将密码输入成刚刚生成的 token&lt;/li>
-&lt;/ol></description></item></channel></rss>
