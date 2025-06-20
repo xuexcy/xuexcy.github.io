@@ -1,4 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>小天天天天快乐</title><link>https://xuexcy.github.io/</link><description>Recent content on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>小问题集合</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</guid><description>&lt;h1 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>小天天天天快乐</title><link>https://xuexcy.github.io/</link><description>Recent content on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Fri, 20 Jun 2025 14:37:14 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>附加-翻译RecursiveMacrosWithC++20__VA_OPT__</title><link>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</link><pubDate>Fri, 20 Jun 2025 14:37:14 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</guid><description>&lt;p>附加说明 &lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
+>点击跳转&lt;/a>&lt;/p></description></item><item><title>阿姆达尔定律</title><link>https://xuexcy.github.io/post/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B/</link><pubDate>Fri, 20 Jun 2025 13:52:25 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B/</guid><description>&lt;h2 id="842-可伸缩性和-amdahl-定律">8.4.2 可伸缩性和 Amdahl 定律
+&lt;/h2>&lt;ul>
+&lt;li>Amdahl 定律：串行片段所占总体程序比例 $f_s$ , 那么使用 $N$ 个处理器取得的&lt;font color="#ff0000">整体性能增益&lt;/font> $P$ 是: $$ \Large{P = \frac{1}{f_s + \frac{1 - f_s}{N}}}$$
+&lt;ul>
+&lt;li>推导:
+&lt;ol>
+&lt;li>假设原来需要的时间为 $T_{old}$，串行程序占比 $f_s$，并行程序占比 $(1 - f_s)$，则：$$\Huge{T_{old} = f_s * T_{old} + (1 - f_s) * T_{old}}$$&lt;/li>
+&lt;li>使用 $N$ 个处理器后加速了并行部分后，新的耗时为：$$\Large{T_{new} = f_s * T_{old} + \frac{(1 - f_s) * T_{old}}{N}}$$&lt;/li>
+&lt;li>性能增益(耗时的倒数代表性能)为: $$ \Huge{P = \frac{\frac{1}{T_{new}}}{\frac{1}{f_old}}=\frac{T_{old}}{T_{new}} = \frac{1}{f_{s} + \frac{1 - f_{s}}{N}}}$$&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>可伸缩性: 增加处理器数量，将缩短程序执行时间或增加单位时间内数据处理量&lt;/li>
+&lt;li>线程在等待期间，为系统指派别的实际工作，可以&lt;font color="#ff0000">&amp;ldquo;掩藏&amp;quot;等待行为&lt;/font>&lt;/li>
+&lt;/ul>
+&lt;h1 id="refs">refs
+&lt;/h1>&lt;ol>
+&lt;li>&lt;a class="link" href="https://en.wikipedia.org/wiki/Amdahl%27s_law" target="_blank" rel="noopener"
+>https://en.wikipedia.org/wiki/Amdahl%27s_law&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://zh.wikipedia.org/wiki/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener"
+>https://zh.wikipedia.org/wiki/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>小问题集合</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</guid><description>&lt;h1 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
 &lt;/h1>&lt;ol>
 &lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
@@ -636,7 +659,7 @@ z : 表达式中的操作符个数
 &lt;li>&lt;a class="link" href="mailto:1433094974@qq.com" >1433094974@qq.com&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>github 地址: &lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/%e7%bf%bb%e8%af%91.md" target="_blank" rel="noopener"
+&lt;li>github 地址: &lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/index.md" target="_blank" rel="noopener"
 >link&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -1515,9 +1538,9 @@ z : 表达式中的操作符个数
 &lt;p>不管你如何权衡,有一点可以肯定: &lt;code>__VA_OPT__&lt;/code> 的引入使得 &lt;code>FOR_EACH&lt;/code> 明显比老版本的 C++ 中 &lt;a class="link" href="https://stackoverflow.com/questions/36197213/for-each-macro-with-two-or-more-params-in-call-macro" target="_blank" rel="noopener"
 >brittle&lt;/a>(脆弱的) 和 &lt;a class="link" href="https://stackoverflow.com/questions/14732803/preprocessor-variadic-for-each-macro-compatible-with-msvc10" target="_blank" rel="noopener"
 >disgusting&lt;/a>(恶心的) 的方法更牛逼 plus.&lt;/p>
-&lt;h1 id="译者附加说明httpsgithubcomxuexcypublic_attachmentstreemain翻译recursivemacroswithc20__va_opt__readmemd">&lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
+&lt;h1 id="译者附加说明httpsgithubcomxuexcyblogtreemainblogs翻译recursivemacroswithc20__va_opt__readmemd">&lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
 >译者附加说明&lt;/a>
-&lt;/h1></description></item><item><title>cmake导入boost使用</title><link>https://xuexcy.github.io/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/</link><pubDate>Tue, 29 Oct 2024 21:17:03 +0800</pubDate><guid>https://xuexcy.github.io/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/</guid><description>&lt;h1 id="cmake_use_boosthttpsgithubcomxuexcypublic_attachmentstreemaincmake_use_boost">&lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/cmake_use_boost" target="_blank" rel="noopener"
+&lt;/h1></description></item><item><title>cmake导入boost使用</title><link>https://xuexcy.github.io/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/</link><pubDate>Tue, 29 Oct 2024 21:17:03 +0800</pubDate><guid>https://xuexcy.github.io/post/cmake%E5%AF%BC%E5%85%A5boost%E4%BD%BF%E7%94%A8/</guid><description>&lt;h1 id="cmake_use_boosthttpsgithubcomxuexcyblogtreemainblogscmake_use_boostcode">&lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/cmake_use_boost/code" target="_blank" rel="noopener"
 >cmake_use_boost&lt;/a>
 &lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">

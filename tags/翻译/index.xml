@@ -29,7 +29,7 @@
 &lt;li>&lt;a class="link" href="mailto:1433094974@qq.com" >1433094974@qq.com&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>github 地址: &lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/%e7%bf%bb%e8%af%91.md" target="_blank" rel="noopener"
+&lt;li>github 地址: &lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/index.md" target="_blank" rel="noopener"
 >link&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -908,6 +908,6 @@
 &lt;p>不管你如何权衡,有一点可以肯定: &lt;code>__VA_OPT__&lt;/code> 的引入使得 &lt;code>FOR_EACH&lt;/code> 明显比老版本的 C++ 中 &lt;a class="link" href="https://stackoverflow.com/questions/36197213/for-each-macro-with-two-or-more-params-in-call-macro" target="_blank" rel="noopener"
 >brittle&lt;/a>(脆弱的) 和 &lt;a class="link" href="https://stackoverflow.com/questions/14732803/preprocessor-variadic-for-each-macro-compatible-with-msvc10" target="_blank" rel="noopener"
 >disgusting&lt;/a>(恶心的) 的方法更牛逼 plus.&lt;/p>
-&lt;h1 id="译者附加说明httpsgithubcomxuexcypublic_attachmentstreemain翻译recursivemacroswithc20__va_opt__readmemd">&lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
+&lt;h1 id="译者附加说明httpsgithubcomxuexcyblogtreemainblogs翻译recursivemacroswithc20__va_opt__readmemd">&lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
 >译者附加说明&lt;/a>
 &lt;/h1></description></item></channel></rss>

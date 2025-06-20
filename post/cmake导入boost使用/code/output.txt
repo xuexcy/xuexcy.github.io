@@ -1,0 +1,4 @@
+relations view: left: 1, right: one
+relations view: left: 2, right: two
+right view: key: one, value: 1
+right view: key: two, value: 2

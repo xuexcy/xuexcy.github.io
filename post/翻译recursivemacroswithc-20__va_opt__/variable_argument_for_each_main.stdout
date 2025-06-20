@@ -1,0 +1,56 @@
+FOR_EACH PRINT
+1+2=3
+3+4=7
+5+6=11
+
+FOR_EACH PRINT_STRING first time
+value: PRINT_STRING
+value: 1
+value: 2
+value: 3
+value: (4)
+value: "5"
+value: "6"
+value: "7"
+value: ("8")
+
+FOR_EACH PRINT_STRING second time
+value: PRINT_STRING
+value: a
+value: a + b
+value: a
+value: a + b
+value: a
+value: a + b
+value: (a)
+value: (a + b)
+value: ((a + b), c)
+
+FOR_EACH PRINT_ADD
+add expression: 
+add expression: 
+add expression: EXPAND(a )
+add expression: EXPAND(a + b )
+add expression: EXPAND(a + EXPAND_ADD_AGAIN ()(b))
+add expression: EXPAND(a + EXPAND_ADD_AGAIN ()(b))
+add expression: EXPAND((a, b) )
+add expression: EXPAND((a, b) + EXPAND_ADD_AGAIN ()(c, (d, e)))
+
+FOR_EACH PRINT_ADD_2
+add expression: 
+add expression: 
+add expression: A_EXPAND(a )
+add expression: A_EXPAND(a + b )
+add expression: A_EXPAND(a + EXPAND_ADD_AGAIN ()(b))
+add expression: A_EXPAND(a + EXPAND_ADD_AGAIN ()(b))
+add expression: A_EXPAND((a, b) + EXPAND_ADD_AGAIN ()(c, (d, e)))
+
+FOR_EACH PRINT_HELLO
+hello
+hello
+hello
+hello
+
+FOR_EACH PRINT_HELLO_2
+FOR_EACH can not handle object-like macro PRINT_HELLO_2
+
