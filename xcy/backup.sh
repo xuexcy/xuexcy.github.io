@@ -1,29 +1,25 @@
 #!/bin/bash
 ########################################################################
 #
-# Copyright (c) 2024 xx.com, Inc. All Rights Reserved
+# Copyright (c) 2025 xx.com, Inc. All Rights Reserved
 #
 ########################################################################
-# Author  :   xuechengyun
-# E-mail  :   xuechengyunxue@gmail.com
-# Date    :   24/10/16 14:45:59
-# Desc    :
+# Author : xuechengyun
+# E-mail : xuechengyun@gmail.com
+# Date   : 2025/06/20 14:40:09
+# Desc   :
 ########################################################################
 
 # set -x
 CUR_DIR=$(cd `dirname $0`; pwd)
 cd ${CUR_DIR}
-hugo build
-hugo server -D
+
+sh ./copy_between_blogs_and_directories.sh bak
 
 
 
 
 
 
-
-
-
-cd -
 
 

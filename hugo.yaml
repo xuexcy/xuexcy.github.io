@@ -258,3 +258,6 @@ markup:
         lineNos: true
         lineNumbersInTable: true
         tabWidth: 4
+ignoreFiles:
+  - "/content/post/00_template"
+    #- "\\.tmp$"

@@ -27,7 +27,7 @@ math: mathjax
   - 邮箱:
     - xuechengyunxue@gmail.com
     - 1433094974@qq.com
-  - github 地址: [link](https://github.com/xuexcy/public_attachments/tree/main/翻译RecursiveMacrosWithC++20__VA_OPT__/翻译.md)
+  - github 地址: [link](https://github.com/xuexcy/blog/tree/main/翻译RecursiveMacrosWithC++20__VA_OPT__/index.md)
 - 文中一些名词与解释:
   - preprocessor: 预处理器,文中提到的 C/C++ pre-preprocessor, cpp 都翻译成预处理器
   - variable-argument macro: 可变参数宏, 如 `#define PRINT(...) print(__VA_ARGS__)`
@@ -601,5 +601,5 @@ FOR_EACH(F, a, b, c, 1, 2, 3)    // => F(a) F(b) F(c) F(1) F(2) F(3)
 不管你如何权衡,有一点可以肯定: `__VA_OPT__` 的引入使得 `FOR_EACH` 明显比老版本的 C++ 中 [brittle](https://stackoverflow.com/questions/36197213/for-each-macro-with-two-or-more-params-in-call-macro)(脆弱的) 和 [disgusting](https://stackoverflow.com/questions/14732803/preprocessor-variadic-for-each-macro-compatible-with-msvc10)(恶心的) 的方法更牛逼 plus.
 
 
-# [译者附加说明](https://github.com/xuexcy/public_attachments/tree/main/翻译RecursiveMacrosWithC++20__VA_OPT__/README.md)
+# [译者附加说明](https://github.com/xuexcy/blog/tree/main/blogs/翻译RecursiveMacrosWithC++20__VA_OPT__/README.md)
 
