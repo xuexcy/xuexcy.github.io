@@ -2,11 +2,12 @@
 title: 阿姆达尔定律
 description: Amdahl's law
 date: 2025-06-20T13:52:25+08:00
-draft: false
+draft: true
 categories:
   - 并行
 tags:
   - 并行
+math: mathjax
 ---
 ## 8.4.2 可伸缩性和 Amdahl 定律
 -  Amdahl 定律：串行片段所占总体程序比例  $f_s$ , 那么使用 $N$ 个处理器取得的<font color="#ff0000">整体性能增益</font> $P$ 是: $$ \Large{P = \frac{1}{f_s + \frac{1 - f_s}{N}}}$$
