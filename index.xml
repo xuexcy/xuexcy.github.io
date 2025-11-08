@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>小天天天天快乐</title><link>https://xuexcy.github.io/</link><description>Recent content on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Fri, 20 Jun 2025 14:37:14 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>附加-翻译RecursiveMacrosWithC++20__VA_OPT__</title><link>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</link><pubDate>Fri, 20 Jun 2025 14:37:14 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</guid><description>&lt;p>附加说明 &lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
->点击跳转&lt;/a>&lt;/p></description></item><item><title>小问题集合</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</guid><description>&lt;h1 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+>点击跳转&lt;/a>&lt;/p></description></item><item><title>阿姆达尔(Amdahl)定律公式推导</title><link>https://xuexcy.github.io/post/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94amdahl%E5%AE%9A%E5%BE%8B%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/</link><pubDate>Fri, 20 Jun 2025 13:52:25 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94amdahl%E5%AE%9A%E5%BE%8B%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/</guid><description>&lt;h2 id="amdahl-定律公式推导">Amdahl 定律公式推导
+&lt;/h2>&lt;ul>
+&lt;li>Amdahl 定律：串行片段所占总体程序比例 $f_s$ , 那么使用 $N$ 个处理器取得的&lt;font color="#ff0000">整体性能增益&lt;/font> $P$ 是: $$ \Large{P = \frac{1}{f_s + \frac{1 - f_s}{N}}}$$
+&lt;ul>
+&lt;li>推导:
+&lt;ol>
+&lt;li>假设原来需要的时间为 $T_{old}$，串行程序占比 $f_s$，并行程序占比 $(1 - f_s)$，则：$$\Huge{T_{old} = f_s * T_{old} + (1 - f_s) * T_{old}}$$&lt;/li>
+&lt;li>使用 $N$ 个处理器后加速了并行部分后，新的耗时为：$$\Large{T_{new} = f_s * T_{old} + \frac{(1 - f_s) * T_{old}}{N}}$$&lt;/li>
+&lt;li>性能增益(耗时的倒数代表性能)为: $$ \Huge{P = \frac{\frac{1}{T_{new}}}{\frac{1}{f_old}}=\frac{T_{old}}{T_{new}} = \frac{1}{f_{s} + \frac{1 - f_{s}}{N}}}$$&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="可伸缩性和-amdahl-定律">可伸缩性和 Amdahl 定律
+&lt;/h2>&lt;blockquote>
+&lt;p>C++并发编程实战 (第2版) 第 8 章 8.4.2 可伸缩性和 Amdahl 定律&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>可伸缩性: 可伸缩性的意义是，随着处理器数目增加，将缩短程序执行操作的时间，或者，程序在给定时间内所能处理的数据量会增加。&lt;/li>
+&lt;li>Amdahl 定律:
+a. 若每一项操作都能并行化，则”串行“片段的比例为 0，加速比是 $N$(前文性能增益 $P$ 的值)。再举一例，如果”串行“片段的比例为 1/3，即便无限增加处理器数目，加速比也不可能超过 3。
+b. 若我们可以缩短”串行“片段的长度，或降低线程等待的概率，便能在具备更多处理器的系统上提高性能增益。对应地，如果我们可以向系统提供更多的数据以进行处理，从而令”并行“片段一直忙于工作，也能降低”串行“片段所占的比例，从而提升性能增益 $P$。&lt;/li>
+&lt;li>线程不一定总会执行实际工作。有时候它们需要等待其他线程，或等待 I/O 操作完成，或等待其他事项。&lt;font color="#ff0000">如果在等待期间，我们为系统指派实际工作，即可”隐藏“等待行为&lt;/font>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;/blockquote>
+&lt;h1 id="refs">refs
+&lt;/h1>&lt;ol>
+&lt;li>&lt;a class="link" href="https://en.wikipedia.org/wiki/Amdahl%27s_law" target="_blank" rel="noopener"
+>https://en.wikipedia.org/wiki/Amdahl%27s_law&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://zh.wikipedia.org/wiki/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener"
+>https://zh.wikipedia.org/wiki/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://book.douban.com/subject/35653912/" target="_blank" rel="noopener"
+># C++并发编程实战 (第2版)&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>小问题集合</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88/</guid><description>&lt;h1 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
 &lt;/h1>&lt;ol>
 &lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
@@ -17,7 +52,21 @@
 &lt;/li>
 &lt;li>参考: &lt;a class="link" href="https://github.com/xuexcy/cpp_cmake_project_template" target="_blank" rel="noopener"
 >https://github.com/xuexcy/cpp_cmake_project_template&lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>使用表达式模板做向量计算</title><link>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</link><pubDate>Fri, 16 May 2025 22:31:29 +0800</pubDate><guid>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</guid><description>&lt;p>&lt;strong>文中链接跳转失效时，请移步至&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms/blob/main/src/expression_template_deps/README.md" target="_blank" rel="noopener"
+&lt;/ol>
+&lt;h1 id="mac-finder-默认以列表展示文件">mac finder 默认以列表展示文件
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">defaults write com.apple.finder FXPreferredViewStyle -string &lt;span class="s2">&amp;#34;Nlsv&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo find / -name &lt;span class="s2">&amp;#34;.DS_Store&amp;#34;&lt;/span> -exec rm &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall Finder
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>使用表达式模板做向量计算</title><link>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</link><pubDate>Fri, 16 May 2025 22:31:29 +0800</pubDate><guid>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</guid><description>&lt;p>&lt;strong>文中链接跳转失效时，请移步至&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms/blob/main/src/expression_template_deps/README.md" target="_blank" rel="noopener"
 >github 使用表达式模板做向量计算&lt;/a>查阅&lt;/strong>&lt;/p>
 &lt;h1 id="使用表达式模板做向量计算">使用表达式模板做向量计算
 &lt;/h1>&lt;h1 id="1-问题-向量计算">1. 问题: 向量计算
@@ -1678,8 +1727,7 @@ z : 表达式中的操作符个数
 &lt;li>&lt;input disabled="" type="checkbox"> vim 使用技巧(第 2 版): [2025-03-24 ~]&lt;/li>
 &lt;/ul></description></item><item><title>Obsidian跨平台同步</title><link>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</link><pubDate>Mon, 21 Oct 2024 23:02:12 +0800</pubDate><guid>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</guid><description>&lt;h1 id="跨平台同步办法">跨平台同步办法
 &lt;/h1>&lt;ul>
-&lt;li>
-&lt;p>macbook: &lt;strong>macbook中 &lt;code>文稿&lt;/code> 等同于 &lt;code>~/Document&lt;/code>&lt;/strong>&lt;/p>
+&lt;li>macbook: &lt;strong>macbook中 &lt;code>文稿&lt;/code> 等同于 &lt;code>~/Document&lt;/code>&lt;/strong>
 &lt;ul>
 &lt;li>本机: 新建 &lt;code>~/Document/xuechengyun_sync&lt;/code>文件夹&lt;/li>
 &lt;li>Obsidian: 打开本机 vault 目录&lt;code>~/Document/xuechengyun_sync/Obsidian&lt;/code>&lt;/li>
@@ -1687,22 +1735,14 @@ z : 表达式中的操作符个数
 &lt;li>百度云: 同步 &lt;code>~/Document/xuechengyun_sync&lt;/code>文件夹。百度云仅作为备份&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>
-&lt;p>安卓:&lt;/p>
+&lt;li>安卓:
 &lt;ul>
 &lt;li>本机: 新建 &lt;code>个人/Obsidian&lt;/code> 文件夹&lt;/li>
 &lt;li>Obsidian: 打开本机 vault 目录 &lt;code>个人/Obsidian&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>
-&lt;p>ipad:&lt;/p>
-&lt;ul>
-&lt;li>Obsidian: 从 icloud 打开云端 vault 目录 &lt;code>文稿/xuechengyun_sync/Obsidian&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>Obsidian 插件 remotely-save: 各个平台的 Obsidian 安装 remotely-save 插件后开启同步，插件会将本地 vault 目录同步至 one_drive &lt;code>应用/remotely-save/Obsidian&lt;/code> 文件夹&lt;/p>
-&lt;/li>
+&lt;li>ipad: 使用 remotely-save 同步数据，不使用 icloud 数据 (ipad 上的 Obsidian 如果要使用 icloud 数据，数据的存储目录必须是 icloud/Obsidian/$vault_name)&lt;/li>
+&lt;li>Obsidian 插件 remotely-save: 各个平台的 Obsidian 安装 remotely-save 插件后开启同步，插件会将本地 vault 目录同步至 one_drive &lt;code>应用/remotely-save/Obsidian&lt;/code> 文件夹&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B.svg"
 loading="lazy"
