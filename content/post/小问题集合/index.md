@@ -17,3 +17,9 @@ tags:
 	1. Arguments 中添加 `--compile-commands-dir=${workspaceFolder}/build`
 	2. Fallback Flags 中添加 `--std=c++23`
 3. 参考: https://github.com/xuexcy/cpp_cmake_project_template
+# mac finder 默认以列表展示文件
+```shell
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+sudo find / -name ".DS_Store"  -exec rm {} \;
+killall Finder
+```

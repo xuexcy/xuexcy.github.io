@@ -26,9 +26,7 @@ tags:
 - 安卓:
 	- 本机:  新建 `个人/Obsidian` 文件夹
 	- Obsidian: 打开本机 vault  目录 `个人/Obsidian`
-- ipad:
-	- Obsidian: 从 icloud  打开云端 vault 目录 `文稿/xuechengyun_sync/Obsidian`
-	
+- ipad: 使用 remotely-save 同步数据，不使用 icloud 数据 (ipad 上的 Obsidian 如果要使用 icloud 数据，数据的存储目录必须是 icloud/Obsidian/$vault_name)
 - Obsidian 插件 remotely-save: 各个平台的 Obsidian 安装 remotely-save 插件后开启同步，插件会将本地 vault 目录同步至 one_drive `应用/remotely-save/Obsidian` 文件夹
 
 ![同步流程](同步流程.svg)
