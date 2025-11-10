@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vscode on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/vscode/</link><description>Recent content in Vscode on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>小问题集合(开发，系统，软件等)</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</guid><description>&lt;h1 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
-&lt;/h1>&lt;ol>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vscode on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/vscode/</link><description>Recent content in Vscode on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>小问题集合(开发，系统，软件等)</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+&lt;/h2>&lt;ol>
 &lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
 &lt;li>执行 git clone &lt;a class="link" href="https://github.com/$%7buser_name%7d/$%7brepository_name%7d.git" target="_blank" rel="noopener"
 >https://github.com/${user_name}/${repository_name}.git&lt;/a> 并输入密码时，将密码输入成刚刚生成的 token&lt;/li>
 &lt;/ol>
-&lt;h1 id="vscode--clangd-插件--cmake-配置代码提示">vscode + clangd 插件 + cmake 配置代码提示
-&lt;/h1>&lt;ol>
+&lt;h2 id="vscode--clangd-插件--cmake-配置代码提示">vscode + clangd 插件 + cmake 配置代码提示
+&lt;/h2>&lt;ol>
 &lt;li>在 &lt;code>CMakeListst.txt&lt;/code> 中添加 &lt;code>set(CMAKE_EXPORT_COMPILE_COMMANDS ON)&lt;/code>&lt;/li>
 &lt;li>clangd 插件的
 &lt;ol>
@@ -17,8 +17,8 @@
 &lt;li>参考: &lt;a class="link" href="https://github.com/xuexcy/cpp_cmake_project_template" target="_blank" rel="noopener"
 >https://github.com/xuexcy/cpp_cmake_project_template&lt;/a>&lt;/li>
 &lt;/ol>
-&lt;h1 id="mac-finder-默认以列表展示文件">mac finder 默认以列表展示文件
-&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;h2 id="mac-finder-默认以列表展示文件">mac finder 默认以列表展示文件
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
@@ -30,8 +30,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall Finder
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h1 id="mac-os-禁用更新取消更新提示小红点">mac os 禁用更新&amp;amp;取消更新提示小红点
-&lt;/h1>&lt;ol>
+&lt;/div>&lt;h2 id="mac-禁用更新取消更新提示小红点">mac 禁用更新&amp;amp;取消更新提示小红点
+&lt;/h2>&lt;ol>
 &lt;li>禁止更新: 打开文件 &lt;code>sudo vim /etc/hosts&lt;/code> 添加如下内容&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -70,5 +70,10 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ol start="3">
-&lt;li>如果 xcode command line 需要更新，需要将上面添加的 host 内容注释掉&lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;li>如果 xcode command line 需要更新，需要将上面添加的 host 内容注释掉
+refs: &lt;a class="link" href="https://sysin.org/blog/disable-macos-sonoma-update/" target="_blank" rel="noopener"
+>https://sysin.org/blog/disable-macos-sonoma-update/&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="mac-intel-芯片安装-windows-11">mac intel 芯片安装 windows 11
+&lt;/h2>&lt;p>&lt;a class="link" href="https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733" target="_blank" rel="noopener"
+>https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733&lt;/a>&lt;/p></description></item></channel></rss>
