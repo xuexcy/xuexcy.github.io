@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Clangd on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/clangd/</link><description>Recent content in Clangd on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/clangd/index.xml" rel="self" type="application/rss+xml"/><item><title>小问题集合(开发，系统，软件等)</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Clangd on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/clangd/</link><description>Recent content in Clangd on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/clangd/index.xml" rel="self" type="application/rss+xml"/><item><title>备忘录</title><link>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
 &lt;/h2>&lt;ol>
 &lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
@@ -76,4 +76,16 @@ refs: &lt;a class="link" href="https://sysin.org/blog/disable-macos-sonoma-updat
 &lt;/ol>
 &lt;h2 id="mac-intel-芯片安装-windows-11">mac intel 芯片安装 windows 11
 &lt;/h2>&lt;p>&lt;a class="link" href="https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733" target="_blank" rel="noopener"
->https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733&lt;/a>&lt;/p></description></item></channel></rss>
+>https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733&lt;/a>&lt;/p>
+&lt;h2 id="mac-hhkb-classic-键盘配置">mac hhkb classic 键盘配置
+&lt;/h2>&lt;ol>
+&lt;li>键盘背面打开 dip 2 切换到 mac 系统&lt;/li>
+&lt;li>使用 Karabiner-Elements 改键 &lt;br>
+a. &lt;a class="link" href="https://karabiner-elements.pqrs.org/" target="_blank" rel="noopener"
+>下载软件&lt;/a> &lt;br>
+b. &lt;a class="link" href="https://github.com/xuexcy/personal_conf/tree/master/karabiner" target="_blank" rel="noopener"
+>导入配置&lt;/a>&lt;/li>
+&lt;li>mac 系统配置快捷键: 系统设置 -&amp;gt; 键盘快捷键 -&amp;gt; 启动台与程序坞 &lt;br>
+a. 打开/关闭隐藏程序坞: command + L &lt;br>
+b. 显示启动台: command + K&lt;/li>
+&lt;/ol></description></item></channel></rss>

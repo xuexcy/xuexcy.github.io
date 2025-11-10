@@ -40,7 +40,7 @@
 >https://zh.wikipedia.org/wiki/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94%E5%AE%9A%E5%BE%8B&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://book.douban.com/subject/35653912/" target="_blank" rel="noopener"
 ># C++并发编程实战 (第2版)&lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>小问题集合(开发，系统，软件等)</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+&lt;/ol></description></item><item><title>备忘录</title><link>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
 &lt;/h2>&lt;ol>
 &lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
@@ -118,7 +118,19 @@ refs: &lt;a class="link" href="https://sysin.org/blog/disable-macos-sonoma-updat
 &lt;/ol>
 &lt;h2 id="mac-intel-芯片安装-windows-11">mac intel 芯片安装 windows 11
 &lt;/h2>&lt;p>&lt;a class="link" href="https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733" target="_blank" rel="noopener"
->https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733&lt;/a>&lt;/p></description></item><item><title>使用表达式模板做向量计算</title><link>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</link><pubDate>Fri, 16 May 2025 22:31:29 +0800</pubDate><guid>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</guid><description>&lt;p>&lt;strong>文中链接跳转失效时，请移步至&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms/blob/main/src/expression_template_deps/README.md" target="_blank" rel="noopener"
+>https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd97c8e733&lt;/a>&lt;/p>
+&lt;h2 id="mac-hhkb-classic-键盘配置">mac hhkb classic 键盘配置
+&lt;/h2>&lt;ol>
+&lt;li>键盘背面打开 dip 2 切换到 mac 系统&lt;/li>
+&lt;li>使用 Karabiner-Elements 改键 &lt;br>
+a. &lt;a class="link" href="https://karabiner-elements.pqrs.org/" target="_blank" rel="noopener"
+>下载软件&lt;/a> &lt;br>
+b. &lt;a class="link" href="https://github.com/xuexcy/personal_conf/tree/master/karabiner" target="_blank" rel="noopener"
+>导入配置&lt;/a>&lt;/li>
+&lt;li>mac 系统配置快捷键: 系统设置 -&amp;gt; 键盘快捷键 -&amp;gt; 启动台与程序坞 &lt;br>
+a. 打开/关闭隐藏程序坞: command + L &lt;br>
+b. 显示启动台: command + K&lt;/li>
+&lt;/ol></description></item><item><title>使用表达式模板做向量计算</title><link>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</link><pubDate>Fri, 16 May 2025 22:31:29 +0800</pubDate><guid>https://xuexcy.github.io/post/%E4%BD%BF%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%81%9A%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</guid><description>&lt;p>&lt;strong>文中链接跳转失效时，请移步至&lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms/blob/main/src/expression_template_deps/README.md" target="_blank" rel="noopener"
 >github 使用表达式模板做向量计算&lt;/a>查阅&lt;/strong>&lt;/p>
 &lt;h1 id="使用表达式模板做向量计算">使用表达式模板做向量计算
 &lt;/h1>&lt;h1 id="1-问题-向量计算">1. 问题: 向量计算
