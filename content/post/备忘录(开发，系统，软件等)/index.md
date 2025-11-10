@@ -57,3 +57,5 @@ https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd9
 3.  mac 系统配置快捷键: 系统设置 -> 键盘快捷键 -> 启动台与程序坞 <br>
 		a. 打开/关闭隐藏程序坞: command + L <br>
 		b. 显示启动台: command + K 
+##  键盘 [cmk87说明书](https://manuals.plus/zh-CN/fl-esports/cmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manual#axzz8WcZgApDl)
+## 手表 [佳明265说明书](https://support.garmin.com/zh-CN/?productID=886785&tab=videos)
