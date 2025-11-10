@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MacOs on 小天天天天快乐</title><link>https://xuexcy.github.io/tags/macos/</link><description>Recent content in MacOs on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Thu, 12 Jun 2025 18:32:28 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/tags/macos/index.xml" rel="self" type="application/rss+xml"/><item><title>小问题集合(开发，系统，软件等)</title><link>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%B0%8F%E9%97%AE%E9%A2%98%E9%9B%86%E5%90%88%E5%BC%80%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E7%AD%89/</guid><description>&lt;h1 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+&lt;/h1>&lt;ol>
+&lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
+>https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
+&lt;li>执行 git clone &lt;a class="link" href="https://github.com/$%7buser_name%7d/$%7brepository_name%7d.git" target="_blank" rel="noopener"
+>https://github.com/${user_name}/${repository_name}.git&lt;/a> 并输入密码时，将密码输入成刚刚生成的 token&lt;/li>
+&lt;/ol>
+&lt;h1 id="vscode--clangd-插件--cmake-配置代码提示">vscode + clangd 插件 + cmake 配置代码提示
+&lt;/h1>&lt;ol>
+&lt;li>在 &lt;code>CMakeListst.txt&lt;/code> 中添加 &lt;code>set(CMAKE_EXPORT_COMPILE_COMMANDS ON)&lt;/code>&lt;/li>
+&lt;li>clangd 插件的
+&lt;ol>
+&lt;li>Arguments 中添加 &lt;code>--compile-commands-dir=${workspaceFolder}/build&lt;/code>&lt;/li>
+&lt;li>Fallback Flags 中添加 &lt;code>--std=c++23&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>参考: &lt;a class="link" href="https://github.com/xuexcy/cpp_cmake_project_template" target="_blank" rel="noopener"
+>https://github.com/xuexcy/cpp_cmake_project_template&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h1 id="mac-finder-默认以列表展示文件">mac finder 默认以列表展示文件
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">defaults write com.apple.finder FXPreferredViewStyle -string &lt;span class="s2">&amp;#34;Nlsv&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo find / -name &lt;span class="s2">&amp;#34;.DS_Store&amp;#34;&lt;/span> -exec rm &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall Finder
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="mac-os-禁用更新取消更新提示小红点">mac os 禁用更新&amp;amp;取消更新提示小红点
+&lt;/h1>&lt;ol>
+&lt;li>禁止更新: 打开文件 &lt;code>sudo vim /etc/hosts&lt;/code> 添加如下内容&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## Mac Software Update (sysin)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">0.1&lt;/span> &lt;span class="n">swdist&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">apple&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">0.1&lt;/span> &lt;span class="n">swscan&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">apple&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">0.1&lt;/span> &lt;span class="n">swcdn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">apple&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span> &lt;span class="c1">#optional, download url&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">0.1&lt;/span> &lt;span class="n">gdmf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">apple&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">0.1&lt;/span> &lt;span class="n">mesu&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">apple&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">0.1&lt;/span> &lt;span class="n">xp&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">apple&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>取消更新提示小红点, 终端执行如下命令&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">defaults delete com.apple.systempreferences AttentionPrefBundleIDs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">defaults delete com.apple.systempreferences DidShowPrefBundleIDs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall Dock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>如果 xcode command line 需要更新，需要将上面添加的 host 内容注释掉&lt;/li>
+&lt;/ol></description></item></channel></rss>
