@@ -1,4 +1,80 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>小天天天天快乐</title><link>https://xuexcy.github.io/</link><description>Recent content on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Fri, 20 Jun 2025 14:37:14 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>附加-翻译RecursiveMacrosWithC++20__VA_OPT__</title><link>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</link><pubDate>Fri, 20 Jun 2025 14:37:14 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</guid><description>&lt;p>附加说明 &lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>小天天天天快乐</title><link>https://xuexcy.github.io/</link><description>Recent content on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Wed, 12 Nov 2025 21:39:31 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>搭建飞牛 fnOS-备忘</title><link>https://xuexcy.github.io/post/%E6%90%AD%E5%BB%BA%E9%A3%9E%E7%89%9B-fnos-%E5%A4%87%E5%BF%98/</link><pubDate>Wed, 12 Nov 2025 21:39:31 +0800</pubDate><guid>https://xuexcy.github.io/post/%E6%90%AD%E5%BB%BA%E9%A3%9E%E7%89%9B-fnos-%E5%A4%87%E5%BF%98/</guid><description>&lt;h2 id="说明">说明
+&lt;/h2>&lt;ol>
+&lt;li>安装时间: 2025-11-12&lt;/li>
+&lt;li>fnOS 版本: 0.9.35&lt;/li>
+&lt;li>设备: 2013 款华硕 x550vc 笔记本
+&lt;ul>
+&lt;li>cpu: intel 酷睿 i5-3230M 2.6G HZ 双核&lt;/li>
+&lt;li>cpu 核显: hd graphics 4000&lt;/li>
+&lt;li>gpu: nvidia geforce gt 720M&lt;/li>
+&lt;li>硬盘: 三星 850 evo ssd 256G (自己加的)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="系统安装">系统安装
+&lt;/h2>&lt;h3 id="准备">准备
+&lt;/h3>&lt;ol>
+&lt;li>网线: &lt;font color="#ff0000">需要使用笔记本的有线网口&lt;/font>
+&lt;ul>
+&lt;li>系统装完最后一步需要分配 ip，此时只能通过网线分配， 不能通过连接 wifi 分配。&lt;/li>
+&lt;li>官方有在一些帖子中回复， 有计划后续支持安装系统时通过 wifi 分配 ip&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>16G U 盘用于刻制 fnOS&lt;/li>
+&lt;li>一台装好 windows 系统的电脑，用于将 fnOS 刻录到 U 盘
+&lt;ul>
+&lt;li>通过 U 盘将 fnOS 装到电脑硬盘时，需要将&lt;font color="#ff0000">整个硬盘抹掉&lt;/font>（不是分区，是整个物理硬盘）。(我的 ssd 本来是两个分区，一个装了 windows 10，本来打算用另一个分区装 fnOS 的，这样就可以双系统，在有需要的时候还可以切回 windows 使用，但实际上是不行的)&lt;/li>
+&lt;li>mac/linux 系统应该也有可以刻录 iso 文件的工具，飞牛官方的指导文档中给的是 windows 中的刻录软件的下载链接&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="安装方式及安装时的问题">安装方式及安装时的问题
+&lt;/h3>&lt;ol>
+&lt;li>按官网指导方式安装: &lt;a class="link" href="https://help.fnnas.com/articles/fnosV1/start/install-os.md" target="_blank" rel="noopener"
+>如何安装和初始化飞牛 fnOS？&lt;/a>&lt;/li>
+&lt;li>U 盘安装系统时，按 Esc 进入 boot 界面，选择 U 盘启动即可&lt;/li>
+&lt;li>U 盘安装最后一步，识别到网卡但是显示 “网卡未连接”
+&lt;ul>
+&lt;li>关机再来，多装几次，在分配 ip 的地方也多刷新检测几次&lt;/li>
+&lt;li>检测成功后，如果没有分配 ip，就手动填写 ip/掩码等&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="系统使用">系统使用
+&lt;/h2>&lt;h3 id="基础设置">基础设置
+&lt;/h3>&lt;ol>
+&lt;li>系统设置 -&amp;gt; 网络设置: 在网口或网卡中将 ip 设置成固定 ip&lt;/li>
+&lt;li>UPS 管理: 启用 UPS 支持&lt;/li>
+&lt;li>设置笔记本盒盖不休眠
+&lt;ol>
+&lt;li>修改 &lt;code>/etc/systemd/logind.conf&lt;/code> 文件
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo vim /etc/systemd/logind.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">HandleSuspendKey=ignore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">HandleLidSwitch=ignore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">HandleLidSwitchExternalPower=ignore
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>重启系统&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="一些问题">一些问题
+&lt;/h3>&lt;ol>
+&lt;li>当前 fnOS 版本和官方驱动不支持本电脑的 cpu 核显和 gpu&lt;/li>
+&lt;/ol>
+&lt;h3 id="功能使用">功能使用
+&lt;/h3>&lt;ol>
+&lt;li>家庭相册(TODO)&lt;/li>
+&lt;/ol></description></item><item><title>附加-翻译RecursiveMacrosWithC++20__VA_OPT__</title><link>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</link><pubDate>Fri, 20 Jun 2025 14:37:14 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%99%84%E5%8A%A0-%E7%BF%BB%E8%AF%91recursivemacroswithc-20__va_opt__/</guid><description>&lt;p>附加说明 &lt;a class="link" href="https://github.com/xuexcy/blog/tree/main/blogs/%e7%bf%bb%e8%af%91RecursiveMacrosWithC&amp;#43;&amp;#43;20__VA_OPT__/README.md" target="_blank" rel="noopener"
 >点击跳转&lt;/a>&lt;/p></description></item><item><title>阿姆达尔(Amdahl)定律公式推导</title><link>https://xuexcy.github.io/post/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94amdahl%E5%AE%9A%E5%BE%8B%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/</link><pubDate>Fri, 20 Jun 2025 13:52:25 +0800</pubDate><guid>https://xuexcy.github.io/post/%E9%98%BF%E5%A7%86%E8%BE%BE%E5%B0%94amdahl%E5%AE%9A%E5%BE%8B%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC/</guid><description>&lt;h2 id="amdahl-定律公式推导">Amdahl 定律公式推导
 &lt;/h2>&lt;ul>
 &lt;li>Amdahl 定律：串行片段所占总体程序比例 $f_s$ , 那么使用 $N$ 个处理器取得的&lt;font color="#ff0000">整体性能增益&lt;/font> $P$ 是: $$ \Large{P = \frac{1}{f_s + \frac{1 - f_s}{N}}}$$
