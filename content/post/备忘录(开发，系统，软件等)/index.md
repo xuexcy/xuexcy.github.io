@@ -1,6 +1,6 @@
 ---
 title: 备忘录
-description: 开发，系统，软件等问题
+description: 给自己备忘-开发，系统，软件等问题
 date: 2025-06-12T18:32:28+08:00
 draft: false
 categories:
