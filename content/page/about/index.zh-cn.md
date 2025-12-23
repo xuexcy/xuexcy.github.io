@@ -31,7 +31,7 @@ draft: false
 - [x] [more cpp idioms](https://github.com/xuexcy/learning_more_cpp_idioms): [2024-10-18 ~ 2025-03-02]
 - [ ] [C++20 高级编程 作者: 罗能](https://github.com/xuexcy/learning_cpp20_programming_author_luoneng): [2025-05-12 ~]
 - [x] [现代 C++ 教程：高速上手 C++11/14/17/20](https://github.com/xuexcy/learning_modern_cpp_tutorial): [2025-05-09 ~ 2025-05-10]
-- [ ] [C++函数式编程 作者: 伊凡 · 库奇](https://github.com/xuexcy/learning_functional_programming_in_cpp): [2025-06-04 ~]
+- [ ] [C++函数式编程 作者: 伊凡 · 库奇](https://github.com/xuexcy/learning_functional_programming_in_cpp): [2025-06-04 ~ 2025-12-19]
 - [x] [rust lang book](https://github.com/xuexcy/learning-rust-lang-book): [2024-04-18 ~ 2024-06-25]
 - [ ] [rust by practice](https://github.com/xuexcy/learning-rust-by-practice): [2024-07-02 ~]
 - [ ] [Rust语言圣经](https://github.com/xuexcy/learn-rust-course): [2024-07-03 ~]
