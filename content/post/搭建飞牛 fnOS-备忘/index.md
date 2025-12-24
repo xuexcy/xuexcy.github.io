@@ -48,9 +48,41 @@ tags:
 		 HandleLidSwitchExternalPower=ignore
 		 ```
 	2. 重启系统
+4. 风扇控制: coolcontrol 安装时需要系统权限, 否则无法修改风扇控制配置
+5. 桌面:
+    ```
+    sudo apt install xfce4
+    ```
 
 ### 一些问题
 1. 当前 fnOS 版本和官方驱动不支持本电脑的 cpu 核显和 gpu
 
 ### 功能使用
-1. 家庭相册(TODO)
+1. 家庭相册: 使用共享相册
+2. 家庭影视: 将影视资源放到团队文件中
+
+
+## 笔记本挂了，新买一个 J3160 主板主机重装系统
+### 一些设置
+1. ddns: cloudflare + 飞牛自带 ddns 功能或 luckcy ddns 功能
+2. 风扇控制: 
+	1. 应用商店安装 it87 驱动
+	2. docker coolcontrol
+	3. 添加配置文件`/etc/modprobe.d/it87.conf`，内容如下
+	```
+	options it87 force_id=0x8625 ignore_resource_conflict=1 fix_pwm_polarity=1
+	```
+3. https ERR_SSL_PROTOCOL_ERROR
+4. 防火墙 + zerotier/tailscale 内网穿透
+5. 定期备份: 使用飞牛备份软件定期备份相册、资料到百度云和其他磁盘
+### 一些软件
+1. 1 panel
+2. sun panel
+3. coolercontrol
+4. tailscale/zerotier
+5. music_tag_web/navidrome
+6. alist小雅/openlist
+7. fntermx
+
+## 草稿
+2422 3249
