@@ -66,6 +66,17 @@
 &lt;li>重启系统&lt;/li>
 &lt;/ol>
 &lt;/li>
+&lt;li>风扇控制: coolcontrol 安装时需要系统权限, 否则无法修改风扇控制配置&lt;/li>
+&lt;li>桌面:
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo apt install xfce4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
 &lt;/ol>
 &lt;h3 id="一些问题">一些问题
 &lt;/h3>&lt;ol>
@@ -73,5 +84,41 @@
 &lt;/ol>
 &lt;h3 id="功能使用">功能使用
 &lt;/h3>&lt;ol>
-&lt;li>家庭相册(TODO)&lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;li>家庭相册: 使用共享相册&lt;/li>
+&lt;li>家庭影视: 将影视资源放到团队文件中&lt;/li>
+&lt;/ol>
+&lt;h2 id="笔记本挂了新买一个-j3160-主板主机重装系统">笔记本挂了，新买一个 J3160 主板主机重装系统
+&lt;/h2>&lt;h3 id="一些设置">一些设置
+&lt;/h3>&lt;ol>
+&lt;li>ddns: cloudflare + 飞牛自带 ddns 功能或 luckcy ddns 功能&lt;/li>
+&lt;li>风扇控制:
+&lt;ol>
+&lt;li>应用商店安装 it87 驱动&lt;/li>
+&lt;li>docker coolcontrol&lt;/li>
+&lt;li>添加配置文件&lt;code>/etc/modprobe.d/it87.conf&lt;/code>，内容如下&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">options it87 force_id=0x8625 ignore_resource_conflict=1 fix_pwm_polarity=1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>https ERR_SSL_PROTOCOL_ERROR&lt;/li>
+&lt;li>防火墙 + zerotier/tailscale 内网穿透&lt;/li>
+&lt;li>定期备份: 使用飞牛备份软件定期备份相册、资料到百度云和其他磁盘&lt;/li>
+&lt;/ol>
+&lt;h3 id="一些软件">一些软件
+&lt;/h3>&lt;ol>
+&lt;li>1 panel&lt;/li>
+&lt;li>sun panel&lt;/li>
+&lt;li>coolercontrol&lt;/li>
+&lt;li>tailscale/zerotier&lt;/li>
+&lt;li>music_tag_web/navidrome&lt;/li>
+&lt;li>alist小雅/openlist&lt;/li>
+&lt;li>fntermx&lt;/li>
+&lt;/ol>
+&lt;h2 id="草稿">草稿
+&lt;/h2>&lt;p>2422 3249&lt;/p></description></item></channel></rss>
