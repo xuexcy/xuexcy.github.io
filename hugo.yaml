@@ -217,6 +217,11 @@ menu:
           url: https://weibo.com/u/3844660229
           params:
               icon: sina-weibo
+        - identifier: books
+          name: books
+          url: https://github.com/xuexcy/public_attachments/tree/main/books
+          params:
+              icon: books
 
 related:
     includeNewer: true
