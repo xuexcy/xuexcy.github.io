@@ -58,7 +58,7 @@ https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd9
 		a. 打开/关闭隐藏程序坞: command + L <br>
 		b. 显示启动台: command + K 
 ##  键盘 [cmk87说明书](https://manuals.plus/zh-CN/fl-esports/cmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manual#axzz8WcZgApDl)
-- [cmake87说明书](./attatchments/腹灵CMK87_使用说明书.pdf)
+- [cmake87说明书](./attachments/腹灵CMK87_使用说明书.pdf)
 ## 手表 [佳明265说明书](https://support.garmin.com/zh-CN/?productID=886785&tab=videos)
 - [佳明265说明书](./attachments/forerunner265_OM_ZH-CN.pdf)
 ## 森海塞尔[MOMENTUM-4使用手册](https://assets.sennheiser.com/global-downloads/file/13914/Manual_M3AEBTXL_0120_ZH.pdf)
