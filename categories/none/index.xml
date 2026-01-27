@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>None on 小天天天天快乐</title><link>https://xuexcy.github.io/categories/none/</link><description>Recent content in None on 小天天天天快乐</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>薛成韵(xuechengyun)</copyright><lastBuildDate>Tue, 27 Jan 2026 16:33:14 +0800</lastBuildDate><atom:link href="https://xuexcy.github.io/categories/none/index.xml" rel="self" type="application/rss+xml"/><item><title>乐高6档变速箱档位记录-备忘</title><link>https://xuexcy.github.io/post/%E4%B9%90%E9%AB%986%E6%A1%A3%E5%8F%98%E9%80%9F%E7%AE%B1%E6%A1%A3%E4%BD%8D%E8%AE%B0%E5%BD%95-%E5%A4%87%E5%BF%98/</link><pubDate>Tue, 27 Jan 2026 16:33:14 +0800</pubDate><guid>https://xuexcy.github.io/post/%E4%B9%90%E9%AB%986%E6%A1%A3%E5%8F%98%E9%80%9F%E7%AE%B1%E6%A1%A3%E4%BD%8D%E8%AE%B0%E5%BD%95-%E5%A4%87%E5%BF%98/</guid><description>&lt;h1 id="齿轮">齿轮
+&lt;/h1>&lt;h2 id="齿数">齿数
+&lt;/h2>&lt;ul>
+&lt;li>灰小 8&lt;/li>
+&lt;li>黑小 12&lt;/li>
+&lt;li>灰中 16&lt;/li>
+&lt;li>黄 20&lt;/li>
+&lt;li>灰大 24&lt;/li>
+&lt;/ul>
+&lt;h2 id="齿比">齿比
+&lt;/h2>&lt;p>灰小:黑小:灰中:黄:灰大 = 2:3:4:5:6&lt;/p>
+&lt;h1 id="传动">传动
+&lt;/h1>&lt;h2 id="说明">说明
+&lt;/h2>&lt;ul>
+&lt;li>&lt;code>=&lt;/code> 表示同轴&lt;/li>
+&lt;li>&lt;code>-&amp;gt;&lt;/code> 表示啮合&lt;/li>
+&lt;li>齿轮前数字表示输入转数, 齿轮后数字表示输出转数&lt;/li>
+&lt;li>假定初始输入为 180转&lt;/li>
+&lt;/ul>
+&lt;h2 id="分析">分析
+&lt;/h2>&lt;ul>
+&lt;li>1 档位: 180黄=灰小180 -&amp;gt; 60灰大=灰中60 -&amp;gt; 60灰中=黑小60 -&amp;gt; 36黄=黑小36&lt;/li>
+&lt;li>2 档位: 180黄=灰小180 -&amp;gt; 60灰大=灰中60 -&amp;gt; 60灰中60 -&amp;gt; 60灰中=黑小60&lt;/li>
+&lt;li>3 档位: 180黄=灰中180 -&amp;gt; 180灰中180 -&amp;gt; 180灰中=黑小180 -&amp;gt; 108黄=黑小108&lt;/li>
+&lt;li>4 档位: 180黄=灰中180 -&amp;gt; 180灰中=黑小180&lt;/li>
+&lt;li>5 档位: 180黄180 -&amp;gt; 300黑小=灰中300 —&amp;gt; 300灰中300 -&amp;gt; 300灰中=黑小300&lt;/li>
+&lt;li>6 档位: 180黄180 -&amp;gt; 300黑小=灰中300 -&amp;gt; 300灰中=黄300 -&amp;gt; 黑小500&lt;/li>
+&lt;/ul>
+&lt;h2 id="各档位转速比">各档位转速比
+&lt;/h2>&lt;ul>
+&lt;li>输入:1档:2档:3档:4档:5档:6档=180:36:60:108:300:500&lt;/li>
+&lt;/ul></description></item></channel></rss>
