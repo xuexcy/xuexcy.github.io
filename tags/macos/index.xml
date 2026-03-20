@@ -89,6 +89,13 @@ b. &lt;a class="link" href="https://github.com/xuexcy/personal_conf/tree/master/
 a. 打开/关闭隐藏程序坞: command + L &lt;br>
 b. 显示启动台: command + K&lt;/li>
 &lt;/ol>
+&lt;h2 id="switch">switch
+&lt;/h2>&lt;h3 id="mac--dbi-安装游戏">mac + dbi 安装游戏
+&lt;/h3>&lt;ol>
+&lt;li>mac 安装 OpenMTP 软件&lt;/li>
+&lt;li>switch 启动 DBI 软件&lt;/li>
+&lt;li>在 mac 上将游戏文件拖到 &lt;code>5. SD Card Install&lt;/code>&lt;/li>
+&lt;/ol>
 &lt;h2 id="键盘-cmk87说明书httpsmanualspluszh-cnfl-esportscmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manualaxzz8wczgapdl">键盘 &lt;a class="link" href="https://manuals.plus/zh-CN/fl-esports/cmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manual#axzz8WcZgApDl" target="_blank" rel="noopener"
 >cmk87说明书&lt;/a>
 &lt;/h2>&lt;ul>
@@ -106,4 +113,19 @@ b. 显示启动台: command + K&lt;/li>
 &lt;/h2>&lt;ul>
 &lt;li>&lt;a class="link" href="https://github.com/xuexcy/public_attachments/tree/main/%E8%AF%B4%E6%98%8E%E4%B9%A6" target="_blank" rel="noopener"
 >github link&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;/ul>
+&lt;h1 id="ubuntu-shdash---shbash">Ubuntu sh(dash) -&amp;gt; sh(bash)
+&lt;/h1>&lt;ul>
+&lt;li>在 &lt;code>.bashrc&lt;/code> 中添加&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sh&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">bash&lt;/span> &lt;span class="s2">&amp;#34;$@&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">export&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">f&lt;/span> &lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
