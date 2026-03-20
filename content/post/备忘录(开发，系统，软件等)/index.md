@@ -57,9 +57,20 @@ https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd9
 3.  mac 系统配置快捷键: 系统设置 -> 键盘快捷键 -> 启动台与程序坞 <br>
 		a. 打开/关闭隐藏程序坞: command + L <br>
 		b. 显示启动台: command + K 
+## switch
+### mac + dbi 安装游戏
+1. mac 安装 OpenMTP 软件
+2. switch 启动 DBI 软件
+3. 在 mac 上将游戏文件拖到 `5. SD Card Install`
 ##  键盘 [cmk87说明书](https://manuals.plus/zh-CN/fl-esports/cmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manual#axzz8WcZgApDl)
 - [github link](https://github.com/xuexcy/public_attachments/tree/main/%E8%AF%B4%E6%98%8E%E4%B9%A6)
 ## 手表 [佳明265说明书](https://support.garmin.com/zh-CN/?productID=886785&tab=videos)
 - [github link](https://github.com/xuexcy/public_attachments/tree/main/%E8%AF%B4%E6%98%8E%E4%B9%A6)
 ## 森海塞尔[MOMENTUM-4使用手册](https://assets.sennheiser.com/global-downloads/file/13914/Manual_M3AEBTXL_0120_ZH.pdf)
 - [github link](https://github.com/xuexcy/public_attachments/tree/main/%E8%AF%B4%E6%98%8E%E4%B9%A6)
+# Ubuntu sh(dash) -> sh(bash)
+- 在 `.bashrc` 中添加
+ ```
+	sh() { bash "$@"; }
+	export -f sh
+ ```
