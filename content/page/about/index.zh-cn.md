@@ -38,8 +38,8 @@ draft: false
   - date: 2024-10-18 ~ 2025-03-02
   - source: https://en.wikibooks.org/wiki/More_C++_Idioms
   - code: https://github.com/xuexcy/learning_more_cpp_idioms
-- [ ] **C++20 高级编程 (作者: 罗能)**
-  - date: 2025-05-12 ~
+- [x] **C++20 高级编程 (作者: 罗能)**
+  - date: 2025-05-12 ~ 2026/03/26
   - source: https://book.douban.com/subject/35948110/
   - code: https://github.com/xuexcy/learning_cpp20_programming_author_luoneng
 - [x] **现代 C++ 教程：高速上手 C++11/14/17/20**
