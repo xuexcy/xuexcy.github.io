@@ -50,9 +50,9 @@
 >https://github.com/xuexcy/learning_more_cpp_idioms&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>C++20 高级编程 (作者: 罗能)&lt;/strong>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;strong>C++20 高级编程 (作者: 罗能)&lt;/strong>
 &lt;ul>
-&lt;li>date: 2025-05-12 ~&lt;/li>
+&lt;li>date: 2025-05-12 ~ 2026/03/26&lt;/li>
 &lt;li>source: &lt;a class="link" href="https://book.douban.com/subject/35948110/" target="_blank" rel="noopener"
 >https://book.douban.com/subject/35948110/&lt;/a>&lt;/li>
 &lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning_cpp20_programming_author_luoneng" target="_blank" rel="noopener"
