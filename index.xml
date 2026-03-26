@@ -1960,29 +1960,105 @@ z : 表达式中的操作符个数
 &lt;li>&lt;a class="link" href="https://xuexcy.github.io" target="_blank" rel="noopener"
 >https://xuexcy.github.io&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h1 id="学习进度">学习进度
+&lt;h1 id="进度记录">进度记录
 &lt;/h1>&lt;ul>
-&lt;li>&lt;input disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning_effective_cpp" target="_blank" rel="noopener"
->Effective C++&lt;/a>: [2024-11-16 ~]&lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/cpp_templates_second_edition" target="_blank" rel="noopener"
->C++ Templates (第 2 版)&lt;/a>: [2025-03-05 ~]&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms" target="_blank" rel="noopener"
->more cpp idioms&lt;/a>: [2024-10-18 ~ 2025-03-02]&lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning_cpp20_programming_author_luoneng" target="_blank" rel="noopener"
->C++20 高级编程 作者: 罗能&lt;/a>: [2025-05-12 ~]&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning_modern_cpp_tutorial" target="_blank" rel="noopener"
->现代 C++ 教程：高速上手 C++11/14/17/20&lt;/a>: [2025-05-09 ~ 2025-05-10]&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning_functional_programming_in_cpp" target="_blank" rel="noopener"
->C++函数式编程 作者: 伊凡 · 库奇&lt;/a>: [2025-06-04 ~ 2025-12-19]&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning-rust-lang-book" target="_blank" rel="noopener"
->rust lang book&lt;/a>: [2024-04-18 ~ 2024-06-25]&lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learning-rust-by-practice" target="_blank" rel="noopener"
->rust by practice&lt;/a>: [2024-07-02 ~]&lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/learn-rust-course" target="_blank" rel="noopener"
->Rust语言圣经&lt;/a>: [2024-07-03 ~]&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;a class="link" href="https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course" target="_blank" rel="noopener"
->机器学习 作者: 吴恩达(Andrew NG)&lt;/a>: [2016-12-08 ~ 2017-01-21]&lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> vim 使用技巧(第 2 版): [2025-03-24 ~]&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>Effective C++ (改善程序与设计的55个具体做法)&lt;/strong>
+&lt;ul>
+&lt;li>date: 2024-11-16 ~&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://book.douban.com/subject/5387403/" target="_blank" rel="noopener"
+>https://book.douban.com/subject/5387403/&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning_effective_cpp" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning_effective_cpp&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>C++ Templates (第 2 版)&lt;/strong>
+&lt;ul>
+&lt;li>date: 2025-03-05 ~&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://book.douban.com/subject/36683615" target="_blank" rel="noopener"
+>https://book.douban.com/subject/36683615&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/cpp_templates_second_edition" target="_blank" rel="noopener"
+>https://github.com/xuexcy/cpp_templates_second_edition&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;strong>more cpp idioms&lt;/strong>
+&lt;ul>
+&lt;li>date: 2024-10-18 ~ 2025-03-02&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://en.wikibooks.org/wiki/More_C&amp;#43;&amp;#43;_Idioms" target="_blank" rel="noopener"
+>https://en.wikibooks.org/wiki/More_C++_Idioms&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning_more_cpp_idioms" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning_more_cpp_idioms&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>C++20 高级编程 (作者: 罗能)&lt;/strong>
+&lt;ul>
+&lt;li>date: 2025-05-12 ~&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://book.douban.com/subject/35948110/" target="_blank" rel="noopener"
+>https://book.douban.com/subject/35948110/&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning_cpp20_programming_author_luoneng" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning_cpp20_programming_author_luoneng&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;strong>现代 C++ 教程：高速上手 C++11/14/17/20&lt;/strong>
+&lt;ul>
+&lt;li>date: 2025-05-09 ~ 2025-05-10&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://github.com/changkun/modern-cpp-tutorial/tree/master" target="_blank" rel="noopener"
+>https://github.com/changkun/modern-cpp-tutorial/tree/master&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning_modern_cpp_tutorial" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning_modern_cpp_tutorial&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;strong>C++函数式编程 (作者: 伊凡 · 库奇)&lt;/strong>
+&lt;ul>
+&lt;li>date: 2025-06-04 ~ 2025-12-19&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://book.douban.com/subject/34923168/" target="_blank" rel="noopener"
+>https://book.douban.com/subject/34923168/&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning_functional_programming_in_cpp" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning_functional_programming_in_cpp&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;strong>rust lang book&lt;/strong>
+&lt;ul>
+&lt;li>date: 2024-04-18 ~ 2024-06-25&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://rustwiki.org/zh-CN/book/" target="_blank" rel="noopener"
+>https://rustwiki.org/zh-CN/book/&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning-rust-lang-book" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning-rust-lang-book&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>Rust语言圣经&lt;/strong>
+&lt;ul>
+&lt;li>date: 2024-07-03 ~&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://github.com/sunface/rust-course/blob/main/README.md" target="_blank" rel="noopener"
+>https://github.com/sunface/rust-course/blob/main/README.md&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learn-rust-course" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learn-rust-course&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>rust by practice&lt;/strong>
+&lt;ul>
+&lt;li>date: 2024-07-02 ~&lt;/li>
+&lt;li>link: &lt;a class="link" href="https://github.com/sunface/rust-by-practice/blob/master/zh-CN/src/why-exercise.md" target="_blank" rel="noopener"
+>https://github.com/sunface/rust-by-practice/blob/master/zh-CN/src/why-exercise.md&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/learning-rust-by-practice" target="_blank" rel="noopener"
+>https://github.com/xuexcy/learning-rust-by-practice&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;strong>机器学习 (作者: 吴恩达(Andrew NG))&lt;/strong>
+&lt;ul>
+&lt;li>date: 2016-12-08 ~ 2017-01-21&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener"
+>https://www.coursera.org/learn/machine-learning&lt;/a>&lt;/li>
+&lt;li>code: &lt;a class="link" href="https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course" target="_blank" rel="noopener"
+>https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> &lt;strong>vim 使用技巧(第 2 版)&lt;/strong>
+&lt;ul>
+&lt;li>date: 2025-03-24 ~&lt;/li>
+&lt;li>source: &lt;a class="link" href="https://book.douban.com/subject/26967597/" target="_blank" rel="noopener"
+>https://book.douban.com/subject/26967597/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ul></description></item><item><title>Obsidian跨平台同步</title><link>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</link><pubDate>Mon, 21 Oct 2024 23:02:12 +0800</pubDate><guid>https://xuexcy.github.io/post/obsidian%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5/</guid><description>&lt;h1 id="跨平台同步办法">跨平台同步办法
 &lt;/h1>&lt;ul>
 &lt;li>macbook: &lt;strong>macbook中 &lt;code>文稿&lt;/code> 等同于 &lt;code>~/Document&lt;/code>&lt;/strong>
