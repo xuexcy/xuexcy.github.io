@@ -25,15 +25,47 @@ draft: false
 - https://github.com/xuexcy
 - https://xuexcy.github.io
 
-# 学习进度
-- [ ] [Effective C++](https://github.com/xuexcy/learning_effective_cpp): [2024-11-16 ~]
-- [ ] [C++ Templates (第 2 版)](https://github.com/xuexcy/cpp_templates_second_edition): [2025-03-05 ~]
-- [x] [more cpp idioms](https://github.com/xuexcy/learning_more_cpp_idioms): [2024-10-18 ~ 2025-03-02]
-- [ ] [C++20 高级编程 作者: 罗能](https://github.com/xuexcy/learning_cpp20_programming_author_luoneng): [2025-05-12 ~]
-- [x] [现代 C++ 教程：高速上手 C++11/14/17/20](https://github.com/xuexcy/learning_modern_cpp_tutorial): [2025-05-09 ~ 2025-05-10]
-- [x] [C++函数式编程 作者: 伊凡 · 库奇](https://github.com/xuexcy/learning_functional_programming_in_cpp): [2025-06-04 ~ 2025-12-19]
-- [x] [rust lang book](https://github.com/xuexcy/learning-rust-lang-book): [2024-04-18 ~ 2024-06-25]
-- [ ] [rust by practice](https://github.com/xuexcy/learning-rust-by-practice): [2024-07-02 ~]
-- [ ] [Rust语言圣经](https://github.com/xuexcy/learn-rust-course): [2024-07-03 ~]
-- [x] [机器学习 作者: 吴恩达(Andrew NG)](https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course): [2016-12-08 ~ 2017-01-21]
-- [ ] vim 使用技巧(第 2 版): [2025-03-24 ~]
+# 进度记录
+- [ ] **Effective C++ (改善程序与设计的55个具体做法)**
+  - date: 2024-11-16 ~
+  - source: https://book.douban.com/subject/5387403/
+  - code: https://github.com/xuexcy/learning_effective_cpp
+- [ ] **C++ Templates (第 2 版)**
+  - date: 2025-03-05 ~
+  - source: https://book.douban.com/subject/36683615
+  - code: https://github.com/xuexcy/cpp_templates_second_edition
+- [x] **more cpp idioms**
+  - date: 2024-10-18 ~ 2025-03-02
+  - source: https://en.wikibooks.org/wiki/More_C++_Idioms
+  - code: https://github.com/xuexcy/learning_more_cpp_idioms
+- [ ] **C++20 高级编程 (作者: 罗能)**
+  - date: 2025-05-12 ~
+  - source: https://book.douban.com/subject/35948110/
+  - code: https://github.com/xuexcy/learning_cpp20_programming_author_luoneng
+- [x] **现代 C++ 教程：高速上手 C++11/14/17/20**
+  - date: 2025-05-09 ~ 2025-05-10
+  - source: https://github.com/changkun/modern-cpp-tutorial/tree/master
+  - code: https://github.com/xuexcy/learning_modern_cpp_tutorial
+- [x] **C++函数式编程 (作者: 伊凡 · 库奇)**
+  - date: 2025-06-04 ~ 2025-12-19
+  - source: https://book.douban.com/subject/34923168/
+  - code: https://github.com/xuexcy/learning_functional_programming_in_cpp
+- [x] **rust lang book**
+  - date: 2024-04-18 ~ 2024-06-25
+  - source: https://rustwiki.org/zh-CN/book/
+  - code: https://github.com/xuexcy/learning-rust-lang-book
+- [ ] **Rust语言圣经**
+  - date: 2024-07-03 ~
+  - source: https://github.com/sunface/rust-course/blob/main/README.md
+  - code: https://github.com/xuexcy/learn-rust-course
+- [ ] **rust by practice**
+  - date: 2024-07-02 ~
+  - link: https://github.com/sunface/rust-by-practice/blob/master/zh-CN/src/why-exercise.md
+  - code: https://github.com/xuexcy/learning-rust-by-practice
+- [x] **机器学习 (作者: 吴恩达(Andrew NG))**
+  - date: 2016-12-08 ~ 2017-01-21
+  - source: https://www.coursera.org/learn/machine-learning
+  - code: https://github.com/xuexcy/machine-learning-code-of-Andrew-NG-course
+- [ ] **vim 使用技巧(第 2 版)**
+  - date: 2025-03-24 ~
+  - source: https://book.douban.com/subject/26967597/
