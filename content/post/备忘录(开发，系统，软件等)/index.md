@@ -59,9 +59,10 @@ https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd9
 		b. 显示启动台: command + K 
 ## switch
 ### mac + dbi 安装游戏
-1. mac 安装 OpenMTP 软件
+1. mac 安装 OpenMTP 或 CommandOne 软件
 2. switch 启动 DBI 软件
 3. 在 mac 上将游戏文件拖到 `5. SD Card Install`
+4. 如果连接不上mtp, CommandOne 软件可能会提示有一个叫"ptpcamerad"占用了 mtp接口，关闭mac的"预览"软件(就是看图片、pdf的那个)，这个进程就没了，然后重试前面的步骤
 ##  键盘 [cmk87说明书](https://manuals.plus/zh-CN/fl-esports/cmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manual#axzz8WcZgApDl)
 - [github link](https://github.com/xuexcy/public_attachments/tree/main/%E8%AF%B4%E6%98%8E%E4%B9%A6)
 ## 手表 [佳明265说明书](https://support.garmin.com/zh-CN/?productID=886785&tab=videos)
