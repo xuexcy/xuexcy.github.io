@@ -288,9 +288,10 @@ b. 显示启动台: command + K&lt;/li>
 &lt;h2 id="switch">switch
 &lt;/h2>&lt;h3 id="mac--dbi-安装游戏">mac + dbi 安装游戏
 &lt;/h3>&lt;ol>
-&lt;li>mac 安装 OpenMTP 软件&lt;/li>
+&lt;li>mac 安装 OpenMTP 或 CommandOne 软件&lt;/li>
 &lt;li>switch 启动 DBI 软件&lt;/li>
 &lt;li>在 mac 上将游戏文件拖到 &lt;code>5. SD Card Install&lt;/code>&lt;/li>
+&lt;li>如果连接不上mtp, CommandOne 软件可能会提示有一个叫&amp;quot;ptpcamerad&amp;quot;占用了 mtp接口，关闭mac的&amp;quot;预览&amp;quot;软件(就是看图片、pdf的那个)，这个进程就没了，然后重试前面的步骤&lt;/li>
 &lt;/ol>
 &lt;h2 id="键盘-cmk87说明书httpsmanualspluszh-cnfl-esportscmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manualaxzz8wczgapdl">键盘 &lt;a class="link" href="https://manuals.plus/zh-CN/fl-esports/cmk87-three-mode-87-keys-rgb-wireless-mechanical-keyboard-manual#axzz8WcZgApDl" target="_blank" rel="noopener"
 >cmk87说明书&lt;/a>
