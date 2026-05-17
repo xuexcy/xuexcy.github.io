@@ -51,12 +51,20 @@ https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd9
 
 ## mac hhkb classic 键盘配置
 1. 键盘背面打开 dip 2 切换到 mac 系统
-2. 使用 Karabiner-Elements  改键 <br>
-		a.  [下载软件](https://karabiner-elements.pqrs.org/) <br>
-		b. [导入配置](https://github.com/xuexcy/personal_conf/tree/master/karabiner)
-3.  mac 系统配置快捷键: 系统设置 -> 键盘快捷键 -> 启动台与程序坞 <br>
-		a. 打开/关闭隐藏程序坞: command + L <br>
-		b. 显示启动台: command + K 
+2. [硬件改键](https://admin.jlc-code.com/pages/review/index?context=bo&traceCode=2zsi9pk8krj0): left_alt -> right_control(228), right_command -> cpas_lock(057)
+	- 解锁: ESC + L, 亮蓝色灯 1 秒
+	- 切换到自定义模式: ESC + Y, 亮蓝色灯 1s
+	- 基础层改键: ESC + I, 亮蓝色灯 1s
+		- 按下按键，蓝色灯慢闪
+		- 输入3位编号，按下编号指示分别闪3、2、1次，代表百、十、个位，指示灯
+	- Fn 层改键: ESC + O
+		- 同基础层改键
+3. 软件改键 Karabiner-Elements
+	-  [下载软件](https://karabiner-elements.pqrs.org/)
+	-  [导入配置](https://github.com/xuexcy/personal_conf/tree/master/karabiner)
+4.  mac 系统配置快捷键: 系统设置 -> 键盘快捷键 -> 启动台与程序坞
+	- 打开/关闭隐藏程序坞: command + L 
+	- 显示启动台: command + K 
 ## switch
 ### mac + dbi 安装游戏
 1. mac 安装 OpenMTP 或 CommandOne 软件
