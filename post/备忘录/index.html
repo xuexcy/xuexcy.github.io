@@ -40,6 +40,16 @@ refs: <a class=link href=https://sysin.org/blog/disable-macos-sonoma-update/ tar
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl>   <span class=n>sh</span><span class=p>()</span> <span class=p>{</span> <span class=n>bash</span> <span class=s2>&#34;$@&#34;</span><span class=p>;</span> <span class=p>}</span>
 </span></span><span class=line><span class=cl>   <span class=k>export</span> <span class=o>-</span><span class=n>f</span> <span class=n>sh</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=docker-zerotier-换端口默认为9993>docker zerotier 换端口(默认为9993)</h1><p>在 <code>/var/lib/zerotier-one</code> 中新建 local.conf, 设置</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{  
+</span></span><span class=line><span class=cl>    &#34;settings&#34;: {  
+</span></span><span class=line><span class=cl>        &#34;primaryPort&#34;: &#34;9994&#34;  
+</span></span><span class=line><span class=cl>    }  
+</span></span><span class=line><span class=cl>}
 </span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/macos/>MacOs</a>
 <a href=/tags/git/>Git</a>
 <a href=/tags/vscode/>Vscode</a>
