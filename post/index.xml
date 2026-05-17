@@ -276,14 +276,38 @@ refs: &lt;a class="link" href="https://sysin.org/blog/disable-macos-sonoma-updat
 &lt;h2 id="mac-hhkb-classic-键盘配置">mac hhkb classic 键盘配置
 &lt;/h2>&lt;ol>
 &lt;li>键盘背面打开 dip 2 切换到 mac 系统&lt;/li>
-&lt;li>使用 Karabiner-Elements 改键 &lt;br>
-a. &lt;a class="link" href="https://karabiner-elements.pqrs.org/" target="_blank" rel="noopener"
->下载软件&lt;/a> &lt;br>
-b. &lt;a class="link" href="https://github.com/xuexcy/personal_conf/tree/master/karabiner" target="_blank" rel="noopener"
+&lt;li>&lt;a class="link" href="https://admin.jlc-code.com/pages/review/index?context=bo&amp;amp;traceCode=2zsi9pk8krj0" target="_blank" rel="noopener"
+>硬件改键&lt;/a>: left_alt -&amp;gt; right_control(228), right_command -&amp;gt; cpas_lock(057)
+&lt;ul>
+&lt;li>解锁: ESC + L, 亮蓝色灯 1 秒&lt;/li>
+&lt;li>切换到自定义模式: ESC + Y, 亮蓝色灯 1s&lt;/li>
+&lt;li>基础层改键: ESC + I, 亮蓝色灯 1s
+&lt;ul>
+&lt;li>按下按键，蓝色灯慢闪&lt;/li>
+&lt;li>输入3位编号，按下编号指示分别闪3、2、1次，代表百、十、个位，指示灯&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Fn 层改键: ESC + O
+&lt;ul>
+&lt;li>同基础层改键&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>软件改键 Karabiner-Elements
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://karabiner-elements.pqrs.org/" target="_blank" rel="noopener"
+>下载软件&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/xuexcy/personal_conf/tree/master/karabiner" target="_blank" rel="noopener"
 >导入配置&lt;/a>&lt;/li>
-&lt;li>mac 系统配置快捷键: 系统设置 -&amp;gt; 键盘快捷键 -&amp;gt; 启动台与程序坞 &lt;br>
-a. 打开/关闭隐藏程序坞: command + L &lt;br>
-b. 显示启动台: command + K&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>mac 系统配置快捷键: 系统设置 -&amp;gt; 键盘快捷键 -&amp;gt; 启动台与程序坞
+&lt;ul>
+&lt;li>打开/关闭隐藏程序坞: command + L&lt;/li>
+&lt;li>显示启动台: command + K&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ol>
 &lt;h2 id="switch">switch
 &lt;/h2>&lt;h3 id="mac--dbi-安装游戏">mac + dbi 安装游戏
