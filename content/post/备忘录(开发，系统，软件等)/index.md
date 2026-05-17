@@ -83,3 +83,13 @@ https://www.bilibili.com/video/BV17m4y1L7ZU/?vd_source=fd19bce771432fd95d40a4fd9
 	sh() { bash "$@"; }
 	export -f sh
  ```
+
+# docker zerotier 换端口(默认为9993)
+在 `/var/lib/zerotier-one` 中新建 local.conf, 设置
+```
+{  
+    "settings": {  
+        "primaryPort": "9994"  
+    }  
+}
+```
