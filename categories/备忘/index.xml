@@ -118,10 +118,20 @@
 &lt;li>tailscale/zerotier&lt;/li>
 &lt;li>music_tag_web/navidrome&lt;/li>
 &lt;li>alist小雅/openlist&lt;/li>
-&lt;li>fntermx&lt;/li>
+&lt;/ol>
+&lt;h1 id="连接显示器进bios">连接显示器进bios
+&lt;/h1>&lt;ol>
+&lt;li>显示器选择hdmi连接，不要选择 auto&lt;/li>
+&lt;li>开机键盘按 f2&lt;/li>
 &lt;/ol>
 &lt;h2 id="草稿">草稿
-&lt;/h2>&lt;p>2422 3249&lt;/p></description></item><item><title>备忘录</title><link>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
+&lt;/h2>&lt;p>2422 3249&lt;/p>
+&lt;h1 id="lucky-反向代理">lucky 反向代理
+&lt;/h1>&lt;ol>
+&lt;li>443 端口 ipv4+ipv6: 域名 -&amp;gt; http://127.0.0.1:port&lt;/li>
+&lt;li>80 端口 ipv4， 默认规则 -&amp;gt; https://{host}&lt;/li>
+&lt;li>80 端口 ipv6, 默认规则 -&amp;gt; https://[{host}]&lt;/li>
+&lt;/ol></description></item><item><title>备忘录</title><link>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</link><pubDate>Thu, 12 Jun 2025 18:32:28 +0800</pubDate><guid>https://xuexcy.github.io/post/%E5%A4%87%E5%BF%98%E5%BD%95/</guid><description>&lt;h2 id="使用-https-从-github-clone-仓库">使用 https 从 github clone 仓库
 &lt;/h2>&lt;ol>
 &lt;li>在 &lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >https://github.com/settings/tokens&lt;/a> 生成一个新 token&lt;/li>
