@@ -82,7 +82,14 @@ tags:
 4. tailscale/zerotier
 5. music_tag_web/navidrome
 6. alist小雅/openlist
-7. fntermx
 
+# 连接显示器进bios
+1. 显示器选择hdmi连接，不要选择 auto
+2. 开机键盘按 f2
 ## 草稿
 2422 3249
+
+# lucky 反向代理
+1. 443 端口 ipv4+ipv6: 域名 -> http://127.0.0.1:port
+2. 80 端口 ipv4， 默认规则 -> https://{host}
+3. 80 端口 ipv6, 默认规则 -> https://[{host}]
