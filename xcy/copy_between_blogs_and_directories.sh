@@ -15,9 +15,7 @@ CUR_DIR=$(cd `dirname $0`; pwd)
 cd ${CUR_DIR}
 
 
-#local=~/Documents/xuechengyun_sync/Obsidian/blog/
-
-local=~/code/blog
+local=~/Documents/xuechengyun_sync/obsidian/blog
 local_blogs=$local/blogs
 to_pub=${CUR_DIR}/../content/post/
 
